@@ -1,0 +1,17 @@
+.shop-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 4px;
+  }
+  .product {
+    text-align: center;
+    width: calc(100vw / 5); /* Initially show 3 products per row */
+    padding: 10px;
+    border: 1px solid #FF0000;
+    margin: 8px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
