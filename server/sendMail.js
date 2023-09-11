@@ -17,7 +17,7 @@ export const sendMail = async (orderId, customEmail=null) => {
     });
     con.connect(function(err) {
         if (err) throw err;
-        console.log("Connected!");
+        console.log("sendMail Connected!");
     });
       
     // Retrieve the email password from environment variables
@@ -89,6 +89,13 @@ var ticketMailContentMulti = `Hallo! Hier sind deine Tickets.
 Wir sehen uns am See!
 Liebe Grüße, das AAA-Team :)`;
 
-// For testing
-// const orderId = 150;
-// sendMail(orderId);
+
+
+// If called on command line
+const args = process.argv.slice(2); // Get command-line arguments excluding 'node' and 'your-module.js'
+if (args.length > 0) {
+  const id = args[0];
+  sendMail(id);
+} else {
+  console.log('sendMail.js start: no parameter given');
+}

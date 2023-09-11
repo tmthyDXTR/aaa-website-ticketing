@@ -5,6 +5,7 @@ import path from "path";
 import mysql from "mysql";
 import { generateTickets } from "./generateTickets.js";
 import { sendMail } from "./sendMail.js";
+import { createOrderSQL } from "./createOrderSQL.js";
 
 const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT = 8080  } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
@@ -140,50 +141,11 @@ const captureOrder = async (orderID) => {
 };
 
 async function handleResponse(response, cart=null) {
-  var lastInsertId;
   try {
     const jsonResponse = await response.json();
     console.log(JSON.stringify(jsonResponse, null, 2));
     if (jsonResponse.status === "CREATED") {
-      var sql = "INSERT INTO aaa_orders (paypal_order_id, order_status, order_create_time, order_update_time) VALUES ('"+jsonResponse.id+"', '"+jsonResponse.status+"', '"+new Date().toISOString().slice(0, 19).replace('T', ' ')+"', '"+new Date().toISOString().slice(0, 19).replace('T', ' ')+"')";
-      con.query(sql, function (err, result) {
-        if (err) throw err;
-        console.log("Transaction created: " + jsonResponse.id);
-        lastInsertId = result.insertId;
-        // Add tickets in cart to sql db as "tickets not yet payed" = 0
-      for (const cartItem of cart[0]) {
-        if (cartItem.quantity != 0) {
-          for (var i = 0; i < cartItem.quantity; i++) {
-            const { title, price, type } = cartItem;
-            const paypalId = jsonResponse.id;
-            
-            function generateSecurityCode(length) {
-              const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-              let securityCode = '';
-              for (let i = 0; i < length; i++) {
-                const randomIndex = Math.floor(Math.random() * charset.length);
-                securityCode += charset.charAt(randomIndex);
-              }
-              return securityCode;
-            }
-            const ticketSec = generateSecurityCode(6);
-            const holderEmail = cart[1];
-            // Insert the item into the "aaa_tickets_24" table
-            const sql = `INSERT INTO aaa_tickets_24 (ticket_order_id, ticket_paypal_id, ticket_type, ticket_security_code, ticket_name, ticket_price, ticket_holder_email, ticket_created_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-    
-            con.query(sql, [lastInsertId, paypalId, type, ticketSec, title, price, holderEmail, new Date().toISOString().slice(0, 19).replace('T', ' ')], (err, results) => {
-              if (err) {
-                console.error('Error inserting item into the table:', err);
-              } else {
-                console.log('Item inserted successfully:', title + ": " + ticketSec);
-              }
-            });
-          }
-          
-        }        
-      }  
-      });      
-      
+      createOrderSQL(jsonResponse, cart);      
     }
     else if (jsonResponse.status === "COMPLETED") {
       // Extract relevant data from the response
@@ -227,34 +189,22 @@ async function handleResponse(response, cart=null) {
         
         try {
           generateTickets(results)
-          .then((ticketLinks) => {
-            console.log("Ticket links:", ticketLinks);
-            // Do something with the ticket links
-            for (const key in ticketLinks) {
-              if (ticketLinks.hasOwnProperty(key)) {
-                const ticket = ticketLinks[key];
-                const securityCode = ticket.securityCode;
-                const url = ticket.url;
-                console.log(`Ticket ${key}: Security Code: ${securityCode}, Url: ${url}`);
-                const updateQuery = 'UPDATE aaa_tickets_24 SET ticket_url = ? WHERE ticket_security_code = ?';
-                con.query(updateQuery, [url, securityCode], (err, results) => {
-                  if (err) {
-                    console.error('Error updating rows:', err);
-                  } else {
-                    const affectedRows = results.affectedRows;
-                    console.log(`Updated ${affectedRows} rows in aaa_tickets_24 where ticket_security_code = ${securityCode}`);
-                  }
+            .then(() => {
+              sendMail(results[0].ticket_order_id)
+                .then(() => {
+                  // Email sent successfully
+                })
+                .catch((emailError) => {
+                  console.error("Email sending error:", emailError);
                 });
-              }        
-            }
-            sendMail(results[0].ticket_order_id);
-          })
-          .catch((error) => {
-            console.error("Ticket generation error:", error);
-          });
+            })
+            .catch((ticketGenerationError) => {
+              console.error("Ticket generation error:", ticketGenerationError);
+            });
         } catch (error) {
-          console.error('Ticket generation failed:', error); // Error message
+          console.error('Ticket generation failed:', error);
         }
+        
       });
   
     }
