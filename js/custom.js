@@ -271,7 +271,11 @@ function addTicketToCart(ticketData) {
     // Update cart buttons euro amount
     updateCartButton();
 
+<<<<<<< HEAD
     moveTicketToCart();
+=======
+    // moveTicketToCart();
+>>>>>>> 24078b9 (trying to go live welp)
     console.log("Add ticket to cart: ");
     console.log(ticketData);
     console.log("Cart:")
@@ -320,15 +324,32 @@ function getCartFromLocalStorage() {
 // Function to update cart button content
 function updateCartButton() {
     const cartButton = document.getElementById("cart-btn");
+<<<<<<< HEAD
     cartButton.innerHTML = `Total: ${calculateTotalPrice().toFixed(0)} €`;
 
+=======
+    const payButton = document.getElementById("pay-btn");
+    cartButton.innerHTML = `TICKETS: ${calculateTotalPrice().toFixed(0)} €`;
+    if ( calculateTotalPrice().toFixed(0) == 0 ) {
+        cartButton.innerHTML = `TICKETS`;
+        payButton.classList.add("hidden");
+    }
+    else {
+        payButton.classList.remove("hidden");
+    }
+>>>>>>> 24078b9 (trying to go live welp)
     if (cartButton.classList.contains("hidden")) {
         cartButton.classList.remove("hidden");
     }
 }
 
 function moveTicketToCart() {
+<<<<<<< HEAD
     const imageContainer = document.getElementById('imageContainer');
+=======
+    console.log("Move ticket to cart");
+    const imageContainer = document.getElementById('content-window');
+>>>>>>> 24078b9 (trying to go live welp)
 
     // Create a new image element
     const image = new Image();
@@ -336,6 +357,10 @@ function moveTicketToCart() {
     image.classList.add('animated-image');
     // Listen for the image load event
     image.onload = function() {
+<<<<<<< HEAD
+=======
+        console.log("image created");
+>>>>>>> 24078b9 (trying to go live welp)
         // Append the image to the imageContainer
         imageContainer.appendChild(image);
 

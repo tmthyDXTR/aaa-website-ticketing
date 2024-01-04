@@ -80,7 +80,11 @@ export const content = {
         Aus Liebe zur Musik und der Freude am schönen Leben!</p>
     `,
     green: `
+<<<<<<< HEAD
         <center><img src="img/green-camping.png" alt="Green Camping"></center>
+=======
+        <center><img src="https://agratamagatha.de/2023/img/green-camping.png" alt="Green Camping"></center>
+>>>>>>> 24078b9 (trying to go live welp)
 
         <p>Unsere Green-Camping Area bietet Platz für ein entspanntes und müllfreies Zelteln. 
         Jeder Besucher mit einer gesunden Portion Weitblick ist herzlich dazu eingeladen, sein Zelt in der Green Camping Area aufzuschlagen. 
