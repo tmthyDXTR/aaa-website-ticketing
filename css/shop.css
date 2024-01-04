@@ -8,11 +8,7 @@
     text-align: center;
     width: calc(100vw / 5); /* Initially show 3 products per row */
     padding: 10px;
-<<<<<<< HEAD
-    border: 1px solid #FF0000;
-=======
     border: 1px solid #FF2B5E;
->>>>>>> 24078b9 (trying to go live welp)
     margin: 8px;
   }
   img {

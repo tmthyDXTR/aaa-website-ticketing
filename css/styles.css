@@ -21,13 +21,6 @@ body {
 }
 
 .fullscreen-image {
-<<<<<<< HEAD
-  position: relative;
-  height: 100vh;
-  background-image: url('../img/landing-img.jpg');
-  background-size: cover;
-  background-position: center;
-=======
   background-image: url('../img/landing-img.jpg');
 
 
@@ -38,7 +31,6 @@ body {
   background-repeat: no-repeat;
   background-color: black; /* Set background color to black */
 
->>>>>>> 24078b9 (trying to go live welp)
 }
 
 .tv-container {
@@ -101,20 +93,12 @@ body {
   bottom: 4vh;
   width: 100vw;
   background-color: #000;
-<<<<<<< HEAD
-  color: #00FF00;
-=======
   color: #09CE9E;
->>>>>>> 24078b9 (trying to go live welp)
   padding: 10px;
   text-align: center;
   z-index: 80; /* Adjust the z-index to make sure it's above other content */
   font-size: 37px;
-<<<<<<< HEAD
-  border: 2px solid #00FF00;
-=======
   border: 2px solid #09CE9E;
->>>>>>> 24078b9 (trying to go live welp)
   box-sizing: border-box; /* Include padding and border in width calculation */
 
 }
@@ -125,11 +109,7 @@ body {
   height: 4vh;
   width: 100vw;
   background-color: #000;
-<<<<<<< HEAD
-  color: #00FF00;
-=======
   color: #09CE9E;
->>>>>>> 24078b9 (trying to go live welp)
   text-align: center;
   z-index: 80;
   display: flex;
@@ -138,8 +118,6 @@ body {
   font-size: 22px;
 }
 
-<<<<<<< HEAD
-=======
 .social-icon {
   width: 20px; /* Adjust the width as needed */
   height: 20px; /* Adjust the height as needed */
@@ -155,7 +133,6 @@ body {
 svg path{
   fill: currentcolor;
 }
->>>>>>> 24078b9 (trying to go live welp)
 
 .center-xy {
   display: flex;
@@ -175,27 +152,16 @@ svg path{
   flex-direction: column;
   padding: 4px;
   background-color: #000;
-<<<<<<< HEAD
-  border: 2px solid #00FF00;
-  font-family: 'VT323', monospace;
-  font-size: 24px;
-  color: #00FF00;
-=======
   border: 2px solid #09CE9E;
   font-family: 'VT323', monospace;
   font-size: 24px;
   color: #09CE9E;
->>>>>>> 24078b9 (trying to go live welp)
   text-align: left;
   position: relative;
   max-height: 71.5vh;
   overflow: auto;
   /* Custom Scrollbar Styles */
-<<<<<<< HEAD
-  scrollbar-color: #00FF00 #000;
-=======
   scrollbar-color: #09CE9E #000;
->>>>>>> 24078b9 (trying to go live welp)
   z-index: 1;
   touch-action: pan-y;
   margin: 0 auto;
@@ -213,17 +179,10 @@ svg path{
   padding: 4px;
   display: inline-block;
   background-color: #000;
-<<<<<<< HEAD
-  border: 2px solid #00FF00;
-	font-family: 'VT323', monospace ;
-  font-size: 24px;
-  color: #00FF00;
-=======
   border: 2px solid #09CE9E;
 	font-family: 'VT323', monospace ;
   font-size: 24px;
   color: #09CE9E;
->>>>>>> 24078b9 (trying to go live welp)
   top: 25vh;
   width:70vw;
   left: 15vw;
@@ -232,11 +191,7 @@ svg path{
   max-height: 70vh;
   overflow: auto;
   /* Custom Scrollbar Styles */
-<<<<<<< HEAD
-  scrollbar-color: #00FF00 #000; /* thumb color, track color */
-=======
   scrollbar-color: #09CE9E #000; /* thumb color, track color */
->>>>>>> 24078b9 (trying to go live welp)
   z-index: 99; /* Increase the z-index to place the content above pseudo-element */
   touch-action: pan-y; /* Enable vertical scrolling with touch interactions */
 }
@@ -260,11 +215,7 @@ svg path{
 }
 
 ::-webkit-scrollbar-thumb {
-<<<<<<< HEAD
-  background: #00FF00;
-=======
   background: #09CE9E;
->>>>>>> 24078b9 (trying to go live welp)
 }
 
 .copy-email {
@@ -275,11 +226,7 @@ svg path{
 .copy-email:hover,
 .copy-email:focus {
    /* Add underline on hover/focus if desired */
-<<<<<<< HEAD
-  color: #FF0000; /* Change color on hover/focus if desired */
-=======
   color: #FF2B5E; /* Change color on hover/focus if desired */
->>>>>>> 24078b9 (trying to go live welp)
 }
 
 a {
@@ -291,11 +238,7 @@ a {
 a:hover,
 a:focus {
    /* Add underline on hover/focus if desired */
-<<<<<<< HEAD
-  color: #FF0000; /* Change color on hover/focus if desired */
-=======
   color: #FF2B5E; /* Change color on hover/focus if desired */
->>>>>>> 24078b9 (trying to go live welp)
 }
 
 
@@ -319,11 +262,7 @@ a:focus {
 }
 
 hr {
-<<<<<<< HEAD
-  background-color: #00FF00;
-=======
   background-color: #09CE9E;
->>>>>>> 24078b9 (trying to go live welp)
   border: none;
   height: 2px;
 
@@ -333,15 +272,9 @@ label {
 }
 input {
   background-color: black;
-<<<<<<< HEAD
-  border-color: #00FF00;
-  border-width: 2px !important;
-  color: #FF0000;
-=======
   border-color: #09CE9E;
   border-width: 2px !important;
   color: #FF2B5E;
->>>>>>> 24078b9 (trying to go live welp)
   font-family: 'VT323', monospace ;
   font-size: 30px;
   text-transform: uppercase;
@@ -369,11 +302,7 @@ input[type="radio"] + label::before {
   display: inline-block;
   width: 15px; /* Customize the width of the circle */
   height: 15px; /* Customize the height of the circle */
-<<<<<<< HEAD
-  border: 3px solid #00FF00; /* Customize the border color of the circle */
-=======
   border: 3px solid #09CE9E; /* Customize the border color of the circle */
->>>>>>> 24078b9 (trying to go live welp)
   border-radius: 50%; /* Make it a circle by using border-radius */
   background-color: transparent; /* Customize the background color of the circle */
   margin-right: 10px; /* Add spacing between the circle and label text */
@@ -383,20 +312,12 @@ input[type="radio"] + label::before {
 
 /* Style the custom radio button when it's selected */
 input[type="radio"]:checked + label::before {
-<<<<<<< HEAD
-  background-color: #FF0000; /* Change the background color when selected */
-=======
   background-color: #FF2B5E; /* Change the background color when selected */
->>>>>>> 24078b9 (trying to go live welp)
 }
 
 input[type="radio"]:checked + label {
   font-weight: bold; /* Change the font weight when selected */
-<<<<<<< HEAD
-  color: #FF0000 !important;
-=======
   color: #FF2B5E !important;
->>>>>>> 24078b9 (trying to go live welp)
 }
 
 
@@ -407,9 +328,5 @@ input[type="radio"]:disabled + label {
 
 input:focus { 
   outline: none !important;
-<<<<<<< HEAD
-  border-color: #FF0000;
-=======
   border-color: #FF2B5E;
->>>>>>> 24078b9 (trying to go live welp)
 }

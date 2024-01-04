@@ -4,17 +4,10 @@
     display: inline-block;
     padding: 6px 14px;
     background-color: #000;
-<<<<<<< HEAD
-    border: 2px solid #00FF00;
-	font-family: 'VT323', monospace ;
-    font-size: 30px;
-    color: #00FF00;
-=======
     border: 2px solid #09CE9E;
 	font-family: 'VT323', monospace ;
     font-size: 30px;
     color: #09CE9E;
->>>>>>> 24078b9 (trying to go live welp)
     text-align: center;
     text-transform: uppercase;
     cursor: pointer;
@@ -23,13 +16,8 @@
   }
 
 .dos-button:hover {
-<<<<<<< HEAD
-    color: #FF0000; /* Change the text color on hover */
-    border: 2px solid #FF0000;
-=======
     color: #FF2B5E; /* Change the text color on hover */
     border: 2px solid #FF2B5E;
->>>>>>> 24078b9 (trying to go live welp)
 }
 
 .dos-button::before {
@@ -40,11 +28,7 @@
     height: 100%;
     top: 0;
     left: 0;
-<<<<<<< HEAD
-    background: #00FF00;
-=======
     background: #09CE9E;
->>>>>>> 24078b9 (trying to go live welp)
     opacity: 0.05;
     mix-blend-mode: multiply;
 }
