@@ -1,0 +1,332 @@
+@import url(https://fonts.googleapis.com/css?family=VT323);
+
+body {
+  margin: 0;
+  padding: 0;
+	font-family: 'VT323', monospace ;
+  background-color: #f0f0f0;
+}
+
+/* Add grain noise overlay */
+.grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 200;
+  background-image: url('../img/grain.png'); /* Replace with your grain texture image */
+  opacity: 0.075; /* Adjust the opacity to control the intensity of the effect */
+}
+
+.fullscreen-image {
+  background-image: url('../img/landing-img.jpg');
+
+
+  position: relative;
+  height: 100vh;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: black; /* Set background color to black */
+
+}
+
+.tv-container {
+  width: 100vw;
+  height: 10vh;
+  background-color: #222;
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto;
+  top: 0;
+}
+
+.screen {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.gif {
+  width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+
+}
+
+.site-title {
+  position: absolute;
+  top: 1vh;
+  height: 5vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+  background-color: black;
+  color: white;
+  font-size: 5vh;
+  line-height: 5vh; /* Set line-height equal to element's height */
+}
+.site-subtitle {
+  position: absolute;
+  top: 6vh;
+  height: 3vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+  background-color: black;
+  color: white;
+  font-size: 3vh;
+}
+
+.menu-bar {
+  width: 100vw;
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+}
+
+.cart-bar {
+  position: fixed;
+  bottom: 4vh;
+  width: 100vw;
+  background-color: #000;
+  color: #09CE9E;
+  padding: 10px;
+  text-align: center;
+  z-index: 80; /* Adjust the z-index to make sure it's above other content */
+  font-size: 37px;
+  border: 2px solid #09CE9E;
+  box-sizing: border-box; /* Include padding and border in width calculation */
+
+}
+
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  height: 4vh;
+  width: 100vw;
+  background-color: #000;
+  color: #09CE9E;
+  text-align: center;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center content horizontally */
+  font-size: 22px;
+}
+
+.social-icon {
+  width: 20px; /* Adjust the width as needed */
+  height: 20px; /* Adjust the height as needed */
+  margin-left: 20px; /* Adjust the margin between icons as needed */
+  color: #09CE9E !important;
+}
+.social-icon:hover {
+  width: 20px; /* Adjust the width as needed */
+  height: 20px; /* Adjust the height as needed */
+  margin-left: 20px; /* Adjust the margin between icons as needed */
+  color: #FF2B5E !important;
+}
+svg path{
+  fill: currentcolor;
+}
+
+.center-xy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-window {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-window {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  background-color: #000;
+  border: 2px solid #09CE9E;
+  font-family: 'VT323', monospace;
+  font-size: 24px;
+  color: #09CE9E;
+  text-align: left;
+  position: relative;
+  max-height: 71.5vh;
+  overflow: auto;
+  /* Custom Scrollbar Styles */
+  scrollbar-color: #09CE9E #000;
+  z-index: 1;
+  touch-action: pan-y;
+  margin: 0 auto;
+}
+
+/* Media query for desktop resolutions */
+@media (min-width: 768px) {
+  .content-window  {
+    width: 75vw !important;
+  }
+}
+.alert {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  display: inline-block;
+  background-color: #000;
+  border: 2px solid #09CE9E;
+	font-family: 'VT323', monospace ;
+  font-size: 24px;
+  color: #09CE9E;
+  top: 25vh;
+  width:70vw;
+  left: 15vw;
+  text-align: center;
+  position: absolute;
+  max-height: 70vh;
+  overflow: auto;
+  /* Custom Scrollbar Styles */
+  scrollbar-color: #09CE9E #000; /* thumb color, track color */
+  z-index: 99; /* Increase the z-index to place the content above pseudo-element */
+  touch-action: pan-y; /* Enable vertical scrolling with touch interactions */
+}
+
+.hidden {
+  display: none !important;
+}
+
+.show {
+  display: flex !important;
+}
+
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #09CE9E;
+}
+
+.copy-email {
+  cursor: pointer;
+  text-decoration: underline;
+}
+/* Optionally, you can style the link when hovered or focused */
+.copy-email:hover,
+.copy-email:focus {
+   /* Add underline on hover/focus if desired */
+  color: #FF2B5E; /* Change color on hover/focus if desired */
+}
+
+a {
+  text-decoration: underline;
+  color: inherit;
+}
+
+/* Optionally, you can style the link when hovered or focused */
+a:hover,
+a:focus {
+   /* Add underline on hover/focus if desired */
+  color: #FF2B5E; /* Change color on hover/focus if desired */
+}
+
+
+#imageContainer {
+  z-index: 99;
+  position: absolute;
+  display: block;
+}
+
+.right-align {
+  text-align: right;
+}
+
+.total-row {
+
+  font-weight: bold;
+}
+
+.mwst-row {
+  font-size: 20px;
+}
+
+hr {
+  background-color: #09CE9E;
+  border: none;
+  height: 2px;
+
+}
+label {
+  text-transform: uppercase;
+}
+input {
+  background-color: black;
+  border-color: #09CE9E;
+  border-width: 2px !important;
+  color: #FF2B5E;
+  font-family: 'VT323', monospace ;
+  font-size: 30px;
+  text-transform: uppercase;
+  width: 80%;
+  text-align: left;
+  margin-left: 2vw;
+  padding-left: 2vw;
+}
+
+/* Media query for desktop screens with a maximum width of, for example, 1024px */
+@media (min-width: 768px) {
+  input, table  {
+    max-width: 500px; /* Adjust the maximum width as needed */
+  }
+}
+
+
+input[type="radio"] {
+  display: none; /* Hide the default radio button */
+}
+
+/* Style the custom radio button */
+input[type="radio"] + label::before {
+  content: ''; /* Create a pseudo-element for the custom radio button */
+  display: inline-block;
+  width: 15px; /* Customize the width of the circle */
+  height: 15px; /* Customize the height of the circle */
+  border: 3px solid #09CE9E; /* Customize the border color of the circle */
+  border-radius: 50%; /* Make it a circle by using border-radius */
+  background-color: transparent; /* Customize the background color of the circle */
+  margin-right: 10px; /* Add spacing between the circle and label text */
+  cursor: pointer;
+  margin-left: 2vw;
+}
+
+/* Style the custom radio button when it's selected */
+input[type="radio"]:checked + label::before {
+  background-color: #FF2B5E; /* Change the background color when selected */
+}
+
+input[type="radio"]:checked + label {
+  font-weight: bold; /* Change the font weight when selected */
+  color: #FF2B5E !important;
+}
+
+
+/* Style the disabled radio label (optional) */
+input[type="radio"]:disabled + label {
+  color: #999; /* Change the text color */
+}
+
+input:focus { 
+  outline: none !important;
+  border-color: #FF2B5E;
+}

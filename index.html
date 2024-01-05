@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgratAmAgatha 2024</title>
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link rel="stylesheet" type="text/css" href="css/button.css">
+  <link rel="stylesheet" type="text/css" href="css/shop.css">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+
+</head>
+<body>
+  <div class="grain-overlay"></div>
+  <div class="fullscreen-image-wrapper">
+    <div class="fullscreen-image">
+      <div id="imageContainer"></div>
+
+
+      <!-- <div class="tv-container">
+        <div class="screen">
+          <img class="gif" src="img/tvstatic.gif" alt="Animated GIF">
+          <div class="site-title">AGRATAMAGATHA <s>2204</s> 2024</div>
+          <div class="site-subtitle">26-28 Juli</div>
+        </div>
+      </div> -->
+
+      <div class="menu-bar">
+        <button class="dos-button" id="menu-btn">MENU</button>
+      </div>
+
+      <div class="cart-bar">
+        <button class="dos-button" id="cart-btn"> TICKETS</button>
+        <button class="dos-button hidden" id="pay-btn">ZUR KASSE</button>
+      </div>
+
+      <div class="bottom-bar">
+        <span class="copy-email" data-email="info@agratamagatha.de">info@agratamagatha.de</span>
+        <!-- Social Media Icons -->
+        <a href="https://www.facebook.com/agratamagatha/" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="20px" height="20px" class="social-icon">    
+            <path fill="currentColor" d="M12,2C6.477,2,2,6.477,2,12c0,5.013,3.693,9.153,8.505,9.876V14.65H8.031v-2.629h2.474v-1.749 c0-2.896,1.411-4.167,3.818-4.167c1.153,0,1.762,0.085,2.051,0.124v2.294h-1.642c-1.022,0-1.379,0.969-1.379,2.061v1.437h2.995 l-0.406,2.629h-2.588v7.247C18.235,21.236,22,17.062,22,12C22,6.477,17.523,2,12,2z"/>
+          </svg>
+        </a>
+        <a href="https://www.instagram.com/agratamagatha/" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="20px" height="20px" class="social-icon">
+            <path fill="currentColor" d="M 8 3 C 5.239 3 3 5.239 3 8 L 3 16 C 3 18.761 5.239 21 8 21 L 16 21 C 18.761 21 21 18.761 21 16 L 21 8 C 21 5.239 18.761 3 16 3 L 8 3 z M 18 5 C 18.552 5 19 5.448 19 6 C 19 6.552 18.552 7 18 7 C 17.448 7 17 6.552 17 6 C 17 5.448 17.448 5 18 5 z M 12 7 C 14.761 7 17 9.239 17 12 C 17 14.761 14.761 17 12 17 C 9.239 17 7 14.761 7 12 C 7 9.239 9.239 7 12 7 z M 12 9 A 3 3 0 0 0 9 12 A 3 3 0 0 0 12 15 A 3 3 0 0 0 15 12 A 3 3 0 0 0 12 9 z"/>
+          </svg>
+        </a>
+      </div>
+
+      
+      <div class="menu-window hidden" id="menu-window">
+        <button class="dos-button menu-btn" id="bewirb-button">BEWIRB DICH</button>
+        <button class="dos-button menu-btn" id="helfer-button">WERDE HELFER*IN</button>
+        <button class="dos-button menu-btn" id="kur-button">DER KUR E.V.</button>
+        <button class="dos-button menu-btn" id="festival-button">DAS FESTIVAL</button>
+        <button class="dos-button menu-btn" id="green-button">GREEN CAMPING</button>
+        <button class="dos-button menu-btn" id="tickets-button">TICKETS</button>
+        <button class="dos-button menu-btn deactivated" id="lineup-button">LINE-UP</button>
+        <button class="dos-button menu-btn deactivated" id="faq-button">FAQ</button>
+        <button class="dos-button menu-btn deactivated" id="archiv-button">ARCHIV</button>
+        <button class="dos-button menu-btn" id="impressum-button">IMPRESSUM</button>
+
+
+      </div>
+
+      <div class="content-window hidden" id="content-window"></div>
+
+
+      <div class="alert hidden" id="alert-window">
+        <p id="alert-content"></p>
+        <center><button class="dos-button menu-btn" id="alert-ok-button">OK NICE</button></center>
+      </div>
+
+    </div>
+  </div>
+  <script type="module" src="js/custom.js"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=Ac89T-HRn6G10rPZUc1HCRGTk-TCFVF71obq_2mT09uKlEvljxv_Y5i2eZic90tHukpBejVXP5hQMYeY&currency=EUR&disable-funding=card,credit"></script>
+</body>
+
+</html>
