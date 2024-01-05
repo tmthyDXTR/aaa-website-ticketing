@@ -1,8 +1,8 @@
 # DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
-PassengerAppRoot "/home/supacoda/pp.supacoda.de"
+PassengerAppRoot "/home/supacoda/aaa.supacoda.de"
 PassengerBaseURI "/"
-PassengerNodejs "/home/supacoda/nodevenv/pp.supacoda.de/20/bin/node"
+PassengerNodejs "/home/supacoda/nodevenv/aaa.supacoda.de/20/bin/node"
 PassengerAppType node
 PassengerStartupFile loader.cjs
-PassengerAppLogFile "/home/supacoda/pplog.log"
+PassengerAppLogFile "/home/supacoda/aaa.supacoda.de/log.log"
 # DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
