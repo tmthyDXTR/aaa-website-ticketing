@@ -12,7 +12,7 @@ const alertWindow = document.getElementById('alert-window');
 let copyEmails = document.querySelectorAll('.copy-email');
 
 document.getElementById("cart-btn").addEventListener('click', () => {
-    console.log("TICKETS button clicked");
+    //console.log("TICKETS button clicked");
     menuWindow.classList.remove('show');
     menuWindow.classList.add('hidden');
     menuIsActive = false;
@@ -27,7 +27,7 @@ document.getElementById("cart-btn").addEventListener('click', () => {
 });
 
 document.getElementById("pay-btn").addEventListener('click', () => {
-    console.log("PAY button clicked");
+    //console.log("PAY button clicked");
     menuWindow.classList.remove('show');
     menuWindow.classList.add('hidden');
     menuIsActive = false;
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     bewirbButton.addEventListener('click', () => {
-        console.log("BEWIRB DICH button clicked");
+        //console.log("BEWIRB DICH button clicked");
         toggleMenu();
         toggleContentWindow();
         contentWindow.innerHTML = content.bewirb;
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     helferButton.addEventListener('click', () => {
-        console.log("WERDE HELFER*IN button clicked");
+        //console.log("WERDE HELFER*IN button clicked");
         toggleMenu();
         toggleContentWindow();
         contentWindow.innerHTML = content.helfer;
@@ -86,28 +86,28 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     kurButton.addEventListener('click', () => {
-        console.log("DER KUR E.V. button clicked");
+        //console.log("DER KUR E.V. button clicked");
         toggleMenu();
         toggleContentWindow();
         contentWindow.innerHTML = content.kur;
     });
 
     festivalButton.addEventListener('click', () => {
-        console.log("DAS FESTIVAL button clicked");
+        //console.log("DAS FESTIVAL button clicked");
         toggleMenu();
         toggleContentWindow();  
         contentWindow.innerHTML = content.festival;
     });
 
     greenButton.addEventListener('click', () => {
-        console.log("GREEN CAMPING button clicked");
+        //console.log("GREEN CAMPING button clicked");
         toggleMenu();
         toggleContentWindow();  
         contentWindow.innerHTML = content.green;
     });
 
     ticketsButton.addEventListener('click', () => {
-        console.log("TICKETS button clicked");
+        //console.log("TICKETS button clicked");
         toggleMenu();
         
         initShop();
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     impressumButton.addEventListener('click', () => {
-        console.log("IMPRESSUM button clicked");
+        //console.log("IMPRESSUM button clicked");
         toggleMenu();
         toggleContentWindow(); 
         contentWindow.innerHTML = content.impressum;
@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function() {
             emailSpan.addEventListener('click', () => {
               const email = emailSpan.getAttribute('data-email');
               copyToClipboard(email);
-              console.log(`Copied email: ${email}`);
+              //console.log(`Copied email: ${email}`);
 
               alertContent.innerHTML = `Email kopiert: ${email}`;
               toggleAlert();
@@ -155,7 +155,7 @@ function toggleMenu() {
             menuWindow.classList.remove('show');
             menuBtn.innerHTML = "MENU";
         }
-    console.log("Menu is now " + (menuIsActive ? "open" : "closed"));
+    //console.log("Menu is now " + (menuIsActive ? "open" : "closed"));
 }
 
 function toggleContentWindow() {
@@ -167,7 +167,7 @@ function toggleContentWindow() {
         contentWindow.classList.add('hidden');
         contentWindow.classList.remove('show');
     }
-    console.log("Content window is now " + (contentWindowIsActive ? "open" : "closed"));
+    //console.log("Content window is now " + (contentWindowIsActive ? "open" : "closed"));
     // Scroll the content window to the top
     contentWindow.scrollTop = 0;
 }
@@ -183,12 +183,12 @@ function toggleAlert(text = null) {
     }
     let alertContent = document.getElementById('alert-content');
     if (text) alertContent.innerHTML = text;
-    console.log("Alert is now " + (alertIsActive ? "open" : "closed"));
+    //console.log("Alert is now " + (alertIsActive ? "open" : "closed"));
 }
 
 
 function initShop() {
-    console.log("Init shop");
+    //console.log("Init shop");
 
     const shopContainer = document.createElement('div');
     shopContainer.classList.add('shop-container');
@@ -250,7 +250,7 @@ function initShop() {
     }
     contentWindow.innerHTML = '';
     contentWindow.appendChild(shopContainer);
-    console.log(shopContainer);
+    //console.log(shopContainer);
 }
 
 // shopping cart array to store ticket data
@@ -272,10 +272,10 @@ function addTicketToCart(ticketData) {
     updateCartButton();
 
     // moveTicketToCart();
-    console.log("Add ticket to cart: ");
-    console.log(ticketData);
-    console.log("Cart:")
-    console.log(shoppingCart);
+    //console.log("Add ticket to cart: ");
+    //console.log(ticketData);
+    //console.log("Cart:")
+    //console.log(shoppingCart);
     saveCartToLocalStorage(shoppingCart);
 }
 
@@ -292,10 +292,10 @@ function removeTicketFromCart(ticketData) {
     updateCartButton();
 
     // moveTicketToCart();
-    console.log("Remove ticket from cart: ");
-    console.log(ticketData);
-    console.log("Cart:")
-    console.log(shoppingCart);
+    //console.log("Remove ticket from cart: ");
+    //console.log(ticketData);
+    //console.log("Cart:")
+    //console.log(shoppingCart);
     saveCartToLocalStorage(shoppingCart);
 }
 
@@ -335,7 +335,7 @@ function updateCartButton() {
 }
 
 function moveTicketToCart() {
-    console.log("Move ticket to cart");
+    //console.log("Move ticket to cart");
     const imageContainer = document.getElementById('content-window');
 
     // Create a new image element
@@ -344,7 +344,7 @@ function moveTicketToCart() {
     image.classList.add('animated-image');
     // Listen for the image load event
     image.onload = function() {
-        console.log("image created");
+        //console.log("image created");
         // Append the image to the imageContainer
         imageContainer.appendChild(image);
 
@@ -374,7 +374,7 @@ function moveTicketToCart() {
 
 
 function initPay() {
-    console.log("Init payment");
+    //console.log("Init payment");
     contentWindow.innerHTML = '';
     generateCheckoutFromLocalStorage();
     generateUserDataForm();
@@ -605,7 +605,7 @@ function generateUserDataForm() {
     buyBtn.textContent = 'Zahlungspflichtig kaufen';
     buyBtn.classList.add('dos-button');
     buyBtn.addEventListener('click', () => {
-        console.log("BUY button clicked");
+        //console.log("BUY button clicked");
         initPurchase();
     });
 
@@ -624,15 +624,15 @@ function generateUserDataForm() {
 
 
 function initPurchase() {
-    console.log("Init purchase");
+    //console.log("Init purchase");
     if (!isValidEmail(document.getElementById('email').value)) {
         toggleAlert("Bitte gib eine korrekte Email an.");
         return;
     } 
     const selectedRadioValue = localStorage.getItem('selectedRadio');
-    console.log(shoppingCart);
+    //console.log(shoppingCart);
     const email = document.getElementById("email").value;
-    console.log("Payment method: " + selectedRadioValue);
+    //console.log("Payment method: " + selectedRadioValue);
     if (selectedRadioValue === 'paypal') {
         contentWindow.innerHTML = '';
         initPaypalButtons(shoppingCart, email);
@@ -786,11 +786,11 @@ function initPaypalButtons(shoppingCart, email) {
             toggleAlert(
               `Transaction ${transaction.status}: ${transaction.id}<br><br>See console for all available details`,
             );
-            console.log(
-              "Capture result",
-              orderData,
-              JSON.stringify(orderData, null, 2),
-            );
+            // console.log(
+            //   "Capture result",
+            //   orderData,
+            //   JSON.stringify(orderData, null, 2),
+            // );
           }
         } catch (error) {
           console.error(error);
