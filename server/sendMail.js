@@ -46,7 +46,7 @@ export const sendMail = async (orderId, customEmail=null) => {
 
         var tickets = [];
         for (const ticket of results) {
-            const parts = ticket.ticket_url.split('/');
+            const parts = ticket.ticket_url.split(/[\/\\]/);
             // Use the pop function to get the last part of the array (everything after the last slash)
             const title = parts.pop();            
 

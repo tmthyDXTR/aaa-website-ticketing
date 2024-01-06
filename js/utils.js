@@ -13,17 +13,3 @@ export function calculateTotalPrice(shoppingCart) {
 }
 
 
-let alertIsActive = false;
-export function toggleAlert(text = null) {
-    alertIsActive = !alertIsActive;
-    if (alertIsActive) {
-        alertWindow.classList.add('show');
-        alertWindow.classList.remove('hidden');
-    } else {
-        alertWindow.classList.add('hidden');
-        alertWindow.classList.remove('show');
-    }
-    let alertContent = document.getElementById('alert-content');
-    if (text) alertContent.innerHTML = text;
-    //console.log("Alert is now " + (alertIsActive ? "open" : "closed"));
-}

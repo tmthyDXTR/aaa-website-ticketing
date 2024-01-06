@@ -1,6 +1,6 @@
 import { content } from './content.js';
 import { tickets } from './tickets.js';
-import { isValidEmail, calculateTotalPrice, toggleAlert } from "./utils.js";
+import { isValidEmail, calculateTotalPrice } from "./utils.js";
 
 let menuIsActive = false;
 let contentWindowIsActive = false;
@@ -53,81 +53,54 @@ document.addEventListener("DOMContentLoaded", function() {
     
 
 
-    const bewirbButton = document.getElementById('bewirb-button');
-    const helferButton = document.getElementById('helfer-button');
-    const kurButton = document.getElementById('kur-button');
-    const festivalButton = document.getElementById('festival-button');
-    const greenButton = document.getElementById('green-button');
-    const ticketsButton = document.getElementById('tickets-button');
-    const lineupButton = document.getElementById('lineup-button');
-    const faqButton = document.getElementById('faq-button');
-    const impressumButton = document.getElementById('impressum-button');
+    const buttonMappings = {
+        'bewirb-button': content.bewirb,
+        'helfer-button': content.helfer,
+        'kur-button': content.kur,
+        'festival-button': content.festival,
+        'green-button': content.green,
+        'impressum-button': content.impressum,
+        'tickets-button': 'tickets',
+        // Add other buttons as needed
+    };
+    
     const alertOkButton = document.getElementById('alert-ok-button');
     const alertContent = document.getElementById('alert-content');
-
+    
+    function handleButtonClick(buttonId) {
+        return () => {
+            toggleMenu();
+            toggleContentWindow();
+            const content = buttonMappings[buttonId];
+            if (content !== "tickets") {
+                contentWindow.innerHTML = content;
+                initCopyEmails();
+            }
+            if (content === "tickets") {
+                initShop();
+            }
+        };
+    }
+    
+    // Add event listeners dynamically for each button
+    Object.keys(buttonMappings).forEach(buttonId => {
+        const button = document.getElementById(buttonId);
+        if (button) {
+            button.addEventListener('click', handleButtonClick(buttonId));
+        }
+    });
+    
     alertOkButton.addEventListener('click', () => {
         toggleAlert();
     });
-
-    bewirbButton.addEventListener('click', () => {
-        //console.log("BEWIRB DICH button clicked");
-        toggleMenu();
-        toggleContentWindow();
-        contentWindow.innerHTML = content.bewirb;
-        initCopyEmails();
-    });
-
-    helferButton.addEventListener('click', () => {
-        //console.log("WERDE HELFER*IN button clicked");
-        toggleMenu();
-        toggleContentWindow();
-        contentWindow.innerHTML = content.helfer;
-        initCopyEmails();
-    });
-
-    kurButton.addEventListener('click', () => {
-        //console.log("DER KUR E.V. button clicked");
-        toggleMenu();
-        toggleContentWindow();
-        contentWindow.innerHTML = content.kur;
-    });
-
-    festivalButton.addEventListener('click', () => {
-        //console.log("DAS FESTIVAL button clicked");
-        toggleMenu();
-        toggleContentWindow();  
-        contentWindow.innerHTML = content.festival;
-    });
-
-    greenButton.addEventListener('click', () => {
-        //console.log("GREEN CAMPING button clicked");
-        toggleMenu();
-        toggleContentWindow();  
-        contentWindow.innerHTML = content.green;
-    });
-
-    ticketsButton.addEventListener('click', () => {
-        //console.log("TICKETS button clicked");
-        toggleMenu();
-        
-        initShop();
-        toggleContentWindow();  
-    });
-
-    impressumButton.addEventListener('click', () => {
-        //console.log("IMPRESSUM button clicked");
-        toggleMenu();
-        toggleContentWindow(); 
-        contentWindow.innerHTML = content.impressum;
-    });
-
+    
     function initCopyEmails() {
         let copyEmails = document.querySelectorAll('.copy-email');
         copyEmails.forEach(emailSpan => {
             emailSpan.addEventListener('click', () => {
-              const email = emailSpan.getAttribute('data-email');
-              copyToClipboard(email);
-              //console.log(`Copied email: ${email}`);
+                const email = emailSpan.getAttribute('data-email');
+                copyToClipboard(email);
+                //console.log(`Copied email: ${email}`);
 
               alertContent.innerHTML = `Email kopiert: ${email}`;
               toggleAlert();
@@ -622,6 +595,22 @@ function initPurchase() {
         contentWindow.innerHTML = '';
         initPaypalButtons(shoppingCart, email);
     }
+    else if (selectedRadioValue === 'vorkasse') {
+        console.log("create vvk order initiated");
+        console.log(shoppingCart, email);
+
+        
+
+        const userInformation = document.querySelector('div#content-window userinformation');
+        userInformation.innerHTML = `<hr>
+            <p>Bestellnummer: 28953<br>
+            Kontoinhaber: KUR EV<br>
+            IBAN: DE123412354154123<br>
+            <br>
+            Ticketmail geht an: `+email+`
+        `;
+        toggleAlert("Bitte überweise den angezeigten Betrag und gib die Bestellnummer mit an.<br>Du erhältst auch eine Email mit deiner Bestellübersicht.<br>Nach Eingang der Zahlung schicken wir dir eine Ticketmail :)");
+    }
 }
 
 
@@ -766,7 +755,8 @@ function initPaypalButtons(shoppingCart, email) {
               orderData?.purchase_units?.[0]?.payments?.captures?.[0] ||
               orderData?.purchase_units?.[0]?.payments?.authorizations?.[0];
             toggleAlert(
-              `Transaction ${transaction.status}: ${transaction.id}<br><br>See console for all available details`,
+            //   `Transaction ${transaction.status}: ${transaction.id}<br><br>See console for all available details`,
+              `Ticketkauf abgeschlossen. <br><br>Du erhältst in Kürze eine Ticketmail. <br><br>[Solange dein Emailpostfach nicht voll ist ^^]`,
             );
             // console.log(
             //   "Capture result",
@@ -790,4 +780,21 @@ function initPaypalButtons(shoppingCart, email) {
 function resultMessage(message) {
   const container = document.querySelector("#result-message");
   container.innerHTML = message;
+}
+
+
+let alertIsActive = false;
+
+export function toggleAlert(text = null) {
+    alertIsActive = !alertIsActive;
+    if (alertIsActive) {
+        alertWindow.classList.add('show');
+        alertWindow.classList.remove('hidden');
+    } else {
+        alertWindow.classList.add('hidden');
+        alertWindow.classList.remove('show');
+    }
+    let alertContent = document.getElementById('alert-content');
+    if (text) alertContent.innerHTML = text;
+    //console.log("Alert is now " + (alertIsActive ? "open" : "closed"));
 }

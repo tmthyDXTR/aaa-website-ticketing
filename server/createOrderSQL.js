@@ -2,7 +2,8 @@ import "dotenv/config";
 import mysql from "mysql";
 
 
-export const createOrderSQL = async (jsonResponse, cart = null) => {
+export const createOrderSQL = async (jsonResponse=null, cart = null, type=null) => {
+  const isPaypalOrder = type == null ? true : false;
     // sql
     const { SQL_HOST, SQL_DB_NAME, SQL_USER_NAME, SQL_USER_PASSWORD  } = process.env;
     var con = mysql.createConnection({
@@ -17,17 +18,31 @@ export const createOrderSQL = async (jsonResponse, cart = null) => {
     });
 
     var lastInsertId;
-    var sql = "INSERT INTO aaa_orders (paypal_order_id, order_status, order_create_time, order_update_time) VALUES ('"+jsonResponse.id+"', '"+jsonResponse.status+"', '"+new Date().toISOString().slice(0, 19).replace('T', ' ')+"', '"+new Date().toISOString().slice(0, 19).replace('T', ' ')+"')";
+    if (isPaypalOrder)
+    {
+      var sql = "INSERT INTO aaa_orders (paypal_order_id, order_status, order_create_time, order_update_time) VALUES ('"+jsonResponse.id+"', '"+jsonResponse.status+"', '"+new Date().toISOString().slice(0, 19).replace('T', ' ')+"', '"+new Date().toISOString().slice(0, 19).replace('T', ' ')+"')";
+    }
+    else {
+      // Generate offline order id VORKASSE
+      const vvkId = 'VK123456'
+      var sql = "INSERT INTO aaa_orders (paypal_order_id, order_status, order_create_time, order_update_time) VALUES ('"+vvkId+"', 'CREATED', '"+new Date().toISOString().slice(0, 19).replace('T', ' ')+"', '"+new Date().toISOString().slice(0, 19).replace('T', ' ')+"')";
+    }
     con.query(sql, function (err, result) {
       if (err) throw err;
-      console.log("Transaction created: " + jsonResponse.id);
+
+      if (isPaypalOrder) {
+        console.log("Paypal Transaction created: " + jsonResponse.id);
+      } else {
+        console.log("VVK Transaction created: " + vvkId);
+      }
       lastInsertId = result.insertId;
       // Add tickets in cart to sql db as "tickets not yet payed" = 0
       for (const cartItem of cart[0]) {
         if (cartItem.quantity != 0) {
           for (var i = 0; i < cartItem.quantity; i++) {
             const { title, price, type } = cartItem;
-            const paypalId = jsonResponse.id;
+            
+            const orderId = isPaypalOrder ? jsonResponse.id : vvkId;
             
             function generateSecurityCode(length) {
               const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -43,7 +58,7 @@ export const createOrderSQL = async (jsonResponse, cart = null) => {
             // Insert the item into the "aaa_tickets_24" table
             const sql = `INSERT INTO aaa_tickets_24 (ticket_order_id, ticket_paypal_id, ticket_type, ticket_security_code, ticket_name, ticket_price, ticket_holder_email, ticket_created_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
     
-            con.query(sql, [lastInsertId, paypalId, type, ticketSec, title, price, holderEmail, new Date().toISOString().slice(0, 19).replace('T', ' ')], (err, results) => {
+            con.query(sql, [lastInsertId, orderId, type, ticketSec, title, price, holderEmail, new Date().toISOString().slice(0, 19).replace('T', ' ')], (err, results) => {
               if (err) {
                 console.error('Error inserting item into the table:', err);
               } else {

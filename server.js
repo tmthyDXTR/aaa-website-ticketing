@@ -7,15 +7,32 @@ import { generateTickets } from "./server/generateTickets.js";
 import { sendMail } from "./server/sendMail.js";
 import { createOrderSQL } from "./server/createOrderSQL.js";
 
-const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT = process.env.PORT || 3000  } = process.env;
-const base = "https://api-m.sandbox.paypal.com";
+
+const {
+  IS_PRODUCTION,
+  PAYPAL_CLIENT_ID_TEST,
+  PAYPAL_CLIENT_SECRET_TEST,
+  PAYPAL_CLIENT_ID_LIVE,
+  PAYPAL_CLIENT_SECRET_LIVE,
+  PORT = process.env.PORT || 3000,
+  PAYPAL_CLIENT_ID = IS_PRODUCTION === 'true' ? PAYPAL_CLIENT_ID_LIVE : PAYPAL_CLIENT_ID_TEST,
+  PAYPAL_CLIENT_SECRET = IS_PRODUCTION === 'true' ? PAYPAL_CLIENT_SECRET_LIVE : PAYPAL_CLIENT_SECRET_TEST,
+} = process.env;
+
+const base = IS_PRODUCTION === 'true' ? "https://api-m.paypal.com" : "https://api-m.sandbox.paypal.com";
 
 const app = express();
 
 console.log("Try to establish SQL connection");
 
 // sql
-const { SQL_HOST, SQL_DB_NAME, SQL_USER_NAME, SQL_USER_PASSWORD  } = process.env;
+const { 
+  SQL_HOST, 
+  SQL_DB_NAME, 
+  SQL_USER_NAME, 
+  SQL_USER_PASSWORD  
+} = process.env;
+
 var con = mysql.createConnection({
   host: SQL_HOST,
   user: SQL_USER_NAME,
@@ -33,17 +50,6 @@ app.use(express.static("./"));
 
 // parse post params sent in body in json format
 app.use(express.json());
-
-
-// var http = require('http');
-// var app = http.createServer(function(req, res) {
-//     res.writeHead(200, {'Content-Type': 'text/plain'});
-//     var message = 'It works!!\n',
-//         version = 'NodeJS ' + process.versions.node + '\n',
-//         response = [message, version].join('\n');
-//     res.end(response);
-// });
-
 
 /**
  * Generate an OAuth 2.0 access token for authenticating with PayPal REST APIs.
