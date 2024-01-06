@@ -6,15 +6,7 @@ import mysql from "mysql";
 import { generateTickets } from "./server/generateTickets.js";
 import { sendMail } from "./server/sendMail.js";
 import { createOrderSQL } from "./server/createOrderSQL.js";
-// const express = require("express");
-// const { json } = require("express");
-// const fetch = require("node-fetch");
-// require("dotenv/config");
-// const path = require("path");
-// const mysql = require("mysql");
-// const { generateTickets } = require(".server/generateTickets.js");
-// const { sendMail } = require(".server/sendMail.js");
-// const { createOrderSQL } = require(".server/createOrderSQL.js");
+
 const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT = process.env.PORT || 3000  } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
 

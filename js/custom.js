@@ -1,9 +1,9 @@
 import { content } from './content.js';
 import { tickets } from './tickets.js';
+import { isValidEmail, calculateTotalPrice, toggleAlert } from "./utils.js";
 
 let menuIsActive = false;
 let contentWindowIsActive = false;
-let alertIsActive = false;
 
 const menuBtn = document.getElementById('menu-btn');
 const menuWindow = document.getElementById('menu-window');
@@ -172,19 +172,7 @@ function toggleContentWindow() {
     contentWindow.scrollTop = 0;
 }
 
-function toggleAlert(text = null) {
-    alertIsActive = !alertIsActive;
-    if (alertIsActive) {
-        alertWindow.classList.add('show');
-        alertWindow.classList.remove('hidden');
-    } else {
-        alertWindow.classList.add('hidden');
-        alertWindow.classList.remove('show');
-    }
-    let alertContent = document.getElementById('alert-content');
-    if (text) alertContent.innerHTML = text;
-    //console.log("Alert is now " + (alertIsActive ? "open" : "closed"));
-}
+
 
 
 function initShop() {
@@ -299,10 +287,7 @@ function removeTicketFromCart(ticketData) {
     saveCartToLocalStorage(shoppingCart);
 }
 
-// Function to calculate the total price of items in the cart
-function calculateTotalPrice() {
-    return shoppingCart.reduce((total, ticket) => total + (ticket.price * ticket.quantity), 0);
-}
+
 
 // Function to save cart to local storage
 function saveCartToLocalStorage(shoppingCart) {
@@ -321,8 +306,8 @@ function getCartFromLocalStorage() {
 function updateCartButton() {
     const cartButton = document.getElementById("cart-btn");
     const payButton = document.getElementById("pay-btn");
-    cartButton.innerHTML = `TICKETS: ${calculateTotalPrice().toFixed(0)} €`;
-    if ( calculateTotalPrice().toFixed(0) == 0 ) {
+    cartButton.innerHTML = `TICKETS: ${calculateTotalPrice(shoppingCart).toFixed(0)} €`;
+    if ( calculateTotalPrice(shoppingCart).toFixed(0) == 0 ) {
         cartButton.innerHTML = `TICKETS`;
         payButton.classList.add("hidden");
     }
@@ -624,7 +609,7 @@ function generateUserDataForm() {
 
 
 function initPurchase() {
-    //console.log("Init purchase");
+    console.log("Init purchase");
     if (!isValidEmail(document.getElementById('email').value)) {
         toggleAlert("Bitte gib eine korrekte Email an.");
         return;
@@ -643,6 +628,10 @@ function initPurchase() {
 
 // Function to add event listeners to input fields, save values to local storage, and fill input fields
 function addInputListenersAndSaveToLocalStorage() {
+    if (!localStorage.getItem('selectedRadio')) {
+        localStorage.setItem('selectedRadio', "vorkasse");
+    }
+
     // Get the input elements by their IDs or other means
     const nameInput = document.getElementById('name');
     const surnameInput = document.getElementById('surname');
@@ -660,7 +649,7 @@ function addInputListenersAndSaveToLocalStorage() {
         mobileInput.value = localStorage.getItem('mobile') || '';
         
         // Select the radio button based on local storage value
-        const selectedRadioValue = localStorage.getItem('selectedRadio');
+        const selectedRadioValue = localStorage.getItem('selectedRadio') || "vorkasse";
         const radioInput = document.querySelector(`input[type="radio"][value="${selectedRadioValue}"]`);
         if (radioInput) {
             radioInput.checked = true;
@@ -700,14 +689,7 @@ function addInputListenersAndSaveToLocalStorage() {
 
 
 
-// Function to validate an email address
-function isValidEmail(email) {
-    // Regular expression for a valid email pattern
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-    // Test the input email against the regular expression
-    return emailRegex.test(email);
-}
 
 function initPaypalButtons(shoppingCart, email) {
     window.paypal
