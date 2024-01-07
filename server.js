@@ -78,6 +78,62 @@ const generateAccessToken = async () => {
   }
 };
 
+
+const createVVKOrder = async (cart) => {
+  // use the cart information passed from the front-end to calculate the purchase unit details
+  console.log(
+    "shopping cart information passed from the frontend createOrder() callback:",
+    cart
+  );
+  
+  // // Calculate the total price for the purchase unit's "amount"
+  // const totalAmount = cart[0].reduce((total, item) => {
+  //   const itemPrice = parseFloat(item.price);
+  //   const itemQuantity = parseInt(item.quantity, 10);
+
+  //   if (!isNaN(itemPrice) && !isNaN(itemQuantity)) {
+  //     return total + itemPrice * itemQuantity;
+  //   } else {
+  //     console.warn(`Invalid price or quantity for item: ${item.title}`);
+  //     return total;
+  //   }
+  // }, 0);
+  // // Log the total amount for debugging
+  // console.log('Total Amount:', totalAmount);
+
+  // const accessToken = await generateAccessToken();
+  // const url = `${base}/v2/checkout/orders`;
+  // const payload = {
+  //   intent: "CAPTURE",
+  //   purchase_units: [
+  //     {
+  //       amount: {
+  //         currency_code: "EUR",
+  //         value: totalAmount.toString(),
+  //       },
+  //     },
+  //   ],
+  // };
+
+  // const response = await fetch(url, {
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: `Bearer ${accessToken}`,
+  //     'Access-Control-Allow-Origin':'*'
+  //     // Uncomment one of these to force an error for negative testing (in sandbox mode only). Documentation:
+  //     // https://developer.paypal.com/tools/sandbox/negative-testing/request-headers/
+  //     // "PayPal-Mock-Response": '{"mock_application_codes": "MISSING_REQUIRED_PARAMETER"}'
+  //     // "PayPal-Mock-Response": '{"mock_application_codes": "PERMISSION_DENIED"}'
+  //     // "PayPal-Mock-Response": '{"mock_application_codes": "INTERNAL_SERVER_ERROR"}'
+  //   },
+  //   method: "POST",
+  //   body: JSON.stringify(payload),
+  // });
+  // return handleResponse(response, cart !== null ? cart : undefined);
+};
+
+
+
 /**
  * Create an order to start the transaction.
  * @see https://developer.paypal.com/docs/api/orders/v2/#orders_create
@@ -226,6 +282,18 @@ app.post("/api/orders", async (req, res) => {
     // use the cart information passed from the front-end to calculate the order amount detals
     const { cart } = req.body;
     const { jsonResponse, httpStatusCode } = await createOrder(cart);
+    res.status(httpStatusCode).json(jsonResponse);
+  } catch (error) {
+    console.error("Failed to create order:", error);
+    res.status(500).json({ error: "Failed to create order." });
+  }
+});
+
+app.post("/api/ordersVVK", async (req, res) => {
+  try {
+    // use the cart information passed from the front-end to calculate the order amount detals
+    const { cart } = req.body;
+    const { jsonResponse, httpStatusCode } = await createVVKOrder(cart);
     res.status(httpStatusCode).json(jsonResponse);
   } catch (error) {
     console.error("Failed to create order:", error);

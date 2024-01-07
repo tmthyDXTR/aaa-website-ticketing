@@ -504,6 +504,20 @@ function generateUserDataForm() {
     userInformationDiv.appendChild(emailInput);
     userInformationDiv.appendChild(document.createElement('br'));
 
+    const emailLabel2 = document.createElement('label');
+    emailLabel2.setAttribute('for', 'email2');
+    emailLabel2.textContent = 'Email bestätigen*:';
+    userInformationDiv.appendChild(emailLabel2);
+    userInformationDiv.appendChild(document.createElement('br'));
+
+    const emailInput2 = document.createElement('input');
+    emailInput2.setAttribute('type', 'email');
+    emailInput2.setAttribute('id', 'email2');
+    emailInput2.setAttribute('name', 'email2');
+    emailInput2.setAttribute('required', 'true');
+    userInformationDiv.appendChild(emailInput2);
+    userInformationDiv.appendChild(document.createElement('br'));
+
     // Handynr input
     const mobileLabel = document.createElement('label');
     mobileLabel.setAttribute('for', 'mobile');
@@ -583,7 +597,7 @@ function generateUserDataForm() {
 
 function initPurchase() {
     console.log("Init purchase");
-    if (!isValidEmail(document.getElementById('email').value)) {
+    if (!isValidEmail(document.getElementById('email').value, document.getElementById('email2').value)) {
         toggleAlert("Bitte gib eine korrekte Email an.");
         return;
     } 
@@ -596,20 +610,40 @@ function initPurchase() {
         initPaypalButtons(shoppingCart, email);
     }
     else if (selectedRadioValue === 'vorkasse') {
-        console.log("create vvk order initiated");
+        // console.log("create vvk order initiated");
         console.log(shoppingCart, email);
-
-        
-
+  
         const userInformation = document.querySelector('div#content-window userinformation');
         userInformation.innerHTML = `<hr>
-            <p>Bestellnummer: 28953<br>
-            Kontoinhaber: KUR EV<br>
-            IBAN: DE123412354154123<br>
+            <div class="order-info">
+                <p>Bestellnummer: 28953<br>
+                Kontoinhaber: KUR EV<br>
+                IBAN: DE123412354154123<br>
+                EUR: ${calculateTotalPrice(shoppingCart)} €
+            </div>
             <br>
-            Ticketmail geht an: `+email+`
+            <center><button class="dos-button menu-btn" id="copy-order-info-btn">KOPIEREN</button></center>
+            <br>
+
+            Ticketmail geht an: ${email}
         `;
-        toggleAlert("Bitte überweise den angezeigten Betrag und gib die Bestellnummer mit an.<br>Du erhältst auch eine Email mit deiner Bestellübersicht.<br>Nach Eingang der Zahlung schicken wir dir eine Ticketmail :)");
+    
+        document.getElementById("copy-order-info-btn").addEventListener("click", () => {
+            const orderInfoElement = document.querySelector('.order-info');
+            const textToCopy = orderInfoElement.innerText;
+            const tempTextarea = document.createElement('textarea');
+            tempTextarea.value = textToCopy;
+            document.body.appendChild(tempTextarea);
+            tempTextarea.select();
+            tempTextarea.setSelectionRange(0, 99999); // For mobile devices
+            document.execCommand('copy');
+            document.body.removeChild(tempTextarea);
+            // console.log("Content copied to clipboard:", textToCopy);
+            toggleAlert("Überweisungsdaten kopiert");
+        });
+        
+    
+        toggleAlert("Bitte überweise den angezeigten Betrag und gib die Bestellnummer mit an.<br>Du erhältst auch eine Email mit deiner Bestellübersicht.<br>Nach Eingang der Zahlung schicken wir dir eine Ticketmail innerhalb 1-3 Nichtarbeitstagen :)");
     }
 }
 

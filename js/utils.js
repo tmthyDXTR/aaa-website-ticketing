@@ -1,5 +1,6 @@
 // Function to validate an email address
-export function isValidEmail(email) {
+export function isValidEmail(email, email2) {
+    if (email !== email2) return false;
     // Regular expression for a valid email pattern
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
