@@ -1,6 +1,6 @@
 import "dotenv/config";
 import mysql from "mysql";
-import { generateOrderId } from "../js/utils";
+import { generateOrderId } from "../js/utils.js";
 
 
 export const createOrderSQL = async (jsonResponse=null, cart = null, isPaypalOrder=true) => {

@@ -3,10 +3,10 @@ import fetch from "node-fetch";
 import "dotenv/config";
 import path from "path";
 import mysql from "mysql";
-import { generateTickets } from "./server/generateTickets.js";
-import { sendMail } from "./server/sendMail.js";
-import { createOrderSQL } from "./server/createOrderSQL.js";
-import { calculateTotalPrice } from "./js/utils.js";
+import { generateTickets } from "./generateTickets.js";
+import { sendMail } from "./sendMail.js";
+import { createOrderSQL } from "./createOrderSQL.js";
+import { calculateTotalPrice } from "../js/utils.js";
 
 
 const {
