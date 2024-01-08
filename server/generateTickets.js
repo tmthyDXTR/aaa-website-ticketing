@@ -41,7 +41,7 @@ export const generateTickets = async (sqlrows) => {
         const ticketGenerationPromises = sqlrows.map(async (ticketData, index) => {
             return new Promise(async (resolve, reject) => {
                 // Load the PNG image
-                const imageFilePath = './img/aaa-ticket-blanco.png'; // Replace with your input image path
+                const imageFilePath = './img/aaa-ticket-blanco.jpg'; // Replace with your input image path
 
                 // Create a PDF document
                 const doc = new PDFDocument({ size: [154, 452] });
