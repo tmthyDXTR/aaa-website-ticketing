@@ -563,6 +563,9 @@ function generateUserDataForm() {
         userInformationDiv.appendChild(radioInput);
         userInformationDiv.appendChild(label);
         if (option.value === 'vorkasse') {
+            radioInput.disabled = true;
+        }
+        if (option.value === 'paypal') {
             radioInput.checked = true;
         }
         if (option.value === 'btcln') {
