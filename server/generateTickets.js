@@ -4,6 +4,8 @@ import fs from 'fs';
 import path from 'path';
 import mysql from "mysql";
 import "dotenv/config";
+import { queryAsync } from "../js/utils.js";
+
 
 // Function to generate a ticket based on an array of tickets input
 export const generateTickets = async (sqlrows) => {
@@ -15,16 +17,6 @@ export const generateTickets = async (sqlrows) => {
         password: SQL_USER_PASSWORD,
         database: SQL_DB_NAME,
     });
-
-    // Promisify the connection.query method
-    const queryAsync = (query, values) => {
-        return new Promise((resolve, reject) => {
-            con.query(query, values, (err, results) => {
-                if (err) reject(err);
-                else resolve(results);
-            });
-        });
-    };
 
     // Connect to the database
     await new Promise((resolve, reject) => {
@@ -138,7 +130,7 @@ export const generateTickets = async (sqlrows) => {
                 // Update the database using the promisified query method
                 const updateQuery = 'UPDATE aaa_tickets_24 SET ticket_url = ? WHERE ticket_security_code = ?';
                 try {
-                    await queryAsync(updateQuery, [url, securityCode]);
+                    await queryAsync(con, updateQuery, [url, securityCode]);
                     console.log(`Updated ticket URL for security code ${securityCode}`);
                 } catch (updateError) {
                     console.error('Error updating rows:', updateError);
