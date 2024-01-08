@@ -17,7 +17,7 @@ document.getElementById("cart-btn").addEventListener('click', () => {
     menuWindow.classList.add('hidden');
     menuIsActive = false;
     menuBtn.innerHTML = "MENU";
-    
+
     initShop();
     contentWindow.classList.remove('hidden');
     contentWindow.classList.add('show');
@@ -32,7 +32,7 @@ document.getElementById("pay-btn").addEventListener('click', () => {
     menuWindow.classList.add('hidden');
     menuIsActive = false;
     menuBtn.innerHTML = "MENU";
-    
+
     initPay();
     contentWindow.classList.remove('hidden');
     contentWindow.classList.add('show');
@@ -42,7 +42,7 @@ document.getElementById("pay-btn").addEventListener('click', () => {
 });
 
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     initCopyEmails();
     getCartFromLocalStorage();
 
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
         toggleMenu();
         if (contentWindowIsActive) toggleContentWindow();
     });
-    
+
 
 
     const buttonMappings = {
@@ -63,10 +63,10 @@ document.addEventListener("DOMContentLoaded", function() {
         'tickets-button': 'tickets',
         // Add other buttons as needed
     };
-    
+
     const alertOkButton = document.getElementById('alert-ok-button');
     const alertContent = document.getElementById('alert-content');
-    
+
     function handleButtonClick(buttonId) {
         return () => {
             toggleMenu();
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         };
     }
-    
+
     // Add event listeners dynamically for each button
     Object.keys(buttonMappings).forEach(buttonId => {
         const button = document.getElementById(buttonId);
@@ -89,11 +89,11 @@ document.addEventListener("DOMContentLoaded", function() {
             button.addEventListener('click', handleButtonClick(buttonId));
         }
     });
-    
+
     alertOkButton.addEventListener('click', () => {
         toggleAlert();
     });
-    
+
     function initCopyEmails() {
         let copyEmails = document.querySelectorAll('.copy-email');
         copyEmails.forEach(emailSpan => {
@@ -102,8 +102,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 copyToClipboard(email);
                 //console.log(`Copied email: ${email}`);
 
-              alertContent.innerHTML = `Email kopiert: ${email}`;
-              toggleAlert();
+                alertContent.innerHTML = `Email kopiert: ${email}`;
+                toggleAlert();
             });
         });
         function copyToClipboard(text) {
@@ -116,18 +116,18 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 });
-  
+
 function toggleMenu() {
     menuIsActive = !menuIsActive;
-        if (menuIsActive) {
-            menuWindow.classList.add('show');
-            menuWindow.classList.remove('hidden');
-            menuBtn.innerHTML = "X";
-        } else {
-            menuWindow.classList.add('hidden');
-            menuWindow.classList.remove('show');
-            menuBtn.innerHTML = "MENU";
-        }
+    if (menuIsActive) {
+        menuWindow.classList.add('show');
+        menuWindow.classList.remove('hidden');
+        menuBtn.innerHTML = "X";
+    } else {
+        menuWindow.classList.add('hidden');
+        menuWindow.classList.remove('show');
+        menuBtn.innerHTML = "MENU";
+    }
     //console.log("Menu is now " + (menuIsActive ? "open" : "closed"));
 }
 
@@ -147,8 +147,8 @@ function toggleContentWindow() {
 
 
 
-
 function initShop() {
+
     //console.log("Init shop");
 
     const shopContainer = document.createElement('div');
@@ -167,17 +167,17 @@ function initShop() {
 
         const h4 = document.createElement('h4');
         h4.textContent = ticket.title;
-
+        const br = document.createElement('br');
         const pPrice = document.createElement('p');
         pPrice.textContent = ticket.price + " €";
         const pAmount = document.createElement('p');
-        pAmount.id=ticket.title + "-qty";
+        pAmount.id = ticket.title + "-qty";
         const buttonInfo = document.createElement('button');
         buttonInfo.classList.add('dos-button');
         buttonInfo.textContent = 'Info';
-        let infoText = `<h4>`+ticket.title+`</h4>
-                        `+ticket.description+`<br><br>
-                        `+ticket.price+` €`;
+        let infoText = `<h4>` + ticket.title + `</h4>
+                        `+ ticket.description + `<br><br>
+                        `+ ticket.price + ` €`;
         buttonInfo.addEventListener('click', () => toggleAlert(infoText));
 
         const buttonPlus = document.createElement('button');
@@ -203,6 +203,7 @@ function initShop() {
         }
         // productDiv.appendChild(description);
         productDiv.appendChild(buttonInfo);
+        productDiv.appendChild(br);
         productDiv.appendChild(buttonPlus);
         productDiv.appendChild(buttonMinus);
 
@@ -280,7 +281,7 @@ function updateCartButton() {
     const cartButton = document.getElementById("cart-btn");
     const payButton = document.getElementById("pay-btn");
     cartButton.innerHTML = `TICKETS: ${calculateTotalPrice(shoppingCart).toFixed(0)} €`;
-    if ( calculateTotalPrice(shoppingCart).toFixed(0) == 0 ) {
+    if (calculateTotalPrice(shoppingCart).toFixed(0) == 0) {
         cartButton.innerHTML = `TICKETS`;
         payButton.classList.add("hidden");
     }
@@ -301,7 +302,7 @@ function moveTicketToCart() {
     image.src = 'img/ticket.png';
     image.classList.add('animated-image');
     // Listen for the image load event
-    image.onload = function() {
+    image.onload = function () {
         //console.log("image created");
         // Append the image to the imageContainer
         imageContainer.appendChild(image);
@@ -325,7 +326,7 @@ function moveTicketToCart() {
     };
 
     // Set up error handling in case the image fails to load
-    image.onerror = function() {
+    image.onerror = function () {
         console.error("Failed to load the image.");
     };
 }
@@ -431,7 +432,7 @@ function generateCheckoutOverview(cartData) {
     mwstCell.textContent = "(inklusive 7% MwSt.)";
 
     const mwstAmountCell = document.createElement("td");
-    mwstAmountCell.textContent = ( totalPrice - ( (totalPrice / 107) * 100 ) ).toFixed(2) + ` €`;
+    mwstAmountCell.textContent = (totalPrice - ((totalPrice / 107) * 100)).toFixed(2) + ` €`;
     mwstAmountCell.classList.add("right-align"); // Add a class for styling
 
     mwstRow.appendChild(mwstCell);
@@ -600,7 +601,7 @@ function initPurchase() {
     if (!isValidEmail(document.getElementById('email').value, document.getElementById('email2').value)) {
         toggleAlert("Bitte gib eine korrekte Email an.");
         return;
-    } 
+    }
     const selectedRadioValue = localStorage.getItem('selectedRadio');
     //console.log(shoppingCart);
     const email = document.getElementById("email").value;
@@ -612,7 +613,32 @@ function initPurchase() {
     else if (selectedRadioValue === 'vorkasse') {
         // console.log("create vvk order initiated");
         console.log(shoppingCart, email);
-  
+
+        fetch('/api/ordersVK', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                cart: [
+                    shoppingCart, email,
+                ],
+            }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Handle the response from the server if needed
+            console.log('Server response:', data);
+        })
+        .catch(error => {
+            console.error('Error during fetch:', error);
+        });
+
         const userInformation = document.querySelector('div#content-window userinformation');
         userInformation.innerHTML = `<hr>
             <div class="order-info">
@@ -627,7 +653,7 @@ function initPurchase() {
 
             Ticketmail geht an: ${email}
         `;
-    
+
         document.getElementById("copy-order-info-btn").addEventListener("click", () => {
             const orderInfoElement = document.querySelector('.order-info');
             const textToCopy = orderInfoElement.innerText;
@@ -641,8 +667,8 @@ function initPurchase() {
             // console.log("Content copied to clipboard:", textToCopy);
             toggleAlert("Überweisungsdaten kopiert");
         });
-        
-    
+
+
         toggleAlert("Bitte überweise den angezeigten Betrag und gib die Bestellnummer mit an.<br>Du erhältst auch eine Email mit deiner Bestellübersicht.<br>Nach Eingang der Zahlung schicken wir dir eine Ticketmail innerhalb 1-3 Nichtarbeitstagen :)");
     }
 }
@@ -660,7 +686,7 @@ function addInputListenersAndSaveToLocalStorage() {
     const surnameInput = document.getElementById('surname');
     const emailInput = document.getElementById('email');
     const mobileInput = document.getElementById('mobile');
-    
+
     // Get the radio input elements by their name
     const radioInputs = document.querySelectorAll('input[name="options"]');
 
@@ -670,7 +696,7 @@ function addInputListenersAndSaveToLocalStorage() {
         surnameInput.value = localStorage.getItem('surname') || '';
         emailInput.value = localStorage.getItem('email') || '';
         mobileInput.value = localStorage.getItem('mobile') || '';
-        
+
         // Select the radio button based on local storage value
         const selectedRadioValue = localStorage.getItem('selectedRadio') || "vorkasse";
         const radioInput = document.querySelector(`input[type="radio"][value="${selectedRadioValue}"]`);
@@ -716,104 +742,104 @@ function addInputListenersAndSaveToLocalStorage() {
 
 function initPaypalButtons(shoppingCart, email) {
     window.paypal
-    .Buttons({
-        style: {
-            layout:  'vertical',
-            color:   'black',
-            shape:   'rect',
-            label:   'paypal'
-            },        
-      async createOrder() {
-        try {
-          const response = await fetch("/api/orders", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
+        .Buttons({
+            style: {
+                layout: 'vertical',
+                color: 'black',
+                shape: 'rect',
+                label: 'paypal'
             },
-            // use the "body" param to optionally pass additional order information
-            // like product ids and quantities
-            body: JSON.stringify({
-              cart: [
-                shoppingCart, email,
-              ],
-            }),
-          });
-  
-          const orderData = await response.json();
-  
-          if (orderData.id) {
-            return orderData.id;
-          } else {
-            const errorDetail = orderData?.details?.[0];
-            const errorMessage = errorDetail
-              ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
-              : JSON.stringify(orderData);
-  
-            throw new Error(errorMessage);
-          }
-        } catch (error) {
-          console.error(error);
-          toggleAlert(`Could not initiate PayPal Checkout...<br><br>${error}`);
-        }
-      },
-      async onApprove(data, actions) {
-        try {
-          const response = await fetch(`/api/orders/${data.orderID}/capture`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
+            async createOrder() {
+                try {
+                    const response = await fetch("/api/orders", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        // use the "body" param to optionally pass additional order information
+                        // like product ids and quantities
+                        body: JSON.stringify({
+                            cart: [
+                                shoppingCart, email,
+                            ],
+                        }),
+                    });
+
+                    const orderData = await response.json();
+
+                    if (orderData.id) {
+                        return orderData.id;
+                    } else {
+                        const errorDetail = orderData?.details?.[0];
+                        const errorMessage = errorDetail
+                            ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
+                            : JSON.stringify(orderData);
+
+                        throw new Error(errorMessage);
+                    }
+                } catch (error) {
+                    console.error(error);
+                    toggleAlert(`Could not initiate PayPal Checkout...<br><br>${error}`);
+                }
             },
-          });
-  
-          const orderData = await response.json();
-          // Three cases to handle:
-          //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
-          //   (2) Other non-recoverable errors -> Show a failure message
-          //   (3) Successful transaction -> Show confirmation or thank you message
-  
-          const errorDetail = orderData?.details?.[0];
-  
-          if (errorDetail?.issue === "INSTRUMENT_DECLINED") {
-            // (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
-            // recoverable state, per https://developer.paypal.com/docs/checkout/standard/customize/handle-funding-failures/
-            return actions.restart();
-          } else if (errorDetail) {
-            // (2) Other non-recoverable errors -> Show a failure message
-            throw new Error(`${errorDetail.description} (${orderData.debug_id})`);
-          } else if (!orderData.purchase_units) {
-            throw new Error(JSON.stringify(orderData));
-          } else {
-            // (3) Successful transaction -> Show confirmation or thank you message
-            // Or go to another URL:  actions.redirect('thank_you.html');
-            const transaction =
-              orderData?.purchase_units?.[0]?.payments?.captures?.[0] ||
-              orderData?.purchase_units?.[0]?.payments?.authorizations?.[0];
-            toggleAlert(
-            //   `Transaction ${transaction.status}: ${transaction.id}<br><br>See console for all available details`,
-              `Ticketkauf abgeschlossen. <br><br>Du erhältst in Kürze eine Ticketmail. <br><br>[Solange dein Emailpostfach nicht voll ist ^^]`,
-            );
-            // console.log(
-            //   "Capture result",
-            //   orderData,
-            //   JSON.stringify(orderData, null, 2),
-            // );
-          }
-        } catch (error) {
-          console.error(error);
-          toggleAlert(
-            `Sorry, your transaction could not be processed...<br><br>${error}`,
-          );
-        }
-      },
-    })
-    .render("#content-window");
+            async onApprove(data, actions) {
+                try {
+                    const response = await fetch(`/api/orders/${data.orderID}/capture`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    });
+
+                    const orderData = await response.json();
+                    // Three cases to handle:
+                    //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+                    //   (2) Other non-recoverable errors -> Show a failure message
+                    //   (3) Successful transaction -> Show confirmation or thank you message
+
+                    const errorDetail = orderData?.details?.[0];
+
+                    if (errorDetail?.issue === "INSTRUMENT_DECLINED") {
+                        // (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+                        // recoverable state, per https://developer.paypal.com/docs/checkout/standard/customize/handle-funding-failures/
+                        return actions.restart();
+                    } else if (errorDetail) {
+                        // (2) Other non-recoverable errors -> Show a failure message
+                        throw new Error(`${errorDetail.description} (${orderData.debug_id})`);
+                    } else if (!orderData.purchase_units) {
+                        throw new Error(JSON.stringify(orderData));
+                    } else {
+                        // (3) Successful transaction -> Show confirmation or thank you message
+                        // Or go to another URL:  actions.redirect('thank_you.html');
+                        const transaction =
+                            orderData?.purchase_units?.[0]?.payments?.captures?.[0] ||
+                            orderData?.purchase_units?.[0]?.payments?.authorizations?.[0];
+                        toggleAlert(
+                            //   `Transaction ${transaction.status}: ${transaction.id}<br><br>See console for all available details`,
+                            `Ticketkauf abgeschlossen. <br><br>Du erhältst in Kürze eine Ticketmail. <br><br>[Solange dein Emailpostfach nicht voll ist ^^]`,
+                        );
+                        // console.log(
+                        //   "Capture result",
+                        //   orderData,
+                        //   JSON.stringify(orderData, null, 2),
+                        // );
+                    }
+                } catch (error) {
+                    console.error(error);
+                    toggleAlert(
+                        `Sorry, your transaction could not be processed...<br><br>${error}`,
+                    );
+                }
+            },
+        })
+        .render("#content-window");
 }
 
 
 // Example function to show a result to the user. Your site's UI library can be used instead.
 function resultMessage(message) {
-  const container = document.querySelector("#result-message");
-  container.innerHTML = message;
+    const container = document.querySelector("#result-message");
+    container.innerHTML = message;
 }
 
 

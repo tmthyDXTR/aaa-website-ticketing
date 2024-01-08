@@ -8,7 +8,7 @@
     text-align: center;
     width: calc(100vw / 5); /* Initially show 3 products per row */
     padding: 10px;
-    border: 1px solid #FF2B5E;
+    border: 1px solid var(--sec-color);
     margin: 8px;
   }
   img {

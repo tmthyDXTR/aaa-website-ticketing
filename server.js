@@ -6,6 +6,7 @@ import mysql from "mysql";
 import { generateTickets } from "./server/generateTickets.js";
 import { sendMail } from "./server/sendMail.js";
 import { createOrderSQL } from "./server/createOrderSQL.js";
+import { calculateTotalPrice } from "./js/utils.js";
 
 
 const {
@@ -79,57 +80,20 @@ const generateAccessToken = async () => {
 };
 
 
-const createVVKOrder = async (cart) => {
+const createVKOrder = async (cart) => {
   // use the cart information passed from the front-end to calculate the purchase unit details
   console.log(
     "shopping cart information passed from the frontend createOrder() callback:",
     cart
   );
-  
-  // // Calculate the total price for the purchase unit's "amount"
-  // const totalAmount = cart[0].reduce((total, item) => {
-  //   const itemPrice = parseFloat(item.price);
-  //   const itemQuantity = parseInt(item.quantity, 10);
+  // Calculate the total price for the purchase unit's "amount"
+  const totalAmount = calculateTotalPrice(cart[0])
+  // Log the total amount for debugging
+  console.log('Total Amount:', totalAmount);
 
-  //   if (!isNaN(itemPrice) && !isNaN(itemQuantity)) {
-  //     return total + itemPrice * itemQuantity;
-  //   } else {
-  //     console.warn(`Invalid price or quantity for item: ${item.title}`);
-  //     return total;
-  //   }
-  // }, 0);
-  // // Log the total amount for debugging
-  // console.log('Total Amount:', totalAmount);
-
-  // const accessToken = await generateAccessToken();
-  // const url = `${base}/v2/checkout/orders`;
-  // const payload = {
-  //   intent: "CAPTURE",
-  //   purchase_units: [
-  //     {
-  //       amount: {
-  //         currency_code: "EUR",
-  //         value: totalAmount.toString(),
-  //       },
-  //     },
-  //   ],
-  // };
-
-  // const response = await fetch(url, {
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: `Bearer ${accessToken}`,
-  //     'Access-Control-Allow-Origin':'*'
-  //     // Uncomment one of these to force an error for negative testing (in sandbox mode only). Documentation:
-  //     // https://developer.paypal.com/tools/sandbox/negative-testing/request-headers/
-  //     // "PayPal-Mock-Response": '{"mock_application_codes": "MISSING_REQUIRED_PARAMETER"}'
-  //     // "PayPal-Mock-Response": '{"mock_application_codes": "PERMISSION_DENIED"}'
-  //     // "PayPal-Mock-Response": '{"mock_application_codes": "INTERNAL_SERVER_ERROR"}'
-  //   },
-  //   method: "POST",
-  //   body: JSON.stringify(payload),
-  // });
-  // return handleResponse(response, cart !== null ? cart : undefined);
+  const orderId = await createOrderSQL(null, cart, false);
+  console.log('Order id createVKOrder:', orderId);
+  return orderId;
 };
 
 
@@ -289,15 +253,19 @@ app.post("/api/orders", async (req, res) => {
   }
 });
 
-app.post("/api/ordersVVK", async (req, res) => {
+app.post("/api/ordersVK", async (req, res) => {
   try {
     // use the cart information passed from the front-end to calculate the order amount detals
     const { cart } = req.body;
-    const { jsonResponse, httpStatusCode } = await createVVKOrder(cart);
-    res.status(httpStatusCode).json(jsonResponse);
+
+    // const { orderInfo, httpStatusCode } = await createVKOrder(cart);
+    let orderId = await createVKOrder(cart);
+    // Send a response back to the client if necessary
+    console.log("order id: " + orderId);
+    res.json(orderId);
   } catch (error) {
-    console.error("Failed to create order:", error);
-    res.status(500).json({ error: "Failed to create order." });
+    console.error("Failed to create vk order:", error);
+    res.status(500).json({ error: "Failed to create vk order." });
   }
 });
 

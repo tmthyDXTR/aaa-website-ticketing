@@ -14,3 +14,23 @@ export function calculateTotalPrice(shoppingCart) {
 }
 
 
+// Promisify the connection.query method
+export const queryAsync = (con, query, values) => {
+    return new Promise((resolve, reject) => {
+        con.query(query, values, (err, results) => {
+            if (err) reject(err);
+            else resolve(results);
+        });
+    });
+};
+
+
+export function generateOrderId(length) {
+    const charset = '0123456789';
+    let securityCode = '';
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      securityCode += charset.charAt(randomIndex);
+    }
+    return securityCode;
+  }

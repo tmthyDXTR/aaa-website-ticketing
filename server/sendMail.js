@@ -2,6 +2,7 @@
 import nodemailer from 'nodemailer';
 import mysql from "mysql";
 import "dotenv/config";
+import { queryAsync } from "../js/utils.js";
 
 export const sendMail = async (orderId, customEmail=null) => {
     if (orderId === null || orderId === undefined) throw error;
@@ -75,6 +76,13 @@ export const sendMail = async (orderId, customEmail=null) => {
             if (error) {
                 console.error('Error sending email:', error); // Log any errors
             } else {
+                const updateQuery = 'UPDATE aaa_tickets_24 SET ticket_sent_time = ? WHERE ticket_order_id = ?';
+                try {
+                    queryAsync(con, updateQuery, [new Date().toISOString().slice(0, 19).replace('T', ' '), orderId]);
+                    console.log(`Updated ticket sent time for ${orderId}`);
+                } catch (updateError) {
+                    console.error('Error updating rows for ticket sent time:', updateError);
+                }
                 console.log('Email sent:', info.response); // Log the successful email response
             }
         });
