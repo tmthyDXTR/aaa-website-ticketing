@@ -681,9 +681,7 @@ function initPurchase() {
 
 // Function to add event listeners to input fields, save values to local storage, and fill input fields
 function addInputListenersAndSaveToLocalStorage() {
-    if (!localStorage.getItem('selectedRadio')) {
-        localStorage.setItem('selectedRadio', "vorkasse");
-    }
+    localStorage.setItem('selectedRadio', localStorage.getItem('selectedRadio') ?? "paypal");
 
     // Get the input elements by their IDs or other means
     const nameInput = document.getElementById('name');
@@ -805,6 +803,7 @@ function initPaypalButtons(shoppingCart, email) {
 
                     if (errorDetail?.issue === "INSTRUMENT_DECLINED") {
                         // (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+       
                         // recoverable state, per https://developer.paypal.com/docs/checkout/standard/customize/handle-funding-failures/
                         return actions.restart();
                     } else if (errorDetail) {
@@ -838,14 +837,6 @@ function initPaypalButtons(shoppingCart, email) {
         })
         .render("#content-window");
 }
-
-
-// Example function to show a result to the user. Your site's UI library can be used instead.
-function resultMessage(message) {
-    const container = document.querySelector("#result-message");
-    container.innerHTML = message;
-}
-
 
 let alertIsActive = false;
 
