@@ -33,6 +33,13 @@
     mix-blend-mode: multiply;
 }
 
+.product-buttons-container {
+    display: flex;
+    flex-direction: column;
+    /* align-items: flex-end; */
+    justify-content: center; /* Add this line to center vertically */
+}
+
 .menu-btn {
     width: 66vw !important;
 }
@@ -49,3 +56,9 @@
     color: grey !important;
 }
 
+#menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}

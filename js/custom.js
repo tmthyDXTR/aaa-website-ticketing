@@ -191,27 +191,36 @@ function initShop() {
         buttonMinus.addEventListener("click", () =>
             removeTicketFromCart(ticket)
         );
+        const textDiv = document.createElement("div");
+        textDiv.classList.add("product-text-container");
+        textDiv.appendChild(img);
+        textDiv.appendChild(h4);
+        textDiv.appendChild(pPrice);
+        textDiv.appendChild(pAmount);
 
-        productDiv.appendChild(img);
-        productDiv.appendChild(h4);
-        productDiv.appendChild(pPrice);
-        productDiv.appendChild(pAmount);
+        productDiv.appendChild(textDiv);
         const existingTicketIndex = shoppingCart.findIndex(
             (t) => t.title === ticket.title
         );
-        if (existingTicketIndex !== -1) {
-            // If the ticket is already in the cart
-            pAmount.innerHTML =
-                "x " + shoppingCart[existingTicketIndex].quantity;
-        } else {
-            // If the ticket is not in the cart
-            pAmount.innerHTML = "x 0";
-        }
+
+        pAmount.innerHTML =
+            existingTicketIndex !== -1
+                ? "x " + shoppingCart[existingTicketIndex].quantity
+                : "x 0";
+
         // productDiv.appendChild(description);
-        productDiv.appendChild(buttonInfo);
-        productDiv.appendChild(br);
-        productDiv.appendChild(buttonPlus);
-        productDiv.appendChild(buttonMinus);
+        const buttonsDiv = document.createElement("div");
+        buttonsDiv.classList.add("product-buttons-container");
+        buttonsDiv.appendChild(buttonInfo);
+        // buttonsDiv.appendChild(br);
+        const plusMinusDiv = document.createElement("div");
+        plusMinusDiv.classList.add("plus-minus-container");
+        plusMinusDiv.appendChild(buttonPlus);
+        plusMinusDiv.appendChild(buttonMinus);
+
+        buttonsDiv.appendChild(plusMinusDiv);
+
+        productDiv.appendChild(buttonsDiv);
 
         shopContainer.appendChild(productDiv);
     }

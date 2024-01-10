@@ -124,16 +124,58 @@ export const content = {
         </p>
         `,
     faq: `
-        <p>Vor dem Festival: Ich habe meine Tickets noch nicht erhalten. Was soll ich tun? Erstmal: Ruhe bewahren. Schau mal in deinem Spam-Ordner nach, vielleicht will eine h&ouml;here Macht in Form eines Spamfilters verhindern, dass du zum See kommst. Wenn du die Tickets dort nicht findest, kontaktiere bitte Michi vom Ticketing: tickets[at]agratamagatha.de</p>
+    <h2>Ich habe meine Tickets noch nicht erhalten. Was soll ich tun?</h2>
+    <p>Erstmal: Ruhe bewahren. Schau mal in deinem Spam-Ordner nach, vielleicht will eine höhere Macht in Form eines Spamfilters verhindern, dass du zum See kommst. Wenn du die Tickets dort nicht findest, kontaktiere bitte Michi vom Ticketing: <a href="mailto:tickets@agratamagatha.de">tickets[at]agratamagatha.de</a></p>
+    
+    <!-- Anreise und Einlass -->
+    <h2>Anreise und Einlass: Gibt es auch Tagestickets?</h2>
+    <p>Ja, vor Ort an der Abendkasse gibt es Tickets für mehr €uro als im Vorverkauf, sofern verfügbar. Die Verfügbarkeit können wir nicht garantieren. Überhaupt würden wir uns freuen, wenn du an allen drei Tagen kommst :).</p>
+    
+    <h2>Ich bin nicht Volljährig. Kann mein großer Bruder/meine Schwester/der Großonkel meiner Nichte die Verantwortung für mich übernehmen?</h2>
+    <p>Das geht leider nicht. Wenn du noch nicht 16 Jahre alt bist, darfst du aufs Festivalgelände, wenn ein Elternteil vor Ort unterschreibt, dass Sorge getragen wird und er anwesend bleibt. Von 16 bis 18 Jahren darfst du bis 24 Uhr alleine auf das Festivalgelände. Campen darfst du bis 18 nur mit deinen Eltern, sofern diese schriftlich ihre Anwesenheit garantieren. Erziehungsbeauftragungen können wir nicht akzeptieren.</p>
+    
+    <!-- Wo kann ich Parken? -->
+    <h2>Wo kann ich Parken?</h2>
+    <p>Parken ist kostenlos nahe dem Festivalgelände möglich. Bitte folge den Anweisungen der Ordner. Die Parkplätze sind nicht überwacht. Das Abstellen erfolgt auf eigene Gefahr. Wer mit seinem Bus campen mag, kann das nur am Buscampingplatz mit Camping-Ticket.</p>
+    
+    <!-- Wie funktioniert das Buscamping-Ticket? -->
+    <h2 id="bus-info-title">Wie funktioniert das Buscamping-Ticket?</h2>
+    <ul>
+      <li>Dieses Jahr besteht nur begrenzter Platz für den Bus-Camping Bereich. Aus diesem Grund wird die Area durch uns in Parzellen unterteilt, es gilt das First Come/First Serve Prinzip.</li>
+      <li>Grundsätzlich wird pro Parzelle je ein Bus Camping-Ticket benötigt, dies dient der Reservierung einer Parzelle. Ihr werdet dann vor Ort durch einen unserer Helfer eingewiesen. Eure “Mitbewohner” können dann ganz einfach dazustoßen.</li>
+      <li>Die Parzellen sind auf 6×6 Meter abgemessen, das heißt, es besteht ausreichend Platz für einen Camper mitsamt Vordach oder zwei Campingwagen nebeneinander.</li>
+      <li>Solltet Ihr vorhaben, mit zwei Bussen eine Parzelle zu teilen, benötigt nur einer der Busse ein entsprechendes Ticket.</li>
+      <li>Falls Ihr bereits ein Wochenend-Ticket mitsamt Camping besitzt, schreibt uns bitte per E-Mail an <a href="mailto:info@agratamagatha.de">info@agratamagatha.de</a> mitsamt Eurer Ticketnummer. Ihr erhaltet dann von uns ein neues Bus Camping-Ticket.</li>
+      <li>Zugelassen für den Bus Campingplatz sind alle Fahrzeuge, die sich als “Camper” definieren. Das heißt, Busse, Wohnmobile und -Wägen, sowie Autos mit Dachzelt und dergleichen.</li>
+      <li>Bitte beachtet, dass der Bus Campingplatz kein Parkplatz ist, das bedeutet, Kleinwagen, Limousinen etc., in denen Ihr auf dem umgeklappten Sitz schlafen möchtet, oder neben welchen Ihr ein Zelt aufstellt, sind keine “Camper”.</li>
+      <li>Wir behalten uns das Recht vor, vor Ort bei ungeeigneten Autos die Parzellen-Reservierung unsererseits aufzuheben.</li>
+      <li>Bitte beachtet weiterhin, dass wir aus Sicherheitsgründen keine Zelte oder Pavillons auf dem eigentlichen Parkplatz zulassen können. Wenn Ihr Zelten möchtet, steht euch hierfür unsere Wiese mit der Green-Camping Area zur Verfügung.</li>
+    </ul>
+    
+    <!-- Kann ich öffentlich anreisen? -->
+    <h2>Kann ich öffentlich anreisen?</h2>
+    <p>Das ist nicht ganz einfach. Du kannst mit dem Zug nach Saal und von dort aus mit dem Bus nach St. Agatha (Riedenburg) fahren. Über die genauen Fahrpläne kannst du dich bei der Deutschen Bahn informieren.</p>
+    
+    <!-- Ab wann kann ich mein Zelt aufschlagen oder mein vierrädiges Luxusheim parken? -->
+    <h2>Ab wann kann ich mein Zelt aufschlagen oder mein vierrädiges Luxusheim parken?</h2>
+    <p>Der Campingplatz/Buscampingplatz ist ab Donnerstag, 18 Uhr geöffnet. Du kannst bis 22 Uhr anreisen. Wir lassen auch extra das Licht an!</p>
+    
+    <!-- Ich habe ein Wochenendticket gekauft, will aber nicht Campen. Kann ich meine Freunde am Campingplatz besuchen? -->
+    <h2>Ich habe ein Wochenendticket gekauft, will aber nicht Campen. Kann ich meine Freunde am Campingplatz besuchen?</h2>
+    <p>Das geht, du musst aber das Müllpfand für den Campingbereich am Übergang nachzahlen. Dieses bekommst du zurück, wenn du beim Verlassen des Campingbereichs einen Sack Müll abgibst.</p>
+    
+    <!-- Beim Camping -->
+    <h2>Beim Camping: Was muss ich beim Camping beachten?</h2>
+    <p>Einige Dinge lässt du unbedingt zu Hause, und zwar: Spirituosen, Drogen, Glasbehälter, Trockeneis, Fackeln, Couchen, Stromaggregate, Grills, Gaskocher, Haustiere und auch Klaviere dürfen weder zum Camping noch aufs Festivalgelände mitgebracht werden. Da wir uns teilweise auf einem Wasserschutzgebiet befinden und die Wiese nach dem Festival wieder von Schafen zum Weiden genutzt werden soll, bitten wir dich um dein Verständnis für diese Regeln.</p>
+    
+    <p>Waffen, Werkzeuge, CS-Gas, Druck- und Flüssiggase, Pfefferspray, brennbare Flüssigkeiten, pyrotechnische Gegenstände und sonstige gefährliche Gegenstände sind natürlich auch nicht erlaubt.</p>
 
-        <p>Anreise und Einlass: Gibt es auch Tagestickets? Ja, vor Ort an der Abendkasse gibt es Tickets f&uuml;r mehr &euro;uro als im Vorverkauf, sofern verf&uuml;gbar. Die Verf&uuml;gbarkeit k&ouml;nnen wir nicht garantieren. &Uuml;berhaupt w&uuml;rden wir uns freuen, wenn du an allen drei Tagen kommst :). Ich bin nicht Vollj&auml;hrig. Kann mein gro&szlig;er Bruder/meine Schwester/der Gro&szlig;onkel meiner Nichte die Verantwortung f&uuml;r mich &uuml;bernehmen? Das geht leider nicht. Wenn du noch nicht 16 Jahre alt bist, darfst du aufs Festivalgel&auml;nde, wenn ein Elternteil vor Ort unterschreibt, dass Sorge getragen wird und er anwesend bleibt. Von 16 bis 18 Jahren darfst du bis 24 Uhr alleine auf das Festivalgel&auml;nde. Campen darfst du bis 18 nur mit deinen Eltern, sofern diese schriftlich ihre Anwesenheit garantieren. Erziehungsbeauftragungen k&ouml;nnen wir nicht akzeptieren.</p>
+    <h2>Darf ich was zu trinken mit aufs Festivalgelände nehmen?</h2>
+    <p>Mitgebrachte Nahrungsmittel und Getränke sind nur im Campingbereich gestattet – aber nicht in Glasbehältern (siehe eine Frage drüber). Keine Angst – verhungert ist bei uns noch keiner – für kleines Geld gibt’s am Festivalgelände „was Warmes“ und Frühstück verkaufen euch unsere Mamas sogar direkt am Campingplatz!</p>
+
+    <h2>Ich habe meinen Schlüssel auf dem Festival verloren. Was nun?</h3> 
+    <p>Schau doch mal in unserem Fundbüro im Helferbereich vorbei. Grundsätzlich gilt: wir haften nicht für verlorene oder beschädigte Privatgegenstände.</p>
+
         
-        <p>Wo kann ich Parken? Parken ist kostenlos nahe dem Festivalgel&auml;nde m&ouml;glich. Bitte folge den Anweisungen der Ordner. Die Parkpl&auml;tze sind nicht &uuml;berwacht. Das Abstellen erfolgt auf eigene Gefahr. Wer mit seinem Bus campen mag, kann das nur am Buscampingplatz mit Camping-Ticket. Wie funktioniert das Buscamping-Ticket? &bull; Dieses Jahr besteht nur begrenzter Platz f&uuml;r den Bus-Camping Bereich. Aus diesem Grund wird die Area durch uns in Parzellen unterteilt, es gilt das First Come/First Serve Prinzip.  &bull; Grunds&auml;tzlich wird pro Parzelle je ein Bus Camping-Ticket ben&ouml;tigt, dies dient der Reservierung einer Parzelle. Ihr werdet dann vor Ort durch einen unserer Helfer eingewiesen. Eure &ldquo;Mitbewohner&rdquo; k&ouml;nnen dann ganz einfach dazusto&szlig;en.  &bull; Die Parzellen sind auf 6&times;6 Meter abgemessen, das hei&szlig;t, es besteht ausreichend Platz f&uuml;r einen Camper mitsamt Vordach oder zwei Campingwagen nebeneinander. *  &bull; Solltet Ihr vorhaben, mit zwei Bussen eine Parzelle zu teilen, ben&ouml;tigt nur einer der Busse ein entsprechendes Ticket. &bull; Falls Ihr bereits ein Wochenend-Ticket mitsamt Camping besitzt, schreibt uns bitte per E-Mail an info@agratamagatha.de mitsamt Eurer Ticketnummer. Ihr erhaltet dann von uns ein neues Bus Camping-Ticket.  &bull; Zugelassen f&uuml;r den Bus Campingplatz sind alle Fahrzeuge, die sich als &ldquo;Camper&rdquo; definieren. Das hei&szlig;t, Busse, Wohnmobile und -W&auml;gen, sowie Autos mit Dachzelt und dergleichen.  &bull; Bitte beachtet, dass der Bus Campingplatz kein Parkplatz ist, das bedeutet, Kleinwagen, Limousinen etc., in denen Ihr auf dem umgeklappten Sitz schlafen m&ouml;chtet, oder neben welchen Ihr ein Zelt aufstellt, sind keine &ldquo;Camper&rdquo;.  &bull; Wir behalten uns das Recht vor, vor Ort bei ungeeigneten Autos die Parzellen-Reservierung unsererseits aufzuheben.  &bull; Bitte beachtet weiterhin, dass wir aus Sicherheitsgr&uuml;nden keine Zelte oder Pavillons auf dem eigentlichen Parkplatz zulassen k&ouml;nnen. Wenn Ihr Zelten m&ouml;chtet, steht euch hierf&uuml;r unsere Wiese mit der Green-Camping Area zur Verf&uuml;gung. Kann ich &ouml;ffentlich anreisen? Das ist nicht ganz einfach. Du kannst mit dem Zug nach Saal und von dort aus mit dem Bus nach St. Agatha (Riedenburg) fahren. &Uuml;ber die genauen Fahrpl&auml;ne kannst du dich bei der Deutschen Bahn informieren. Ab wann kann ich mein Zelt aufschlagen oder mein vierr&auml;diges Luxusheim parken? Der Campingplatz/Buscampingplatz ist ab Donnerstag, 18 Uhr ge&ouml;ffnet. Du kannst bis 22 Uhr anreisen. Wir lassen auch extra das Licht an! Ich habe ein Wochenendticket gekauft, will aber nicht Campen. Kann ich meine Freunde am Campingplatz besuchen? Das geht, du musst aber das M&uuml;llpfand f&uuml;r den Campingbereich am &Uuml;bergang nachzahlen. Dieses bekommst du zur&uuml;ck, wenn du beim Verlassen des Campingbereichs einen Sack M&uuml;ll abgibst.</p>
-        
-        <p>Beim Camping: Was muss ich beim Camping beachten? Einige Dinge l&auml;sst du unbedingt zu Hause, und zwar: Spirituosen, Drogen, Glasbeh&auml;lter, Trockeneis, Fackeln, Couchen, Stromaggregate, Grills, Gaskocher, Haustiere und auch Klaviere d&uuml;rfen weder zum Camping noch aufs Festivalgel&auml;nde mitgebracht werden. Da wir uns teilweise auf einem Wasserschutzgebiet befinden und die Wiese nach dem Festival wieder von Schafen zum Weiden genutzt werden soll, bitten wir dich um dein Verst&auml;ndins f&uuml;r diese Regeln. Waffen, Werkzeuge, CS-Gas, Druck- und Fl&uuml;ssiggase, Pfefferspray, brennbare Fl&uuml;ssigkeiten, pyrotechnische Gegenst&auml;nde und sonstige gef&auml;hrliche Gegenst&auml;nde sind nat&uuml;rlich auch nicht erlaubt.</p>
-        
-        <p>W&auml;hrend des Festivals: Darf ich was zu trinken mit aufs Festivalgel&auml;nde nehmen? Mitgebrachte Nahrungsmittel und Getr&auml;nke sind nur im Campingbereich gestattet &ndash; aber nicht in Glasbeh&auml;ltern (siehe eine Frage dr&uuml;ber). Keine Angst &ndash; verhungert ist bei uns noch keiner &ndash; f&uuml;r kleines Geld gibt&rsquo;s am Festivalgel&auml;nde &#8222;was Warmes&ldquo; und Fr&uuml;hst&uuml;ck verkaufen euch unsere Mamas sogar direkt am Campingplatz!</p>
-        
-        <p>Ich habe meinen Schl&uuml;ssel auf dem Festival verloren. Was nun? Schau doch mal in unserem Fundb&uuml;ro im Helferbereich vorbei. Grunds&auml;tzlich gilt: wir haften nicht f&uuml;r verlorene oder besch&auml;digte Privatgegenst&auml;nde.</p>
-        `,
+    `,
 };
