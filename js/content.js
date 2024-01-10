@@ -1,8 +1,4 @@
-import { tickets } from './tickets.js';
-
-
-
-
+import { tickets } from "./tickets.js";
 
 export const content = {
     bewirb: `
@@ -127,7 +123,7 @@ export const content = {
         Quelle: https://www.e-recht24.de
         </p>
         `,
-        faq: `
+    faq: `
         <p>Vor dem Festival: Ich habe meine Tickets noch nicht erhalten. Was soll ich tun? Erstmal: Ruhe bewahren. Schau mal in deinem Spam-Ordner nach, vielleicht will eine h&ouml;here Macht in Form eines Spamfilters verhindern, dass du zum See kommst. Wenn du die Tickets dort nicht findest, kontaktiere bitte Michi vom Ticketing: tickets[at]agratamagatha.de</p>
 
         <p>Anreise und Einlass: Gibt es auch Tagestickets? Ja, vor Ort an der Abendkasse gibt es Tickets f&uuml;r mehr &euro;uro als im Vorverkauf, sofern verf&uuml;gbar. Die Verf&uuml;gbarkeit k&ouml;nnen wir nicht garantieren. &Uuml;berhaupt w&uuml;rden wir uns freuen, wenn du an allen drei Tagen kommst :). Ich bin nicht Vollj&auml;hrig. Kann mein gro&szlig;er Bruder/meine Schwester/der Gro&szlig;onkel meiner Nichte die Verantwortung f&uuml;r mich &uuml;bernehmen? Das geht leider nicht. Wenn du noch nicht 16 Jahre alt bist, darfst du aufs Festivalgel&auml;nde, wenn ein Elternteil vor Ort unterschreibt, dass Sorge getragen wird und er anwesend bleibt. Von 16 bis 18 Jahren darfst du bis 24 Uhr alleine auf das Festivalgel&auml;nde. Campen darfst du bis 18 nur mit deinen Eltern, sofern diese schriftlich ihre Anwesenheit garantieren. Erziehungsbeauftragungen k&ouml;nnen wir nicht akzeptieren.</p>
@@ -140,5 +136,4 @@ export const content = {
         
         <p>Ich habe meinen Schl&uuml;ssel auf dem Festival verloren. Was nun? Schau doch mal in unserem Fundb&uuml;ro im Helferbereich vorbei. Grunds&auml;tzlich gilt: wir haften nicht f&uuml;r verlorene oder besch&auml;digte Privatgegenst&auml;nde.</p>
         `,
-  };
-  
+};

@@ -9,9 +9,11 @@ export function isValidEmail(email, email2) {
 
 // Function to calculate the total price of items in the cart
 export function calculateTotalPrice(shoppingCart) {
-    return shoppingCart.reduce((total, ticket) => total + (ticket.price * ticket.quantity), 0);
+    return shoppingCart.reduce(
+        (total, ticket) => total + ticket.price * ticket.quantity,
+        0
+    );
 }
-
 
 // Promisify the connection.query method
 export const queryAsync = (con, query, values) => {
@@ -23,13 +25,12 @@ export const queryAsync = (con, query, values) => {
     });
 };
 
-
 export function generateOrderId(length) {
-    const charset = '0123456789';
-    let securityCode = '';
+    const charset = "0123456789";
+    let securityCode = "";
     for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * charset.length);
-      securityCode += charset.charAt(randomIndex);
+        const randomIndex = Math.floor(Math.random() * charset.length);
+        securityCode += charset.charAt(randomIndex);
     }
     return securityCode;
-  }
+}
