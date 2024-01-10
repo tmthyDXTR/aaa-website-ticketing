@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
         'kur-button': content.kur,
         'festival-button': content.festival,
         'green-button': content.green,
+        'faq-button': content.faq,
         'impressum-button': content.impressum,
         'tickets-button': 'tickets',
         // Add other buttons as needed

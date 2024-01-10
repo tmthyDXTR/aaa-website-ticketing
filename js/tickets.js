@@ -33,6 +33,15 @@ export const tickets = {
       type: "1TSA",
       description: "Eintrittskarte für die Veranstaltungen am Samstag.",
       quantity: 1,
+      
+    },
+    fbo: {
+      title: "FBO",
+      price: 39,
+      type: "FBO",
+      description: "10 Bier.",
+      quantity: 1,
+      
     }
 };
   
