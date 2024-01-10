@@ -27,6 +27,7 @@ export const content = {
         </p>
     `,
     kur: `
+        <center><img src="./img/kurev.jpg" alt="KUR eV"></center>
         <p>Angefangen hat‘s mit einem kleinen Freundeskreis, der mal was ausprobieren wollte:
         Vor 20 Jahren raufte sich ein Haufen dünnarmiger Abiturient*innen aus dem schönen Altmühltal
         zusammen und stelle ein Abi Open-Air der besonderen Art auf die Beine. Ahnen konnte damals
@@ -76,7 +77,7 @@ export const content = {
         Aus Liebe zur Musik und der Freude am schönen Leben!</p>
     `,
     green: `
-        <center><img src="./img/green-camping.png" alt="Green Camping"></center>
+        <center><img src="./img/green-camping.jpg" alt="Green Camping"></center>
 
         <p>Unsere Green-Camping Area bietet Platz für ein entspanntes und müllfreies Zelteln. 
         Jeder Besucher mit einer gesunden Portion Weitblick ist herzlich dazu eingeladen, sein Zelt in der Green Camping Area aufzuschlagen. 
