@@ -125,7 +125,7 @@ export const content = {
         `,
     faq: `
     <h2>Ich habe meine Tickets noch nicht erhalten. Was soll ich tun?</h2>
-    <p>Erstmal: Ruhe bewahren. Schau mal in deinem Spam-Ordner nach, vielleicht will eine höhere Macht in Form eines Spamfilters verhindern, dass du zum See kommst. Wenn du die Tickets dort nicht findest, kontaktiere bitte Michi vom Ticketing: <a href="mailto:tickets@agratamagatha.de">tickets[at]agratamagatha.de</a></p>
+    <p>Erstmal: Ruhe bewahren. Schau mal in deinem Spam-Ordner nach, vielleicht will eine höhere Macht in Form eines Spamfilters verhindern, dass du zum See kommst. Wenn du die Tickets dort nicht findest, schau nach, ob dein Emailpostfach voll ist, das kommt auch jedes Jahr mehrere Male vor :D. Wenn das auch nicht der Fall ist kontaktiere bitte Michi vom Ticketing: <a href="mailto:tickets@agratamagatha.de">tickets[at]agratamagatha.de</a></p>
     
     <!-- Anreise und Einlass -->
     <h2>Anreise und Einlass: Gibt es auch Tagestickets?</h2>
@@ -165,7 +165,7 @@ export const content = {
     <p>Das geht, du musst aber das Müllpfand für den Campingbereich am Übergang nachzahlen. Dieses bekommst du zurück, wenn du beim Verlassen des Campingbereichs einen Sack Müll abgibst.</p>
     
     <!-- Beim Camping -->
-    <h2>Beim Camping: Was muss ich beim Camping beachten?</h2>
+    <h2>Was muss ich beim Camping beachten?</h2>
     <p>Einige Dinge lässt du unbedingt zu Hause, und zwar: Spirituosen, Drogen, Glasbehälter, Trockeneis, Fackeln, Couchen, Stromaggregate, Grills, Gaskocher, Haustiere und auch Klaviere dürfen weder zum Camping noch aufs Festivalgelände mitgebracht werden. Da wir uns teilweise auf einem Wasserschutzgebiet befinden und die Wiese nach dem Festival wieder von Schafen zum Weiden genutzt werden soll, bitten wir dich um dein Verständnis für diese Regeln.</p>
     
     <p>Waffen, Werkzeuge, CS-Gas, Druck- und Flüssiggase, Pfefferspray, brennbare Flüssigkeiten, pyrotechnische Gegenstände und sonstige gefährliche Gegenstände sind natürlich auch nicht erlaubt.</p>
