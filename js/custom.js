@@ -11,6 +11,15 @@ const contentWindow = document.getElementById("content-window");
 const alertWindow = document.getElementById("alert-window");
 let copyEmails = document.querySelectorAll(".copy-email");
 
+function loadMenuContent(contentMenu) {
+    contentWindow.innerHTML = contentMenu;
+}
+
+function scrollToDiv(targetDiv) {
+    var targetDiv = document.getElementById("targetDiv");
+    targetDiv.scrollIntoView({ behavior: "smooth" });
+}
+
 document.getElementById("cart-btn").addEventListener("click", () => {
     //console.log("TICKETS button clicked");
     menuWindow.classList.remove("show");
@@ -179,7 +188,29 @@ function initShop() {
                         ` +
             ticket.price +
             ` €`;
-        buttonInfo.addEventListener("click", () => toggleAlert(infoText));
+        // Check if ticket.type is "3TMC" before adding the button
+        if (ticket.type === "3TMB") {
+            infoText += `<button id="moreInfoBtn" class="dos-button">Mehr Info</button>`;
+        }
+
+        buttonInfo.addEventListener("click", () => {
+            toggleAlert(infoText);
+            // If the button is added, add an event listener for it
+            if (ticket.type === "3TMB") {
+                const moreInfoBtn = document.getElementById("moreInfoBtn");
+                if (moreInfoBtn) {
+                    moreInfoBtn.addEventListener("click", () => {
+                        console.log("more");
+                        loadMenuContent(content.faq);
+                        toggleAlert();
+                        setTimeout(()=>{
+
+                            scrollToDiv("bus-info-title");
+                        }, 50);
+                    });
+                }
+            }
+        });
 
         const buttonPlus = document.createElement("button");
         buttonPlus.classList.add("dos-button");

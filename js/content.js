@@ -105,7 +105,7 @@ export const content = {
         <br><br>
         <h3>Kontakt</h3>
         Telefon: OI77-I77II57<br>
-        E-Mail: info@agratamagatha.de
+        E-Mail: <span class="copy-email" data-email="info@agratamagatha.de">info@agratamagatha.de</span>
         <br><br>
         <h3>Umsatzsteuer-ID</h3>
         Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:
@@ -126,7 +126,7 @@ export const content = {
         `,
     faq: `
     <h2>Ich habe meine Tickets noch nicht erhalten. Was soll ich tun?</h2>
-    <p>Erstmal: Ruhe bewahren. Schau mal in deinem Spam-Ordner nach, vielleicht will eine höhere Macht in Form eines Spamfilters verhindern, dass du zum See kommst. Wenn du die Tickets dort nicht findest, schau nach, ob dein Emailpostfach voll ist, das kommt auch jedes Jahr mehrere Male vor :D. Wenn das auch nicht der Fall ist kontaktiere bitte Michi vom Ticketing: <a href="mailto:tickets@agratamagatha.de">tickets[at]agratamagatha.de</a></p>
+    <p>Erstmal: Ruhe bewahren. Schau mal in deinem Spam-Ordner nach, vielleicht will eine höhere Macht in Form eines Spamfilters verhindern, dass du zum See kommst. Wenn du die Tickets dort nicht findest, schau nach, ob dein Emailpostfach voll ist, das kommt auch jedes Jahr mehrere Male vor :D. Wenn das auch nicht der Fall ist kontaktiere bitte Michi vom Ticketing: <span class="copy-email" data-email="tickets@agratamagatha.de">tickets@agratamagatha.de</span></p>
     
     <!-- Anreise und Einlass -->
     <h2>Anreise und Einlass: Gibt es auch Tagestickets?</h2>
@@ -146,7 +146,7 @@ export const content = {
       <li>Grundsätzlich wird pro Parzelle je ein Bus Camping-Ticket benötigt, dies dient der Reservierung einer Parzelle. Ihr werdet dann vor Ort durch einen unserer Helfer eingewiesen. Eure “Mitbewohner” können dann ganz einfach dazustoßen.</li>
       <li>Die Parzellen sind auf 6×6 Meter abgemessen, das heißt, es besteht ausreichend Platz für einen Camper mitsamt Vordach oder zwei Campingwagen nebeneinander.</li>
       <li>Solltet Ihr vorhaben, mit zwei Bussen eine Parzelle zu teilen, benötigt nur einer der Busse ein entsprechendes Ticket.</li>
-      <li>Falls Ihr bereits ein Wochenend-Ticket mitsamt Camping besitzt, schreibt uns bitte per E-Mail an <a href="mailto:info@agratamagatha.de">info@agratamagatha.de</a> mitsamt Eurer Ticketnummer. Ihr erhaltet dann von uns ein neues Bus Camping-Ticket.</li>
+      <li>Falls Ihr bereits ein Wochenend-Ticket mitsamt Camping besitzt, schreibt uns bitte per E-Mail an <span class="copy-email" data-email="info@agratamagatha.de">info@agratamagatha.de</span> mitsamt Eurer Ticketnummer. Ihr erhaltet dann von uns ein neues Bus Camping-Ticket.</li>
       <li>Zugelassen für den Bus Campingplatz sind alle Fahrzeuge, die sich als “Camper” definieren. Das heißt, Busse, Wohnmobile und -Wägen, sowie Autos mit Dachzelt und dergleichen.</li>
       <li>Bitte beachtet, dass der Bus Campingplatz kein Parkplatz ist, das bedeutet, Kleinwagen, Limousinen etc., in denen Ihr auf dem umgeklappten Sitz schlafen möchtet, oder neben welchen Ihr ein Zelt aufstellt, sind keine “Camper”.</li>
       <li>Wir behalten uns das Recht vor, vor Ort bei ungeeigneten Autos die Parzellen-Reservierung unsererseits aufzuheben.</li>
@@ -172,7 +172,7 @@ export const content = {
     <p>Waffen, Werkzeuge, CS-Gas, Druck- und Flüssiggase, Pfefferspray, brennbare Flüssigkeiten, pyrotechnische Gegenstände und sonstige gefährliche Gegenstände sind natürlich auch nicht erlaubt.</p>
 
     <h2>Darf ich was zu trinken mit aufs Festivalgelände nehmen?</h2>
-    <p>Mitgebrachte Nahrungsmittel und Getränke sind nur im Campingbereich gestattet – aber nicht in Glasbehältern (siehe eine Frage drüber). Keine Angst – verhungert ist bei uns noch keiner – für kleines Geld gibt’s am Festivalgelände „was Warmes“ und Frühstück verkaufen euch unsere Mamas sogar direkt am Campingplatz!</p>
+    <p>Mitgebrachte Nahrungsmittel und Getränke sind nur im Campingbereich gestattet – aber nicht in Glasbehältern (siehe eine Frage drüber). Keine Angst – verhungert ist bei uns noch keiner – für kleines Geld gibt’s am Festivalgelände „was Warmes“ und Frühstück verkaufen euch unsere Mamas und Papas sogar direkt am Campingplatz!</p>
 
     <h2>Ich habe meinen Schlüssel auf dem Festival verloren. Was nun?</h3> 
     <p>Schau doch mal in unserem Fundbüro im Helferbereich vorbei. Grundsätzlich gilt: wir haften nicht für verlorene oder beschädigte Privatgegenstände.</p>

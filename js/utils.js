@@ -1,3 +1,4 @@
+
 // Function to validate an email address
 export function isValidEmail(email, email2) {
     if (email.toUpperCase() !== email2.toUpperCase()) return false;
