@@ -21,7 +21,7 @@ export const tickets = {
         type: "3TMB",
         price: 60,
         description:
-            "Ticket für 3 Festivaltage mit Buscampingparzelle (ca. 6*4 m) inklusive 15 € Müllpfand und 5 € Campinggebühr. Gegen Abgabe eines vollen Müllsacks bekommst du den Müllpfand zurück.",
+            "Ticket für 3 Festivaltage mit Buscampingparzelle (ca. 6*6 m) inklusive 15 € Müllpfand und 5 € Campinggebühr. Gegen Abgabe eines vollen Müllsacks bekommst du den Müllpfand zurück.",
         quantity: 1,
     },
     fr: {
