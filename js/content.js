@@ -524,7 +524,7 @@ export const content = {
     archiv: `
     <div id="slideshow-container">
         <div class="mySlides">
-            <img src="./img/slider/0.jpg" style="width:100%">
+            <center><img src="./img/slider/0.jpg" style="width:auto;height:40vh"></center>
         </div>
 
         <!-- Navigation buttons -->

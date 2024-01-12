@@ -38,6 +38,22 @@ document.getElementById("cart-btn").addEventListener("click", () =>
     contentWindowIsActive = true;
 });
 
+const overlay = document.getElementById('hue-overlay');
+
+document.addEventListener('mousemove', (e) =>
+{
+    const { clientX, clientY } = e;
+    const percentX = (clientX / window.innerWidth) * 100;
+    const percentY = (clientY / window.innerHeight) * 100;
+    // Get mouse coordinates
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+    // Update radial gradient position
+    overlay.style.backgroundPosition = `${mouseX}px ${mouseY}px`;
+
+    overlay.style.background = `radial-gradient(circle, hsl(${percentX}, 100%, 50%), hsl(${percentY}, 100%, 50%), hsl(${percentY}, 100%, 50%))`;
+});
+
 document.getElementById("pay-btn").addEventListener("click", () =>
 {
     //console.log("PAY button clicked");
@@ -100,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function ()
             {
                 initShop();
             }
-            if (content === "archiv-button")
+            if (buttonId === "archiv-button")
             {
                 console.log("archiv");
                 showSlides(slideIndex);
@@ -138,31 +154,31 @@ document.addEventListener("DOMContentLoaded", function ()
 });
 
 function initCopyEmails()
+{
+    let alertContent = document.getElementById("alert-content");
+    let copyEmails = document.querySelectorAll(".copy-email");
+    copyEmails.forEach((emailSpan) =>
     {
-        let alertContent = document.getElementById("alert-content");
-        let copyEmails = document.querySelectorAll(".copy-email");
-        copyEmails.forEach((emailSpan) =>
+        emailSpan.addEventListener("click", () =>
         {
-            emailSpan.addEventListener("click", () =>
-            {
-                const email = emailSpan.getAttribute("data-email");
-                copyToClipboard(email);
-                //console.log(`Copied email: ${email}`);
+            const email = emailSpan.getAttribute("data-email");
+            copyToClipboard(email);
+            //console.log(`Copied email: ${email}`);
 
-                alertContent.innerHTML = `Email kopiert: ${email}`;
-                toggleAlert();
-            });
+            alertContent.innerHTML = `Email kopiert: ${email}`;
+            toggleAlert();
         });
-        function copyToClipboard(text)
-        {
-            const tempInput = document.createElement("input");
-            tempInput.value = text;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand("copy");
-            document.body.removeChild(tempInput);
-        }
+    });
+    function copyToClipboard(text)
+    {
+        const tempInput = document.createElement("input");
+        tempInput.value = text;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
     }
+}
 
 function toggleMenu()
 {
@@ -1034,26 +1050,81 @@ function plusSlides(n)
     showSlides(slideIndex += n);
 }
 
-function showSlides(n)
-{
-    let i;
+function showSlides(n) {
+    if (slideIndex < 0) slideIndex = 0;
+    if (slideIndex > 11) slideIndex = 11;
+
     const slide = document.querySelector(".mySlides img");
 
-    // Fetch images from the /img/slider/ folder
-    fetch('/img/slider/')
-        .then(response => response.json())
-        .then(images =>
-        {
-            // Reset the HTML content
-            // container.innerHTML = '';
+    // Create an Image object
+    const image = new Image();
 
-            // Wrap around to the first image if at the end
-            if (n >= images.length) { slideIndex = 0 }
-            if (n < 0) { slideIndex = images.length - 1 }
+    // Set the source of the Image object
+    image.src = `img/slider/${slideIndex}.jpg`;
 
-            // Display the current slide
-            slide.src = `img/slider/${images[slideIndex]}`;
-            slide.style.width = "100%";
+    // Once the image is loaded, apply dithering
+    image.onload = function () {
+        // Create a canvas
+        const canvas = document.createElement("canvas");
+        canvas.width = image.width;
+        canvas.height = image.height;
 
-        });
+        // Get the 2D context of the canvas
+        const ctx = canvas.getContext("2d");
+
+        // Draw the image onto the canvas
+        ctx.drawImage(image, 0, 0);
+
+        // Get the image data from the canvas
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+        // Apply dithering to the image data
+        const ditheredImageData = ditherImage(imageData, colors);
+
+        // Put the dithered image data back onto the canvas
+        ctx.putImageData(ditheredImageData, 0, 0);
+
+        // Set the dithered image as the source of the slide
+        slide.src = canvas.toDataURL();
+    };
 }
+function ditherImage(imageData, colors) {
+    const pixels = imageData.data;
+    const width = imageData.width;
+    const height = imageData.height;
+
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            const index = (y * width + x) * 4;
+
+            // Get the grayscale value
+            const grayscale = pixels[index] * 0.3 + pixels[index + 1] * 0.59 + pixels[index + 2] * 0.11;
+
+            // Apply dithering to 3 colors
+            const thresholds = colors.map(color => colorThreshold(grayscale, color));
+            const minThreshold = Math.min(...thresholds);
+            const closestColorIndex = thresholds.indexOf(minThreshold);
+            const selectedColor = colors[closestColorIndex];
+
+            // Set the new pixel values
+            pixels[index] = selectedColor[0];
+            pixels[index + 1] = selectedColor[1];
+            pixels[index + 2] = selectedColor[2];
+        }
+    }
+
+    return imageData;
+}
+
+function colorThreshold(value, color) {
+    // Calculate the difference between the grayscale value and the color
+    return Math.abs(value - color[0] * 0.3 - color[1] * 0.59 - color[2] * 0.11);
+}
+
+// Example usage:
+// Define your 3 colors in RGB format
+const colors = [
+    [100, 255, 179],   // Red
+    [254, 78, 78],   // Green
+    [0, 0, 0]    // Blue
+];

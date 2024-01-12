@@ -13,6 +13,35 @@ body {
   background-color: #f0f0f0;
 }
 
+.hue-overlay {
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #09CE9E, #FF2B5E, #710a81);
+  mix-blend-mode: hue;
+  pointer-events: none;
+  animation: pulsate 4s infinite; /* Adjust the duration as needed */
+
+}
+
+@keyframes pulsate {
+  0% {
+      transform: scale(1);
+      opacity: 0.4;
+  }
+  50% {
+      transform: scale(2);
+      opacity: 1;
+  }
+  100% {
+      transform: scale(1);
+      opacity: 0.4;
+  }
+}
+
 /* Add grain noise overlay */
 .grain-overlay {
   position: fixed;
