@@ -135,9 +135,11 @@ document.addEventListener("DOMContentLoaded", function ()
     {
         toggleAlert();
     });
+});
 
-    function initCopyEmails()
+function initCopyEmails()
     {
+        let alertContent = document.getElementById("alert-content");
         let copyEmails = document.querySelectorAll(".copy-email");
         copyEmails.forEach((emailSpan) =>
         {
@@ -161,7 +163,6 @@ document.addEventListener("DOMContentLoaded", function ()
             document.body.removeChild(tempInput);
         }
     }
-});
 
 function toggleMenu()
 {
@@ -254,6 +255,7 @@ function initShop()
                     {
                         console.log("more");
                         loadMenuContent(content.faq);
+                        initCopyEmails();
                         toggleAlert();
                         scrollToDiv("bus-info-title");
                     });
