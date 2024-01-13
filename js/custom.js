@@ -133,6 +133,21 @@ document.addEventListener("DOMContentLoaded", function ()
                 {
                     plusSlides(1);
                 };
+
+                showSlides(slideIndexLineup, "lineup");
+                // Assign click event for "prev" button
+                const prevButtonLineup = document.querySelector(".prev-lineup");
+                prevButtonLineup.onclick = function ()
+                {
+                    plusSlides(-1,"lineup");
+                };
+
+                // Assign click event for "next" button
+                const nextButtonLineup = document.querySelector(".next-lineup");
+                nextButtonLineup.onclick = function ()
+                {
+                    plusSlides(1,"lineup");
+                };
             }
         };
     }
@@ -313,7 +328,8 @@ function initShop()
         // buttonsDiv.appendChild(br);
         const plusMinusDiv = document.createElement("div");
         plusMinusDiv.classList.add("plus-minus-container");
-        if (ticket.type === "1TFR" || ticket.type === "1TSA" || ticket.type === "FBO") {
+        if (ticket.type === "1TFR" || ticket.type === "1TSA" || ticket.type === "FBO")
+        {
             buttonPlus.classList.add("deactivated");
             buttonPlus.disabled = true;
             buttonMinus.classList.add("deactivated");
@@ -1050,58 +1066,81 @@ export function toggleAlert(text = null)
 let slideIndex = 0;
 let slideIndexLineup = 0;
 
-function plusSlides(n)
+function plusSlides(n,type="bilder")
 {
     console.log("plusSlides");
-    showSlides(slideIndex += n);
+    if (type === "bilder") {
+        showSlides(slideIndex += n);
+    }
+    else {
+        showSlides(slideIndexLineup += n,"lineup");
+    }
 }
 
-function showSlides(n) {
-    if (slideIndex < 0) slideIndex = 0;
-    if (slideIndex > 11) slideIndex = 11;
+function showSlides(n, type = "bilder")
+{
+    if (type === "bilder")
+    {
+        if (slideIndex < 0) slideIndex = 0;
+        if (slideIndex > 11) slideIndex = 11;
+        const slide = document.querySelector(".mySlides img");
 
-    const slide = document.querySelector(".mySlides img");
+        // Create an Image object
+        const image = new Image();
 
-    // Create an Image object
-    const image = new Image();
+        // Set the source of the Image object
+        image.src = `img/slider/${slideIndex}.jpg`;
 
-    // Set the source of the Image object
-    image.src = `img/slider/${slideIndex}.jpg`;
+        // Once the image is loaded, apply dithering
+        image.onload = function ()
+        {
+            // Create a canvas
+            const canvas = document.createElement("canvas");
+            canvas.width = image.width;
+            canvas.height = image.height;
 
-    // Once the image is loaded, apply dithering
-    image.onload = function () {
-        // Create a canvas
-        const canvas = document.createElement("canvas");
-        canvas.width = image.width;
-        canvas.height = image.height;
+            // Get the 2D context of the canvas
+            const ctx = canvas.getContext("2d");
 
-        // Get the 2D context of the canvas
-        const ctx = canvas.getContext("2d");
+            // Draw the image onto the canvas
+            ctx.drawImage(image, 0, 0);
 
-        // Draw the image onto the canvas
-        ctx.drawImage(image, 0, 0);
+            // Get the image data from the canvas
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
-        // Get the image data from the canvas
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            // Apply dithering to the image data
+            const ditheredImageData = ditherImage(imageData, colors);
 
-        // Apply dithering to the image data
-        const ditheredImageData = ditherImage(imageData, colors);
+            // Put the dithered image data back onto the canvas
+            ctx.putImageData(ditheredImageData, 0, 0);
 
-        // Put the dithered image data back onto the canvas
-        ctx.putImageData(ditheredImageData, 0, 0);
+            // Set the dithered image as the source of the slide
+            slide.src = canvas.toDataURL();
+        };
+    }
+    else
+    {
+        if (slideIndexLineup < 0) slideIndexLineup = 0;
+        if (slideIndexLineup > 3) slideIndexLineup = 3;
+        const slide = document.querySelector(".mySlides-lineup img");
 
-        // Set the dithered image as the source of the slide
-        slide.src = canvas.toDataURL();
-    };
+        // Set the source of the Image object
+        slide.src = `img/lineupslider/${slideIndexLineup}.jpg`;
+    }
+
+
 }
 
-function ditherImage(imageData, colors) {
+function ditherImage(imageData, colors)
+{
     const pixels = imageData.data;
     const width = imageData.width;
     const height = imageData.height;
 
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++)
+    {
+        for (let x = 0; x < width; x++)
+        {
             const index = (y * width + x) * 4;
 
             // Get the grayscale value
@@ -1123,7 +1162,8 @@ function ditherImage(imageData, colors) {
     return imageData;
 }
 
-function colorThreshold(value, color) {
+function colorThreshold(value, color)
+{
     // Calculate the difference between the grayscale value and the color
     return Math.abs(value - color[0] * 0.3 - color[1] * 0.59 - color[2] * 0.11);
 }
@@ -1132,5 +1172,5 @@ function colorThreshold(value, color) {
 const colors = [
     [100, 255, 179],
     [254, 78, 78],
-    [0, 0, 0]    
+    [0, 0, 0]
 ];

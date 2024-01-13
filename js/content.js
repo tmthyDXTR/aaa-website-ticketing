@@ -55,6 +55,7 @@ export const content = {
         das fast schönste Wochenende im Jahr.</p>
     `,
     festival: `
+        <center><h3>DAS FESTIVAL</h3></center>
         <p>Das AgratAmAgatha beugt sich nicht jedem Trend und versucht auch nicht, möglichst viel aus allem
         herauszuholen. Die Gratler*innen machen einfach so, wie sie wollen. Eine Wohlfühloase am idyllischen
         St. Agathasee, ein Fluchtort aus der schnelllebigen Welt und dem stressigen Alltag.
@@ -90,6 +91,7 @@ export const content = {
         <br>Party hard, aber mit Herz!</p>
     `,
     impressum: `
+        <center><h3>IMPRESSUM</h3></center>
         <p>
         <h3>Angaben gemäß § 5 TMG</h3>
         Kultureller Untergrund Riedenburg e.V.
@@ -124,6 +126,7 @@ export const content = {
         </p>
         `,
     faq: `
+    <center><h3>FAQ</h3></center>
     <h2>Ich habe meine Tickets noch nicht erhalten. Was soll ich tun?</h2>
     <p>Erstmal: Ruhe bewahren. Schau mal in deinem Spam-Ordner nach, vielleicht will eine höhere Macht in Form eines Spamfilters verhindern, dass du zum See kommst. Wenn du die Tickets dort nicht findest, schau nach ob dein Emailpostfach voll ist, das kommt auch jedes Jahr mehrere Male vor :D. Wenn das der Fall ist kontaktiere bitte Michi vom Ticketing: <span class="copy-email" data-email="tickets@agratamagatha.de">tickets@agratamagatha.de</span></p>
     
@@ -522,6 +525,7 @@ export const content = {
     <p><span style="font-weight: 400;">https://www.visa.de/nutzungsbedingungen/visa-privacy-center.html</span><span style="font-weight: 400;">. </span></p>
     `,
     archiv: `
+    <center><h3>ARCHIV</h3></center>
     <div id="slideshow-container">
         <div class="mySlides">
             <center><img src="./img/slider/0.jpg" style="width:auto;height:40vh; object-fit: contain;"></center>
