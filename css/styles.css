@@ -60,7 +60,7 @@ body {
 
 
   position: relative;
-  height: 100vh;
+  height: 91vh;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -180,6 +180,9 @@ svg path{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  max-height: 81vh;
+  overflow: auto;
+  margin: 0 auto;
 }
 
 .content-window {

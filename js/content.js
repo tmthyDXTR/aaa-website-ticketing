@@ -524,13 +524,24 @@ export const content = {
     archiv: `
     <div id="slideshow-container">
         <div class="mySlides">
-            <center><img src="./img/slider/0.jpg" style="width:auto;height:40vh"></center>
+            <center><img src="./img/slider/0.jpg" style="width:auto;height:40vh; object-fit: contain;"></center>
         </div>
 
         <!-- Navigation buttons -->
         <center>
         <button class="prev dos-button"><</button>
         <button class="next dos-button">></button>
+        </center>
+    </div>
+    <div id="slideshow-lineup-container">
+        <div class="mySlides-lineup">
+            <center><img src="./img/lineupslider/0.jpg" style="width:auto;height:40vh"></center>
+        </div>
+
+        <!-- Navigation buttons -->
+        <center>
+        <button class="prev-lineup dos-button"><</button>
+        <button class="next-lineup dos-button">></button>
         </center>
     </div>
     `,

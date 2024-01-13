@@ -1088,6 +1088,7 @@ function showSlides(n) {
         slide.src = canvas.toDataURL();
     };
 }
+
 function ditherImage(imageData, colors) {
     const pixels = imageData.data;
     const width = imageData.width;
@@ -1121,10 +1122,9 @@ function colorThreshold(value, color) {
     return Math.abs(value - color[0] * 0.3 - color[1] * 0.59 - color[2] * 0.11);
 }
 
-// Example usage:
 // Define your 3 colors in RGB format
 const colors = [
-    [100, 255, 179],   // Red
-    [254, 78, 78],   // Green
-    [0, 0, 0]    // Blue
+    [100, 255, 179],
+    [254, 78, 78],
+    [0, 0, 0]    
 ];
