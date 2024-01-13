@@ -313,6 +313,12 @@ function initShop()
         // buttonsDiv.appendChild(br);
         const plusMinusDiv = document.createElement("div");
         plusMinusDiv.classList.add("plus-minus-container");
+        if (ticket.type === "1TFR" || ticket.type === "1TSA" || ticket.type === "FBO") {
+            buttonPlus.classList.add("deactivated");
+            buttonPlus.disabled = true;
+            buttonMinus.classList.add("deactivated");
+            buttonMinus.disabled = true;
+        }
         plusMinusDiv.appendChild(buttonPlus);
         plusMinusDiv.appendChild(buttonMinus);
 
