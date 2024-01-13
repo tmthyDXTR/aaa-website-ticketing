@@ -340,17 +340,22 @@ app.post("/api/orders/:orderID/capture", async (req, res) =>
 });
 
 // Handle the manual email sending route
-app.post('/send-mail/:orderId', async (req, res) => {
-  const { orderId } = req.params;
+app.post('/send-mail/:orderId/:email?', async (req, res) =>
+{
+  const { orderId, email } = req.params;
 
-  try {
-      await sendMail(orderId);
-      res.status(200).send('Email sent successfully');
-  } catch (error) {
-      console.error('Error sending email:', error);
-      res.status(500).send('Failed to send email');
+  // Your existing logic for sending email with orderId and email
+  try
+  {
+    await sendMail(orderId, email || ''); // Use empty string if email is not provided
+    res.status(200).send('Email sent successfully');
+  } catch (error)
+  {
+    console.error('Error sending email:', error);
+    res.status(500).send('Failed to send email');
   }
 });
+
 
 // serve index.html
 app.get("/", (req, res) =>

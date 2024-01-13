@@ -13,6 +13,8 @@ export const sendMail = async (orderId, customEmail = null) =>
 {
     if (orderId === null || orderId === undefined) throw error;
     console.log("sendMail order Id: " + orderId);
+    console.log("sendMail email: " + customEmail);
+
     // sql
     const { SQL_HOST, SQL_DB_NAME, SQL_USER_NAME, SQL_USER_PASSWORD } =
         process.env;
@@ -52,6 +54,7 @@ export const sendMail = async (orderId, customEmail = null) =>
             return;
         }
         recipientMail = results[0].ticket_holder_email;
+        if (customEmail) recipientMail = customEmail;
         console.log("sendmail data:");
         results.forEach((row, index) =>
         {
@@ -79,9 +82,9 @@ export const sendMail = async (orderId, customEmail = null) =>
         }
 
 
-        generateInvoicePDF(results).then((pdfBuffer) =>
+        generateInvoicePDF(results, orderId).then((pdfBuffer) =>
         {
-            let mailTextInvoice = generateInvoiceHTML(results);
+            let mailTextInvoice = generateInvoiceHTML(results, orderId);
             // Save PDF to /rechnungen/ directory
             const pdfFileName = `AAA24_Rechnung_${formatInvoiceDate(new Date())}_${orderId}.pdf`;
             const pdfFilePath = path.join('./rechnungen', pdfFileName);
@@ -170,7 +173,7 @@ Wir sehen uns am See!
 Liebe Grüße, das AAA-Team :)`;
 
 
-function generateInvoiceHTML(rows, issuer)
+function generateInvoiceHTML(rows, orderId)
 {
     let totalAmount = 0;
 
@@ -236,6 +239,8 @@ function generateInvoiceHTML(rows, issuer)
     <p><strong>Registergericht:</strong> Amtsgericht Regensburg</p>
     <p><strong>Umsatzsteuer-ID:</strong> DE268290552</p><br>
     <p><strong>Rechnungsdatum:</strong> ${formatInvoiceDate(new Date())}</p>
+    <p><strong>Lieferdatum:</strong> ${formatInvoiceDate(new Date())}</p>
+    <p><strong>Rechnungsnummer:</strong> ${parseInt(orderId) + 1000}</p>
     <!-- Add other details as needed -->
   </div>
   <table class="invoice-items">
@@ -267,12 +272,12 @@ function formatInvoiceDate(date)
     return date.toLocaleDateString('de-DE', options);
 }
 
-async function generateInvoicePDF(rows)
+async function generateInvoicePDF(rows, orderId)
 {
-    const invoiceHTML = generateInvoiceHTML(rows);
+    const invoiceHTML = generateInvoiceHTML(rows, orderId);
 
     // Launch a headless browser with Puppeteer
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ args: ['--disable-setuid-sandbox', '--no-sandbox'] });
     const page = await browser.newPage();
 
     // Set the HTML content
@@ -293,7 +298,8 @@ const args = process.argv.slice(2); // Get command-line arguments excluding 'nod
 if (args.length > 0)
 {
     const id = args[0];
-    sendMail(id);
+    const email = args[1];
+    sendMail(id, email);
 } else
 {
     console.log("sendMail.js start: no parameter given");

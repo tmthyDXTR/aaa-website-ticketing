@@ -550,11 +550,15 @@ export const content = {
     </div>
     `,
     admin: `
-    <h1>Manual Email Sender</h1>
+    <h2>Manual Email Sender</h2>
     <form id="emailForm">
         <label for="sendMailOrderId">Order ID:</label>
         <input type="text" id="sendMailOrderId" name="sendMailOrderId" required>
-        <center><button class="dos-button" type="button" id="sendMailButton">Send Email</button></center>
+
+        <label for="sendMailEmail">Recipient Email:</label>
+        <input type="email" id="sendMailEmail" name="sendMailEmail" required>
+
+        <center><button class="dos-button" type="button" id="sendMailButton" onclick="sendEmail()">Send Email</button></center>
     </form>
     `,
 };

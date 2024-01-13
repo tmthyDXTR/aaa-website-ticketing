@@ -140,17 +140,18 @@ document.addEventListener("DOMContentLoaded", function ()
                 const prevButtonLineup = document.querySelector(".prev-lineup");
                 prevButtonLineup.onclick = function ()
                 {
-                    plusSlides(-1,"lineup");
+                    plusSlides(-1, "lineup");
                 };
 
                 // Assign click event for "next" button
                 const nextButtonLineup = document.querySelector(".next-lineup");
                 nextButtonLineup.onclick = function ()
                 {
-                    plusSlides(1,"lineup");
+                    plusSlides(1, "lineup");
                 };
             }
-            if (buttonId === "admin-button") {
+            if (buttonId === "admin-button")
+            {
                 const sendMailButton = document.getElementById("sendMailButton");
                 sendMailButton.onclick = function ()
                 {
@@ -1076,14 +1077,16 @@ export function toggleAlert(text = null)
 let slideIndex = 0;
 let slideIndexLineup = 0;
 
-function plusSlides(n,type="bilder")
+function plusSlides(n, type = "bilder")
 {
     console.log("plusSlides");
-    if (type === "bilder") {
+    if (type === "bilder")
+    {
         showSlides(slideIndex += n);
     }
-    else {
-        showSlides(slideIndexLineup += n,"lineup");
+    else
+    {
+        showSlides(slideIndexLineup += n, "lineup");
     }
 }
 
@@ -1186,17 +1189,33 @@ const colors = [
 ];
 const isButtonVisible = localStorage.getItem('admin') === 'sisiSeñor';
 
-async function sendEmail() {
+async function sendEmail()
+{
     const orderId = document.getElementById('sendMailOrderId').value;
+    const email = document.getElementById('sendMailEmail').value;
+
+    // Validate email format if it is entered
+    if (email)
+    {
+        // Validate email format (you may want to use a more comprehensive validation)
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email))
+        {
+            toggleAlert('Invalid email address format');
+            return;
+        }
+    }
 
     // Send a request to your server to trigger the sendMail function
-    const response = await fetch(`/send-mail/${orderId}`, {
+    const response = await fetch(`/send-mail/${orderId}/${email || ''}`, {
         method: 'POST',
     });
 
-    if (response.ok) {
+    if (response.ok)
+    {
         toggleAlert('Email sent successfully!');
-    } else {
+    } else
+    {
         toggleAlert('Failed to send email. Please check the console for details.');
         console.error('Error:', response.statusText);
     }
