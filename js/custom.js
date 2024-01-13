@@ -93,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function ()
         "tickets-button": "tickets",
         "datenschutz-button": content.datenschutz,
         "archiv-button": content.archiv,
+        "admin-button": content.admin,
         // Add other buttons as needed
     };
 
@@ -149,6 +150,13 @@ document.addEventListener("DOMContentLoaded", function ()
                     plusSlides(1,"lineup");
                 };
             }
+            if (buttonId === "admin-button") {
+                const sendMailButton = document.getElementById("sendMailButton");
+                sendMailButton.onclick = function ()
+                {
+                    sendEmail();
+                };
+            }
         };
     }
 
@@ -166,6 +174,8 @@ document.addEventListener("DOMContentLoaded", function ()
     {
         toggleAlert();
     });
+
+    if (isButtonVisible) document.getElementById("admin-button").style = "display:block";
 });
 
 function initCopyEmails()
@@ -1174,3 +1184,20 @@ const colors = [
     [254, 78, 78],
     [0, 0, 0]
 ];
+const isButtonVisible = localStorage.getItem('admin') === 'sisiSeñor';
+
+async function sendEmail() {
+    const orderId = document.getElementById('sendMailOrderId').value;
+
+    // Send a request to your server to trigger the sendMail function
+    const response = await fetch(`/send-mail/${orderId}`, {
+        method: 'POST',
+    });
+
+    if (response.ok) {
+        toggleAlert('Email sent successfully!');
+    } else {
+        toggleAlert('Failed to send email. Please check the console for details.');
+        console.error('Error:', response.statusText);
+    }
+}

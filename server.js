@@ -8,6 +8,7 @@ import { sendMail } from "./server/sendMail.js";
 import { createOrderSQL } from "./server/createOrderSQL.js";
 import { calculateTotalPrice } from "./js/utils.js";
 
+
 const {
   IS_PRODUCTION,
   PAYPAL_CLIENT_ID_TEST,
@@ -335,6 +336,19 @@ app.post("/api/orders/:orderID/capture", async (req, res) =>
   {
     console.error("Failed to create order:", error);
     res.status(500).json({ error: "Failed to capture order." });
+  }
+});
+
+// Handle the manual email sending route
+app.post('/send-mail/:orderId', async (req, res) => {
+  const { orderId } = req.params;
+
+  try {
+      await sendMail(orderId);
+      res.status(200).send('Email sent successfully');
+  } catch (error) {
+      console.error('Error sending email:', error);
+      res.status(500).send('Failed to send email');
   }
 });
 

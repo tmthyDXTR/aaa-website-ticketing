@@ -549,4 +549,12 @@ export const content = {
         </center>
     </div>
     `,
+    admin: `
+    <h1>Manual Email Sender</h1>
+    <form id="emailForm">
+        <label for="sendMailOrderId">Order ID:</label>
+        <input type="text" id="sendMailOrderId" name="sendMailOrderId" required>
+        <center><button class="dos-button" type="button" id="sendMailButton">Send Email</button></center>
+    </form>
+    `,
 };
