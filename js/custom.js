@@ -1040,9 +1040,9 @@ export function toggleAlert(text = null)
 }
 
 
-// JavaScript to handle the slideshow
+// JavaScript to handle the slideshows
 let slideIndex = 0;
-
+let slideIndexLineup = 0;
 
 function plusSlides(n)
 {

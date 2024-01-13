@@ -535,7 +535,7 @@ export const content = {
     </div>
     <div id="slideshow-lineup-container">
         <div class="mySlides-lineup">
-            <center><img src="./img/lineupslider/0.jpg" style="width:auto;height:40vh"></center>
+            <center><img src="./img/lineupslider/0.jpg" style="width:auto;height:40vh; object-fit: contain;"></center>
         </div>
 
         <!-- Navigation buttons -->
