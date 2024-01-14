@@ -565,11 +565,11 @@ export const content = {
     <h2>Console</h2>
     <div id="consoleContainer" ></div>
     <form id="messageForm">
-        <label for="text">Message*:</label>
+        <label for="text">Input:</label>
         <input type="text" id="console-text" name="text" required style="max-width: 300px;"><br>
 
-        <label for="name">Name:</label>
-        <input type="text" id="console-name" name="name" style="max-width: 300px;">
+        <label for="name" style="display: none;">Name:</label>
+        <input type="text" id="console-name" name="name" style="max-width: 300px; display: none;">
         <br>
         <button type="button" class="dos-button" id="return-btn">RETURN</button>
     </form>

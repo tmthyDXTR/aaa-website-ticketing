@@ -359,13 +359,13 @@ app.get("/messages", (req, res) => {
 
 // Endpoint to handle the form submission and add a new message
 app.post("/addMessage", (req, res) => {
-    const { text, name } = req.body;
+    const { msg, name } = req.body;
 
     // SQL query with placeholders for parameters
     const sql =
         "INSERT INTO messages (text, name, timestamp) VALUES (?, ?, NOW())";
     // Execute the query with parameters
-    con.query(sql, [text, name], (err, result) => {
+    con.query(sql, [msg, name], (err, result) => {
         if (err) {
             console.error("Error adding message:", err);
             res.status(500).json({ error: "Internal Server Error" });

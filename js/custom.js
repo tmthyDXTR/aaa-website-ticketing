@@ -146,7 +146,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 displayMessages();
                 document.getElementById("return-btn").onclick = function () {
                     addMessage();
-                    displayMessages();
                 };
             }
         };
@@ -1143,21 +1142,26 @@ function displayMessages() {
 
             // Loop through the sorted messages and create HTML elements
             messages.forEach((message) => {
-                // Format the timestamp as yyyy-mm-dd_hh:mm
-                const formattedTimestamp = new Date(message.timestamp)
-                    .toISOString()
-                    .replace("T", "_")
-                    .slice(0, -5);
-
-                const messageElement = document.createElement("div");
-                messageElement.classList.add("message");
-                messageElement.innerHTML = `${formattedTimestamp}//<strong>@${message.name}</strong>: ${message.text}`;
-                messagesContainer.appendChild(messageElement);
-                // Scroll to the end of the div
-                document.getElementById("content-window").scrollTop = document.getElementById("content-window").scrollHeight;
+                appendMessage(message.timestamp, message.name, message.text);
             });
         })
         .catch((error) => console.error("Error fetching messages:", error));
+}
+
+function appendMessage(timestamp, name, text) {
+    const messagesContainer = document.getElementById("consoleContainer");
+    const formattedTimestamp = formatTimestamp(timestamp);
+
+    const messageElement = document.createElement("div");
+    messageElement.classList.add("message");
+    messageElement.innerHTML = `${formattedTimestamp}//<strong>@${name}</strong>: ${text}`;
+    messagesContainer.appendChild(messageElement);
+    // Scroll to the end of the div
+    document.getElementById("content-window").scrollTop =
+        document.getElementById("content-window").scrollHeight;
+}
+function formatTimestamp(timestamp) {
+    return new Date(timestamp).toISOString().replace("T", "_").slice(0, -5);
 }
 
 // Function to add a new message
@@ -1172,22 +1176,61 @@ function addMessage() {
     }
 
     // Check if both text and name are provided
-    if (text) {
-        // Send a POST request to the server to add a new message
-        fetch("/addMessage", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ text, name }),
-        })
-            .then((response) => response.json())
-            .then((result) => {
-                console.log("Message added successfully:", result);
-                // You can choose to display a success message or perform additional actions
+    if (text[0] === "/" || text[0] === "-") {
+        if (
+            text === "/help" ||
+            text === "/h" ||
+            text === "--help" ||
+            text === "-h"
+        ) {
+            // Get the container element
+            const messagesContainer =
+                document.getElementById("consoleContainer");
+            appendMessage(
+                new Date(),
+                "aaa",
+                `<br>
+                Command list:<br>
+                    cmd: /name name<br>
+                        change name<br>
+                    cmd: /msg message<br>
+                        write message<br>
+            `
+            );
+            return;
+        } else if (text.toUpperCase().split(" ")[0] === "/MSG") {
+            const msg = text.split(" ").slice(1).join(" ");
+            console.log(text, msg);
+            const isOnlySpaces = /^ *$/.test(msg);
+            if (msg.length === 0 || isOnlySpaces) return;
+            // Send a POST request to the server to add a new message
+            fetch("/addMessage", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ msg, name }),
             })
-            .catch((error) => console.error("Error adding message:", error));
+                .then((response) => response.json())
+                .then((result) => {
+                    console.log("Message added successfully:", result);
+                    displayMessages();
+                    // You can choose to display a success message or perform additional actions
+                })
+                .catch((error) =>
+                    console.error("Error adding message:", error)
+                );
+        }
     } else {
-        toggleAlert("ERRORCODE 420.");
+        appendMessage(
+            new Date(),
+            "aaa",
+            `<br>
+            "${text}" unknown command<br>
+        `
+        );
+        return;
+
+        // toggleAlert("ERRORCODE 420.");
     }
 }
