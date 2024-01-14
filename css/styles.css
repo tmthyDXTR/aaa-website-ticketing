@@ -368,3 +368,20 @@ input:focus {
   outline: none !important;
   border-color: var(--sec-color);
 }
+
+#consoleContainer {
+  padding: 2vw;
+  max-width: 90vw; /* Adjust the max-width according to your preference */
+}
+  
+.message {
+  margin-bottom: 10px;
+  overflow-wrap: break-word; /* Break long words */
+
+}
+
+#messageForm {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}

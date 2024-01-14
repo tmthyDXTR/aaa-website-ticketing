@@ -11,19 +11,16 @@ const contentWindow = document.getElementById("content-window");
 const alertWindow = document.getElementById("alert-window");
 let copyEmails = document.querySelectorAll(".copy-email");
 
-function loadMenuContent(contentMenu)
-{
+function loadMenuContent(contentMenu) {
     contentWindow.innerHTML = contentMenu;
 }
 
-function scrollToDiv(targetDiv)
-{
+function scrollToDiv(targetDiv) {
     var targetDiv = document.getElementById(targetDiv);
     targetDiv.scrollIntoView({ behavior: "smooth" });
 }
 
-document.getElementById("cart-btn").addEventListener("click", () =>
-{
+document.getElementById("cart-btn").addEventListener("click", () => {
     //console.log("TICKETS button clicked");
     menuWindow.classList.remove("show");
     menuWindow.classList.add("hidden");
@@ -38,10 +35,9 @@ document.getElementById("cart-btn").addEventListener("click", () =>
     contentWindowIsActive = true;
 });
 
-const overlay = document.getElementById('hue-overlay');
+const overlay = document.getElementById("hue-overlay");
 
-document.addEventListener('mousemove', (e) =>
-{
+document.addEventListener("mousemove", (e) => {
     const { clientX, clientY } = e;
     const percentX = (clientX / window.innerWidth) * 100;
     const percentY = (clientY / window.innerHeight) * 100;
@@ -54,8 +50,7 @@ document.addEventListener('mousemove', (e) =>
     overlay.style.background = `radial-gradient(circle, hsl(${percentX}, 100%, 50%), hsl(${percentY}, 100%, 50%), hsl(${percentY}, 100%, 50%))`;
 });
 
-document.getElementById("pay-btn").addEventListener("click", () =>
-{
+document.getElementById("pay-btn").addEventListener("click", () => {
     //console.log("PAY button clicked");
     menuWindow.classList.remove("show");
     menuWindow.classList.add("hidden");
@@ -70,13 +65,11 @@ document.getElementById("pay-btn").addEventListener("click", () =>
     contentWindowIsActive = true;
 });
 
-document.addEventListener("DOMContentLoaded", function ()
-{
+document.addEventListener("DOMContentLoaded", function () {
     initCopyEmails();
     getCartFromLocalStorage();
 
-    menuBtn.addEventListener("click", () =>
-    {
+    menuBtn.addEventListener("click", () => {
         toggleMenu();
         if (contentWindowIsActive) toggleContentWindow();
     });
@@ -94,99 +87,92 @@ document.addEventListener("DOMContentLoaded", function ()
         "datenschutz-button": content.datenschutz,
         "archiv-button": content.archiv,
         "admin-button": content.admin,
+        "console-button": content.console,
         // Add other buttons as needed
     };
 
     const alertOkButton = document.getElementById("alert-ok-button");
     const alertContent = document.getElementById("alert-content");
 
-    function handleButtonClick(buttonId)
-    {
-        return () =>
-        {
+    function handleButtonClick(buttonId) {
+        return () => {
             console.log(buttonId);
             toggleMenu();
             toggleContentWindow();
             const content = buttonMappings[buttonId];
-            if (content !== "tickets")
-            {
+            if (content !== "tickets") {
                 contentWindow.innerHTML = content;
                 initCopyEmails();
             }
-            if (content === "tickets")
-            {
+            if (content === "tickets") {
                 initShop();
             }
-            if (buttonId === "archiv-button")
-            {
+            if (buttonId === "archiv-button") {
                 console.log("archiv");
                 showSlides(slideIndex);
                 // Assign click event for "prev" button
                 const prevButton = document.querySelector(".prev");
-                prevButton.onclick = function ()
-                {
+                prevButton.onclick = function () {
                     plusSlides(-1);
                 };
 
                 // Assign click event for "next" button
                 const nextButton = document.querySelector(".next");
-                nextButton.onclick = function ()
-                {
+                nextButton.onclick = function () {
                     plusSlides(1);
                 };
 
                 showSlides(slideIndexLineup, "lineup");
                 // Assign click event for "prev" button
                 const prevButtonLineup = document.querySelector(".prev-lineup");
-                prevButtonLineup.onclick = function ()
-                {
+                prevButtonLineup.onclick = function () {
                     plusSlides(-1, "lineup");
                 };
 
                 // Assign click event for "next" button
                 const nextButtonLineup = document.querySelector(".next-lineup");
-                nextButtonLineup.onclick = function ()
-                {
+                nextButtonLineup.onclick = function () {
                     plusSlides(1, "lineup");
                 };
             }
-            if (buttonId === "admin-button")
-            {
-                const sendMailButton = document.getElementById("sendMailButton");
-                sendMailButton.onclick = function ()
-                {
+            if (buttonId === "admin-button") {
+                const sendMailButton =
+                    document.getElementById("sendMailButton");
+                sendMailButton.onclick = function () {
                     sendEmail();
+                };
+            }
+            if (buttonId === "console-button") {
+                displayMessages();
+                document.getElementById("return-btn").onclick = function () {
+                    addMessage();
+                    displayMessages();
                 };
             }
         };
     }
 
     // Add event listeners dynamically for each button
-    Object.keys(buttonMappings).forEach((buttonId) =>
-    {
+    Object.keys(buttonMappings).forEach((buttonId) => {
         const button = document.getElementById(buttonId);
-        if (button)
-        {
+        if (button) {
             button.addEventListener("click", handleButtonClick(buttonId));
         }
     });
 
-    alertOkButton.addEventListener("click", () =>
-    {
+    alertOkButton.addEventListener("click", () => {
         toggleAlert();
     });
 
-    if (isButtonVisible) document.getElementById("admin-button").style = "display:block";
+    if (isButtonVisible)
+        document.getElementById("admin-button").style = "display:block";
 });
 
-function initCopyEmails()
-{
+function initCopyEmails() {
     let alertContent = document.getElementById("alert-content");
     let copyEmails = document.querySelectorAll(".copy-email");
-    copyEmails.forEach((emailSpan) =>
-    {
-        emailSpan.addEventListener("click", () =>
-        {
+    copyEmails.forEach((emailSpan) => {
+        emailSpan.addEventListener("click", () => {
             const email = emailSpan.getAttribute("data-email");
             copyToClipboard(email);
             //console.log(`Copied email: ${email}`);
@@ -195,8 +181,7 @@ function initCopyEmails()
             toggleAlert();
         });
     });
-    function copyToClipboard(text)
-    {
+    function copyToClipboard(text) {
         const tempInput = document.createElement("input");
         tempInput.value = text;
         document.body.appendChild(tempInput);
@@ -206,16 +191,13 @@ function initCopyEmails()
     }
 }
 
-function toggleMenu()
-{
+function toggleMenu() {
     menuIsActive = !menuIsActive;
-    if (menuIsActive)
-    {
+    if (menuIsActive) {
         menuWindow.classList.add("show");
         menuWindow.classList.remove("hidden");
         menuBtn.innerHTML = "X";
-    } else
-    {
+    } else {
         menuWindow.classList.add("hidden");
         menuWindow.classList.remove("show");
         menuBtn.innerHTML = "MENU";
@@ -223,15 +205,12 @@ function toggleMenu()
     //console.log("Menu is now " + (menuIsActive ? "open" : "closed"));
 }
 
-function toggleContentWindow()
-{
+function toggleContentWindow() {
     contentWindowIsActive = !contentWindowIsActive;
-    if (contentWindowIsActive)
-    {
+    if (contentWindowIsActive) {
         contentWindow.classList.add("show");
         contentWindow.classList.remove("hidden");
-    } else
-    {
+    } else {
         contentWindow.classList.add("hidden");
         contentWindow.classList.remove("show");
     }
@@ -240,15 +219,13 @@ function toggleContentWindow()
     contentWindow.scrollTop = 0;
 }
 
-function initShop()
-{
+function initShop() {
     //console.log("Init shop");
 
     const shopContainer = document.createElement("div");
     shopContainer.classList.add("shop-container");
 
-    for (const ticketKey in tickets)
-    {
+    for (const ticketKey in tickets) {
         const ticket = tickets[ticketKey];
 
         const productDiv = document.createElement("div");
@@ -279,22 +256,17 @@ function initShop()
             ticket.price +
             ` €`;
         // Check if ticket.type is "3TMC" before adding the button
-        if (ticket.type === "3TMB")
-        {
+        if (ticket.type === "3TMB") {
             infoText += `<br><br><button id="moreInfoBtn" class="dos-button">Mehr Info</button>`;
         }
 
-        buttonInfo.addEventListener("click", () =>
-        {
+        buttonInfo.addEventListener("click", () => {
             toggleAlert(infoText);
             // If the button is added, add an event listener for it
-            if (ticket.type === "3TMB")
-            {
+            if (ticket.type === "3TMB") {
                 const moreInfoBtn = document.getElementById("moreInfoBtn");
-                if (moreInfoBtn)
-                {
-                    moreInfoBtn.addEventListener("click", () =>
-                    {
+                if (moreInfoBtn) {
+                    moreInfoBtn.addEventListener("click", () => {
                         console.log("more");
                         loadMenuContent(content.faq);
                         initCopyEmails();
@@ -339,8 +311,11 @@ function initShop()
         // buttonsDiv.appendChild(br);
         const plusMinusDiv = document.createElement("div");
         plusMinusDiv.classList.add("plus-minus-container");
-        if (ticket.type === "1TFR" || ticket.type === "1TSA" || ticket.type === "FBO")
-        {
+        if (
+            ticket.type === "1TFR" ||
+            ticket.type === "1TSA" ||
+            ticket.type === "FBO"
+        ) {
             buttonPlus.classList.add("deactivated");
             buttonPlus.disabled = true;
             buttonMinus.classList.add("deactivated");
@@ -362,21 +337,18 @@ function initShop()
 
 // shopping cart array to store ticket data
 let shoppingCart = [];
-function addTicketToCart(ticketData)
-{
+function addTicketToCart(ticketData) {
     // Check if the ticket is already in the cart
     const existingTicketIndex = shoppingCart.findIndex(
         (ticket) => ticket.title === ticketData.title
     );
 
-    if (existingTicketIndex !== -1)
-    {
+    if (existingTicketIndex !== -1) {
         // If the ticket is already in the cart, update its quantity
         shoppingCart[existingTicketIndex].quantity += 1;
         document.getElementById(ticketData.title + "-qty").innerHTML =
             "x " + shoppingCart[existingTicketIndex].quantity;
-    } else
-    {
+    } else {
         // If the ticket is not in the cart, add it as a new item
         shoppingCart.push(ticketData);
         document.getElementById(ticketData.title + "-qty").innerHTML = "x 1";
@@ -392,8 +364,7 @@ function addTicketToCart(ticketData)
     saveCartToLocalStorage(shoppingCart);
 }
 
-function removeTicketFromCart(ticketData)
-{
+function removeTicketFromCart(ticketData) {
     // Check if the ticket is already in the cart
     const existingTicketIndex = shoppingCart.findIndex(
         (ticket) => ticket.title === ticketData.title
@@ -402,8 +373,7 @@ function removeTicketFromCart(ticketData)
     if (
         existingTicketIndex !== -1 &&
         shoppingCart[existingTicketIndex].quantity > 0
-    )
-    {
+    ) {
         // If the ticket is already in the cart, update its quantity
         shoppingCart[existingTicketIndex].quantity -= 1;
         document.getElementById(ticketData.title + "-qty").innerHTML =
@@ -421,45 +391,37 @@ function removeTicketFromCart(ticketData)
 }
 
 // Function to save cart to local storage
-function saveCartToLocalStorage(shoppingCart)
-{
+function saveCartToLocalStorage(shoppingCart) {
     localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
 }
 // Function to retrieve cart from local storage
-function getCartFromLocalStorage()
-{
+function getCartFromLocalStorage() {
     const cartData = localStorage.getItem("shoppingCart");
-    if (cartData)
-    {
+    if (cartData) {
         shoppingCart = JSON.parse(cartData);
         updateCartButton();
     }
 }
 
 // Function to update cart button content
-function updateCartButton()
-{
+function updateCartButton() {
     const cartButton = document.getElementById("cart-btn");
     const payButton = document.getElementById("pay-btn");
     cartButton.innerHTML = `TICKETS: ${calculateTotalPrice(
         shoppingCart
     ).toFixed(0)} €`;
-    if (calculateTotalPrice(shoppingCart).toFixed(0) == 0)
-    {
+    if (calculateTotalPrice(shoppingCart).toFixed(0) == 0) {
         cartButton.innerHTML = `TICKETS`;
         payButton.classList.add("hidden");
-    } else
-    {
+    } else {
         payButton.classList.remove("hidden");
     }
-    if (cartButton.classList.contains("hidden"))
-    {
+    if (cartButton.classList.contains("hidden")) {
         cartButton.classList.remove("hidden");
     }
 }
 
-function moveTicketToCart()
-{
+function moveTicketToCart() {
     //console.log("Move ticket to cart");
     const imageContainer = document.getElementById("content-window");
 
@@ -468,8 +430,7 @@ function moveTicketToCart()
     image.src = "img/ticket.png";
     image.classList.add("animated-image");
     // Listen for the image load event
-    image.onload = function ()
-    {
+    image.onload = function () {
         //console.log("image created");
         // Append the image to the imageContainer
         imageContainer.appendChild(image);
@@ -486,22 +447,19 @@ function moveTicketToCart()
         image.style.transform = "translate(-50%, -50%)";
 
         // Make the image disappear after a delay (you can adjust the delay)
-        setTimeout(() =>
-        {
+        setTimeout(() => {
             image.style.display = "none";
             imageContainer.removeChild(image);
         }, 2000); // Change 2000 to the desired delay in milliseconds
     };
 
     // Set up error handling in case the image fails to load
-    image.onerror = function ()
-    {
+    image.onerror = function () {
         console.error("Failed to load the image.");
     };
 }
 
-function initPay()
-{
+function initPay() {
     //console.log("Init payment");
     contentWindow.innerHTML = "";
     generateCheckoutFromLocalStorage();
@@ -509,8 +467,7 @@ function initPay()
 }
 
 // Function to generate a checkout overview
-function generateCheckoutOverview(cartData)
-{
+function generateCheckoutOverview(cartData) {
     const checkoutContainer = contentWindow;
 
     // Clear any previous content
@@ -523,12 +480,10 @@ function generateCheckoutOverview(cartData)
     // Create the table header row
     const tableHeader = document.createElement("tr");
     const headerTitles = ["Typ", "Preis", "Anz.", "Gesamt"];
-    headerTitles.forEach((title) =>
-    {
+    headerTitles.forEach((title) => {
         const th = document.createElement("th");
         th.textContent = title;
-        if (title === "Preis" || title === "Anz." || title === "Gesamt")
-        {
+        if (title === "Preis" || title === "Anz." || title === "Gesamt") {
             th.classList.add("right-align"); // Right-align header cells
         }
         tableHeader.appendChild(th);
@@ -538,10 +493,8 @@ function generateCheckoutOverview(cartData)
     let totalPrice = 0;
 
     // Iterate through the cart data and create rows for each item
-    cartData.forEach((ticket) =>
-    {
-        if (ticket.quantity > 0)
-        {
+    cartData.forEach((ticket) => {
+        if (ticket.quantity > 0) {
             const row = document.createElement("tr");
 
             const titleCell = document.createElement("td");
@@ -617,18 +570,15 @@ function generateCheckoutOverview(cartData)
 }
 
 // Function to retrieve cart from local storage and generate checkout overview
-function generateCheckoutFromLocalStorage()
-{
+function generateCheckoutFromLocalStorage() {
     const cartData = localStorage.getItem("shoppingCart");
-    if (cartData)
-    {
+    if (cartData) {
         const parsedCartData = JSON.parse(cartData);
         generateCheckoutOverview(parsedCartData);
     }
 }
 
-function generateUserDataForm()
-{
+function generateUserDataForm() {
     const userInformationDiv = document.createElement("userInformation");
     userInformationDiv.appendChild(document.createElement("hr"));
 
@@ -719,8 +669,7 @@ function generateUserDataForm()
         { label: "Bitcoin Lightning", value: "btcln" },
     ];
     // Loop through the options and create radio buttons dynamically
-    options.forEach((option) =>
-    {
+    options.forEach((option) => {
         const radioInput = document.createElement("input");
         radioInput.type = "radio";
         radioInput.id = option.value;
@@ -734,16 +683,13 @@ function generateUserDataForm()
         // Append the radio button and label to the container
         userInformationDiv.appendChild(radioInput);
         userInformationDiv.appendChild(label);
-        if (option.value === "vorkasse")
-        {
+        if (option.value === "vorkasse") {
             radioInput.disabled = true;
         }
-        if (option.value === "paypal")
-        {
+        if (option.value === "paypal") {
             radioInput.checked = true;
         }
-        if (option.value === "btcln")
-        {
+        if (option.value === "btcln") {
             radioInput.disabled = true;
         }
         userInformationDiv.appendChild(document.createElement("br"));
@@ -755,8 +701,7 @@ function generateUserDataForm()
     const buyBtn = document.createElement("button");
     buyBtn.textContent = "Zahlungspflichtig kaufen";
     buyBtn.classList.add("dos-button");
-    buyBtn.addEventListener("click", () =>
-    {
+    buyBtn.addEventListener("click", () => {
         //console.log("BUY button clicked");
         initPurchase();
     });
@@ -771,16 +716,14 @@ function generateUserDataForm()
     addInputListenersAndSaveToLocalStorage();
 }
 
-function initPurchase()
-{
+function initPurchase() {
     console.log("Init purchase");
     if (
         !isValidEmail(
             document.getElementById("email").value,
             document.getElementById("email2").value
         )
-    )
-    {
+    ) {
         toggleAlert("Bitte gib eine korrekte Email an.");
         return;
     }
@@ -788,12 +731,10 @@ function initPurchase()
     //console.log(shoppingCart);
     const email = document.getElementById("email").value;
     //console.log("Payment method: " + selectedRadioValue);
-    if (selectedRadioValue === "paypal")
-    {
+    if (selectedRadioValue === "paypal") {
         contentWindow.innerHTML = "";
         initPaypalButtons(shoppingCart, email);
-    } else if (selectedRadioValue === "vorkasse")
-    {
+    } else if (selectedRadioValue === "vorkasse") {
         // console.log("create vvk order initiated");
         console.log(shoppingCart, email);
 
@@ -806,21 +747,17 @@ function initPurchase()
                 cart: [shoppingCart, email],
             }),
         })
-            .then((response) =>
-            {
-                if (!response.ok)
-                {
+            .then((response) => {
+                if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
                 return response.json();
             })
-            .then((data) =>
-            {
+            .then((data) => {
                 // Handle the response from the server if needed
                 console.log("Server response:", data);
             })
-            .catch((error) =>
-            {
+            .catch((error) => {
                 console.error("Error during fetch:", error);
             });
 
@@ -843,8 +780,7 @@ function initPurchase()
 
         document
             .getElementById("copy-order-info-btn")
-            .addEventListener("click", () =>
-            {
+            .addEventListener("click", () => {
                 const orderInfoElement = document.querySelector(".order-info");
                 const textToCopy = orderInfoElement.innerText;
                 const tempTextarea = document.createElement("textarea");
@@ -865,8 +801,7 @@ function initPurchase()
 }
 
 // Function to add event listeners to input fields, save values to local storage, and fill input fields
-function addInputListenersAndSaveToLocalStorage()
-{
+function addInputListenersAndSaveToLocalStorage() {
     localStorage.setItem(
         "selectedRadio",
         localStorage.getItem("selectedRadio") ?? "paypal"
@@ -882,8 +817,7 @@ function addInputListenersAndSaveToLocalStorage()
     const radioInputs = document.querySelectorAll('input[name="options"]');
 
     // Function to fill input fields and select radio from values in local storage
-    function fillInputFieldsFromLocalStorage()
-    {
+    function fillInputFieldsFromLocalStorage() {
         nameInput.value = localStorage.getItem("name") || "";
         surnameInput.value = localStorage.getItem("surname") || "";
         emailInput.value = localStorage.getItem("email") || "";
@@ -895,39 +829,32 @@ function addInputListenersAndSaveToLocalStorage()
         const radioInput = document.querySelector(
             `input[type="radio"][value="${selectedRadioValue}"]`
         );
-        if (radioInput)
-        {
+        if (radioInput) {
             radioInput.checked = true;
         }
     }
 
     // Add event listeners to input fields
-    nameInput.addEventListener("input", () =>
-    {
+    nameInput.addEventListener("input", () => {
         // Save the value to local storage whenever it changes
         localStorage.setItem("name", nameInput.value);
     });
 
-    surnameInput.addEventListener("input", () =>
-    {
+    surnameInput.addEventListener("input", () => {
         localStorage.setItem("surname", surnameInput.value);
     });
 
-    emailInput.addEventListener("input", () =>
-    {
+    emailInput.addEventListener("input", () => {
         localStorage.setItem("email", emailInput.value);
     });
 
-    mobileInput.addEventListener("input", () =>
-    {
+    mobileInput.addEventListener("input", () => {
         localStorage.setItem("mobile", mobileInput.value);
     });
 
     // Add event listeners to radio buttons
-    radioInputs.forEach((radioInput) =>
-    {
-        radioInput.addEventListener("change", () =>
-        {
+    radioInputs.forEach((radioInput) => {
+        radioInput.addEventListener("change", () => {
             // Save the selected radio value to local storage when it changes
             localStorage.setItem("selectedRadio", radioInput.value);
         });
@@ -937,8 +864,7 @@ function addInputListenersAndSaveToLocalStorage()
     fillInputFieldsFromLocalStorage();
 }
 
-function initPaypalButtons(shoppingCart, email)
-{
+function initPaypalButtons(shoppingCart, email) {
     window.paypal
         .Buttons({
             style: {
@@ -947,10 +873,8 @@ function initPaypalButtons(shoppingCart, email)
                 shape: "rect",
                 label: "paypal",
             },
-            async createOrder()
-            {
-                try
-                {
+            async createOrder() {
+                try {
                     const response = await fetch("/api/orders", {
                         method: "POST",
                         headers: {
@@ -965,11 +889,9 @@ function initPaypalButtons(shoppingCart, email)
 
                     const orderData = await response.json();
 
-                    if (orderData.id)
-                    {
+                    if (orderData.id) {
                         return orderData.id;
-                    } else
-                    {
+                    } else {
                         const errorDetail = orderData?.details?.[0];
                         const errorMessage = errorDetail
                             ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
@@ -977,18 +899,15 @@ function initPaypalButtons(shoppingCart, email)
 
                         throw new Error(errorMessage);
                     }
-                } catch (error)
-                {
+                } catch (error) {
                     console.error(error);
                     toggleAlert(
                         `Could not initiate PayPal Checkout...<br><br>${error}`
                     );
                 }
             },
-            async onApprove(data, actions)
-            {
-                try
-                {
+            async onApprove(data, actions) {
+                try {
                     const response = await fetch(
                         `/api/orders/${data.orderID}/capture`,
                         {
@@ -1007,23 +926,19 @@ function initPaypalButtons(shoppingCart, email)
 
                     const errorDetail = orderData?.details?.[0];
 
-                    if (errorDetail?.issue === "INSTRUMENT_DECLINED")
-                    {
+                    if (errorDetail?.issue === "INSTRUMENT_DECLINED") {
                         // (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
 
                         // recoverable state, per https://developer.paypal.com/docs/checkout/standard/customize/handle-funding-failures/
                         return actions.restart();
-                    } else if (errorDetail)
-                    {
+                    } else if (errorDetail) {
                         // (2) Other non-recoverable errors -> Show a failure message
                         throw new Error(
                             `${errorDetail.description} (${orderData.debug_id})`
                         );
-                    } else if (!orderData.purchase_units)
-                    {
+                    } else if (!orderData.purchase_units) {
                         throw new Error(JSON.stringify(orderData));
-                    } else
-                    {
+                    } else {
                         // (3) Successful transaction -> Show confirmation or thank you message
                         // Or go to another URL:  actions.redirect('thank_you.html');
                         const transaction =
@@ -1041,8 +956,7 @@ function initPaypalButtons(shoppingCart, email)
                         //   JSON.stringify(orderData, null, 2),
                         // );
                     }
-                } catch (error)
-                {
+                } catch (error) {
                     console.error(error);
                     toggleAlert(
                         `Sorry, your transaction could not be processed...<br><br>${error}`
@@ -1055,15 +969,12 @@ function initPaypalButtons(shoppingCart, email)
 
 let alertIsActive = false;
 
-export function toggleAlert(text = null)
-{
+export function toggleAlert(text = null) {
     alertIsActive = !alertIsActive;
-    if (alertIsActive)
-    {
+    if (alertIsActive) {
         alertWindow.classList.add("show");
         alertWindow.classList.remove("hidden");
-    } else
-    {
+    } else {
         alertWindow.classList.add("hidden");
         alertWindow.classList.remove("show");
     }
@@ -1072,28 +983,21 @@ export function toggleAlert(text = null)
     //console.log("Alert is now " + (alertIsActive ? "open" : "closed"));
 }
 
-
 // JavaScript to handle the slideshows
 let slideIndex = 0;
 let slideIndexLineup = 0;
 
-function plusSlides(n, type = "bilder")
-{
+function plusSlides(n, type = "bilder") {
     console.log("plusSlides");
-    if (type === "bilder")
-    {
-        showSlides(slideIndex += n);
-    }
-    else
-    {
-        showSlides(slideIndexLineup += n, "lineup");
+    if (type === "bilder") {
+        showSlides((slideIndex += n));
+    } else {
+        showSlides((slideIndexLineup += n), "lineup");
     }
 }
 
-function showSlides(n, type = "bilder")
-{
-    if (type === "bilder")
-    {
+function showSlides(n, type = "bilder") {
+    if (type === "bilder") {
         if (slideIndex < 0) slideIndex = 0;
         if (slideIndex > 11) slideIndex = 11;
         const slide = document.querySelector(".mySlides img");
@@ -1105,8 +1009,7 @@ function showSlides(n, type = "bilder")
         image.src = `img/slider/${slideIndex}.jpg`;
 
         // Once the image is loaded, apply dithering
-        image.onload = function ()
-        {
+        image.onload = function () {
             // Create a canvas
             const canvas = document.createElement("canvas");
             canvas.width = image.width;
@@ -1119,7 +1022,12 @@ function showSlides(n, type = "bilder")
             ctx.drawImage(image, 0, 0);
 
             // Get the image data from the canvas
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const imageData = ctx.getImageData(
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
 
             // Apply dithering to the image data
             const ditheredImageData = ditherImage(imageData, colors);
@@ -1130,9 +1038,7 @@ function showSlides(n, type = "bilder")
             // Set the dithered image as the source of the slide
             slide.src = canvas.toDataURL();
         };
-    }
-    else
-    {
+    } else {
         if (slideIndexLineup < 0) slideIndexLineup = 0;
         if (slideIndexLineup > 3) slideIndexLineup = 3;
         const slide = document.querySelector(".mySlides-lineup img");
@@ -1140,27 +1046,27 @@ function showSlides(n, type = "bilder")
         // Set the source of the Image object
         slide.src = `img/lineupslider/${slideIndexLineup}.jpg`;
     }
-
-
 }
 
-function ditherImage(imageData, colors)
-{
+function ditherImage(imageData, colors) {
     const pixels = imageData.data;
     const width = imageData.width;
     const height = imageData.height;
 
-    for (let y = 0; y < height; y++)
-    {
-        for (let x = 0; x < width; x++)
-        {
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
             const index = (y * width + x) * 4;
 
             // Get the grayscale value
-            const grayscale = pixels[index] * 0.3 + pixels[index + 1] * 0.59 + pixels[index + 2] * 0.11;
+            const grayscale =
+                pixels[index] * 0.3 +
+                pixels[index + 1] * 0.59 +
+                pixels[index + 2] * 0.11;
 
             // Apply dithering to 3 colors
-            const thresholds = colors.map(color => colorThreshold(grayscale, color));
+            const thresholds = colors.map((color) =>
+                colorThreshold(grayscale, color)
+            );
             const minThreshold = Math.min(...thresholds);
             const closestColorIndex = thresholds.indexOf(minThreshold);
             const selectedColor = colors[closestColorIndex];
@@ -1175,8 +1081,7 @@ function ditherImage(imageData, colors)
     return imageData;
 }
 
-function colorThreshold(value, color)
-{
+function colorThreshold(value, color) {
     // Calculate the difference between the grayscale value and the color
     return Math.abs(value - color[0] * 0.3 - color[1] * 0.59 - color[2] * 0.11);
 }
@@ -1185,38 +1090,104 @@ function colorThreshold(value, color)
 const colors = [
     [100, 255, 179],
     [254, 78, 78],
-    [0, 0, 0]
+    [0, 0, 0],
 ];
-const isButtonVisible = localStorage.getItem('admin') === 'sisiSeñor';
+const isButtonVisible = localStorage.getItem("admin") === "sisiSeñor";
 
-async function sendEmail()
-{
-    const orderId = document.getElementById('sendMailOrderId').value;
-    const email = document.getElementById('sendMailEmail').value;
+async function sendEmail() {
+    const orderId = document.getElementById("sendMailOrderId").value;
+    const email = document.getElementById("sendMailEmail").value;
 
     // Validate email format if it is entered
-    if (email)
-    {
+    if (email) {
         // Validate email format (you may want to use a more comprehensive validation)
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email))
-        {
-            toggleAlert('Invalid email address format');
+        if (!emailRegex.test(email)) {
+            toggleAlert("Invalid email address format");
             return;
         }
     }
 
     // Send a request to your server to trigger the sendMail function
-    const response = await fetch(`/send-mail/${orderId}/${email || ''}`, {
-        method: 'POST',
+    const response = await fetch(`/send-mail/${orderId}/${email || ""}`, {
+        method: "POST",
     });
 
-    if (response.ok)
-    {
-        toggleAlert('Email sent successfully!');
-    } else
-    {
-        toggleAlert('Failed to send email. Please check the console for details.');
-        console.error('Error:', response.statusText);
+    if (response.ok) {
+        toggleAlert("Email sent successfully!");
+    } else {
+        toggleAlert(
+            "Failed to send email. Please check the console for details."
+        );
+        console.error("Error:", response.statusText);
+    }
+}
+
+// Function to fetch messages and display them in chronological order
+function displayMessages() {
+    // Fetch data from the server using the fetch API
+    fetch("/messages")
+        .then((response) => response.json())
+        .then((messages) => {
+            // Sort messages by timestamp in ascending order
+            messages.sort(
+                (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
+            );
+
+            // Get the container element
+            const messagesContainer =
+                document.getElementById("consoleContainer");
+
+            // Clear any existing content in the container
+            messagesContainer.innerHTML = "";
+
+            // Loop through the sorted messages and create HTML elements
+            messages.forEach((message) => {
+                // Format the timestamp as yyyy-mm-dd_hh:mm
+                const formattedTimestamp = new Date(message.timestamp)
+                    .toISOString()
+                    .replace("T", "_")
+                    .slice(0, -5);
+
+                const messageElement = document.createElement("div");
+                messageElement.classList.add("message");
+                messageElement.innerHTML = `${formattedTimestamp}//<strong>@${message.name}</strong>: ${message.text}`;
+                messagesContainer.appendChild(messageElement);
+                // Scroll to the end of the div
+                document.getElementById("content-window").scrollTop = document.getElementById("content-window").scrollHeight;
+            });
+        })
+        .catch((error) => console.error("Error fetching messages:", error));
+}
+
+// Function to add a new message
+function addMessage() {
+    const textInput = document.getElementById("console-text");
+    const nameInput = document.getElementById("console-name");
+
+    const text = textInput.value;
+    let name = "anon";
+    if (nameInput !== null || nameInput === "") {
+        name = nameInput.value;
+    }
+
+    // Check if both text and name are provided
+    if (text) {
+        // Send a POST request to the server to add a new message
+        fetch("/addMessage", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ text, name }),
+        })
+            .then((response) => response.json())
+            .then((result) => {
+                console.log("Message added successfully:", result);
+                // You can choose to display a success message or perform additional actions
+            })
+            .catch((error) => console.error("Error adding message:", error));
+    } else {
+        toggleAlert("ERRORCODE 420.");
     }
 }

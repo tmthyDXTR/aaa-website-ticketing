@@ -561,4 +561,17 @@ export const content = {
         <center><button class="dos-button" type="button" id="sendMailButton" onclick="sendEmail()">Send Email</button></center>
     </form>
     `,
+    console: `
+    <h2>Console</h2>
+    <div id="consoleContainer" ></div>
+    <form id="messageForm">
+        <label for="text">Message*:</label>
+        <input type="text" id="console-text" name="text" required style="max-width: 300px;"><br>
+
+        <label for="name">Name:</label>
+        <input type="text" id="console-name" name="name" style="max-width: 300px;">
+        <br>
+        <button type="button" class="dos-button" id="return-btn">RETURN</button>
+    </form>
+    `,
 };
