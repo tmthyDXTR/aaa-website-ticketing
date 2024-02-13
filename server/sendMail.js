@@ -277,7 +277,12 @@ async function generateInvoicePDF(rows, orderId)
     const invoiceHTML = generateInvoiceHTML(rows, orderId);
 
     // Launch a headless browser with Puppeteer
-    const browser = await puppeteer.launch({ args: ['--disable-setuid-sandbox', '--no-sandbox'] });
+    const browser = await puppeteer.launch({ 
+        headless: "new",
+        args: ['--disable-setuid-sandbox', '--no-sandbox'],
+        ignoreDefaultArgs: ['--disable-extensions'], 
+
+    });
     const page = await browser.newPage();
 
     // Set the HTML content

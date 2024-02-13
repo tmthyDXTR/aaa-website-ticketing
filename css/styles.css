@@ -211,6 +211,13 @@ svg path{
     width: 75vw !important;
   }
 }
+/* Media query for small mobile resolutions */
+@media (max-width: 380px) {
+  .content-window  {
+    max-height: 75vh !important;
+  }
+}
+
 .alert {
   display: flex;
   flex-direction: column;

@@ -1039,7 +1039,7 @@ function showSlides(n, type = "bilder") {
         };
     } else {
         if (slideIndexLineup < 0) slideIndexLineup = 0;
-        if (slideIndexLineup > 3) slideIndexLineup = 3;
+        if (slideIndexLineup > 4) slideIndexLineup = 4;
         const slide = document.querySelector(".mySlides-lineup img");
 
         // Set the source of the Image object
@@ -1190,11 +1190,11 @@ function addMessage() {
                 new Date(),
                 "aaa",
                 `<br>
-                Command list:<br>
-                    cmd: /name name<br>
-                        change name<br>
-                    cmd: /msg message<br>
-                        write message<br>
+                # Command list:<br>
+                    _ cmd: /name name<br>
+                        __ change name<br>
+                    _ cmd: /msg message<br>
+                        __ write message<br>
             `
             );
             return;
@@ -1202,7 +1202,16 @@ function addMessage() {
             const msg = text.split(" ").slice(1).join(" ");
             console.log(text, msg);
             const isOnlySpaces = /^ *$/.test(msg);
-            if (msg.length === 0 || isOnlySpaces) return;
+            if (msg.length === 0 || isOnlySpaces) {
+                appendMessage(
+                    new Date(),
+                    "aaa",
+                    `<br>
+                    /msg needs one argument<br>
+                `
+                );
+                return;
+            }
             // Send a POST request to the server to add a new message
             fetch("/addMessage", {
                 method: "POST",
@@ -1220,6 +1229,15 @@ function addMessage() {
                 .catch((error) =>
                     console.error("Error adding message:", error)
                 );
+        } else {
+            appendMessage(
+                new Date(),
+                "aaa",
+                `<br>
+                "${text}" unknown command<br>
+            `
+            );
+            return;
         }
     } else {
         appendMessage(
