@@ -43,7 +43,8 @@ var con = mysql.createConnection({
     database: SQL_DB_NAME,
 });
 
-con.connect(function (err) {
+con.connect(function (err)
+{
     if (err) throw err;
     console.log("SQL Connected!");
     console.log(PAYPAL_CLIENT_ID);
@@ -60,9 +61,12 @@ app.use(express.json());
  * Generate an OAuth 2.0 access token for authenticating with PayPal REST APIs.
  * @see https://developer.paypal.com/api/rest/authentication/
  */
-const generateAccessToken = async () => {
-    try {
-        if (!PAYPAL_CLIENT_ID || !PAYPAL_CLIENT_SECRET) {
+const generateAccessToken = async () =>
+{
+    try
+    {
+        if (!PAYPAL_CLIENT_ID || !PAYPAL_CLIENT_SECRET)
+        {
             throw new Error("MISSING_API_CREDENTIALS");
         }
         const auth = Buffer.from(
@@ -78,12 +82,14 @@ const generateAccessToken = async () => {
 
         const data = await response.json();
         return data.access_token;
-    } catch (error) {
+    } catch (error)
+    {
         console.error("Failed to generate Access Token:", error);
     }
 };
 
-const createVKOrder = async (cart) => {
+const createVKOrder = async (cart) =>
+{
     // use the cart information passed from the front-end to calculate the purchase unit details
     console.log(
         "shopping cart information passed from the frontend createOrder() callback:",
@@ -103,7 +109,8 @@ const createVKOrder = async (cart) => {
  * Create an order to start the transaction.
  * @see https://developer.paypal.com/docs/api/orders/v2/#orders_create
  */
-const createOrder = async (cart) => {
+const createOrder = async (cart) =>
+{
     // use the cart information passed from the front-end to calculate the purchase unit details
     console.log(
         "shopping cart information passed from the frontend createOrder() callback:",
@@ -111,13 +118,16 @@ const createOrder = async (cart) => {
     );
 
     // Calculate the total price for the purchase unit's "amount"
-    const totalAmount = cart[0].reduce((total, item) => {
+    const totalAmount = cart[0].reduce((total, item) =>
+    {
         const itemPrice = parseFloat(item.price);
         const itemQuantity = parseInt(item.quantity, 10);
 
-        if (!isNaN(itemPrice) && !isNaN(itemQuantity)) {
+        if (!isNaN(itemPrice) && !isNaN(itemQuantity))
+        {
             return total + itemPrice * itemQuantity;
-        } else {
+        } else
+        {
             console.warn(`Invalid price or quantity for item: ${item.title}`);
             return total;
         }
@@ -160,7 +170,8 @@ const createOrder = async (cart) => {
  * Capture payment for the created order to complete the transaction.
  * @see https://developer.paypal.com/docs/api/orders/v2/#orders_capture
  */
-const captureOrder = async (orderID) => {
+const captureOrder = async (orderID) =>
+{
     const accessToken = await generateAccessToken();
     const url = `${base}/v2/checkout/orders/${orderID}/capture`;
 
@@ -180,20 +191,24 @@ const captureOrder = async (orderID) => {
     return handleResponse(response);
 };
 
-async function handleResponse(response, cart = null) {
-    try {
+async function handleResponse(response, cart = null)
+{
+    try
+    {
         const jsonResponse = await response.json();
         console.log(JSON.stringify(jsonResponse, null, 2));
-        if (jsonResponse.status === "CREATED") {
+        if (jsonResponse.status === "CREATED")
+        {
             createOrderSQL(jsonResponse, cart);
-        } else if (jsonResponse.status === "COMPLETED") {
+        } else if (jsonResponse.status === "COMPLETED")
+        {
             // Extract relevant data from the response
             const {
                 gross_amount: { value: grossAmount },
                 paypal_fee: { value: paypalFee },
                 net_amount: { value: netAmount },
             } = jsonResponse.purchase_units[0].payments.captures[0]
-                .seller_receivable_breakdown;
+                    .seller_receivable_breakdown;
 
             var sql =
                 "UPDATE aaa_orders SET order_status = '" +
@@ -219,7 +234,8 @@ async function handleResponse(response, cart = null) {
                 "' WHERE paypal_order_id = '" +
                 jsonResponse.id +
                 "'";
-            con.query(sql, function (err, result) {
+            con.query(sql, function (err, result)
+            {
                 if (err) throw err;
                 console.log("Transaction completed: " + jsonResponse.id);
             });
@@ -230,10 +246,13 @@ async function handleResponse(response, cart = null) {
             const updateQuery =
                 "UPDATE aaa_tickets_24 SET ticket_payed = 1 WHERE ticket_paypal_id = ?";
 
-            con.query(updateQuery, [paypalIdToUpdate], (err, results) => {
-                if (err) {
+            con.query(updateQuery, [paypalIdToUpdate], (err, results) =>
+            {
+                if (err)
+                {
                     console.error("Error updating rows:", err);
-                } else {
+                } else
+                {
                     const affectedRows = results.affectedRows;
                     console.log(
                         `Updated ${affectedRows} rows in aaa_tickets_24 where ticket_paypal_id = ${paypalIdToUpdate}`
@@ -244,8 +263,10 @@ async function handleResponse(response, cart = null) {
             // Start generateTicket.js for the corresponding order id
             // Query the database to retrieve rows with the specific ticket_paypal_id
             const query = `SELECT * FROM aaa_tickets_24 WHERE ticket_paypal_id = ?`;
-            con.query(query, [paypalIdToUpdate], (err, results) => {
-                if (err) {
+            con.query(query, [paypalIdToUpdate], (err, results) =>
+            {
+                if (err)
+                {
                     console.error("Error executing query:", err);
                     return;
                 }
@@ -261,26 +282,32 @@ async function handleResponse(response, cart = null) {
             jsonResponse,
             httpStatusCode: response.status,
         };
-    } catch (err) {
+    } catch (err)
+    {
         const errorMessage = await response.text();
         throw new Error(errorMessage);
     }
 }
 
-app.post("/api/orders", async (req, res) => {
-    try {
+app.post("/api/orders", async (req, res) =>
+{
+    try
+    {
         // use the cart information passed from the front-end to calculate the order amount detals
         const { cart } = req.body;
         const { jsonResponse, httpStatusCode } = await createOrder(cart);
         res.status(httpStatusCode).json(jsonResponse);
-    } catch (error) {
+    } catch (error)
+    {
         console.error("Failed to create order:", error);
         res.status(500).json({ error: "Failed to create order." });
     }
 });
 
-app.post("/api/ordersVK", async (req, res) => {
-    try {
+app.post("/api/ordersVK", async (req, res) =>
+{
+    try
+    {
         // use the cart information passed from the front-end to calculate the order amount detals
         const { cart } = req.body;
 
@@ -289,64 +316,98 @@ app.post("/api/ordersVK", async (req, res) => {
         // Send a response back to the client if necessary
         console.log("order id: " + orderId);
         res.json(orderId);
-    } catch (error) {
+    } catch (error)
+    {
         console.error("Failed to create vk order:", error);
         res.status(500).json({ error: "Failed to create vk order." });
     }
 });
 
-app.post("/api/orders/:orderID/capture", async (req, res) => {
-    try {
+app.post("/api/orders/:orderID/capture", async (req, res) =>
+{
+    try
+    {
         const { orderID } = req.params;
         const { jsonResponse, httpStatusCode } = await captureOrder(orderID);
         res.status(httpStatusCode).json(jsonResponse);
-    } catch (error) {
+    } catch (error)
+    {
         console.error("Failed to create order:", error);
         res.status(500).json({ error: "Failed to capture order." });
     }
 });
 
 // Handle the manual email sending route
-app.post("/send-mail/:orderId/:email?", async (req, res) => {
+app.post("/send-mail/:orderId/:email?", async (req, res) =>
+{
     const { orderId, email } = req.params;
 
     // Your existing logic for sending email with orderId and email
-    try {
+    try
+    {
         await sendMail(orderId, email || ""); // Use empty string if email is not provided
         res.status(200).send("Email sent successfully");
-    } catch (error) {
+    } catch (error)
+    {
         console.error("Error sending email:", error);
         res.status(500).send("Failed to send email");
     }
 });
 
 // serve index.html
-app.get("/", (req, res) => {
+app.get("/", (req, res) =>
+{
     res.sendFile(path.resolve("./index.html"));
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, () =>
+{
     console.log(`Node server listening at https://aaa.supacoda:${PORT}`);
 });
 
-async function processTicketsAndSendEmail(results) {
-    try {
+async function processTicketsAndSendEmail(results)
+{
+    try
+    {
         await generateTickets(results);
         await sendMail(results[0].ticket_order_id);
         // Email sent successfully
-    } catch (error) {
+    } catch (error)
+    {
         console.error("Ticket processing error:", error);
     }
 }
+// Route to handle fetching lineup data
+app.get('/lineup', (req, res) =>
+{
+    console.log("get lineup");
+    // Assuming you have a table named 'artists' in your database
+    const query = 'SELECT * FROM aaa_artists_24';
+
+    con.query(query, (error, results) =>
+    {
+        if (error)
+        {
+            console.error(error);
+            res.status(500).send('Error fetching lineup data');
+        } else
+        {
+            res.json(results);
+        }
+    });
+});
 
 // Define a route to fetch messages
-app.get("/messages", (req, res) => {
+app.get("/messages", (req, res) =>
+{
     // SQL query to select all messages from the 'messages' table
     const sql = "SELECT * FROM messages";
 
     // Execute the query
-    con.query(sql, (err, results) => {
-        if (err) {
+    con.query(sql, (err, results) =>
+    {
+        if (err)
+        {
             console.error("Error executing query:", err);
             res.status(500).send("Internal Server Error");
             return;
@@ -358,15 +419,18 @@ app.get("/messages", (req, res) => {
 });
 
 // Endpoint to handle the form submission and add a new message
-app.post("/addMessage", (req, res) => {
+app.post("/addMessage", (req, res) =>
+{
     const { msg, name } = req.body;
 
     // SQL query with placeholders for parameters
     const sql =
         "INSERT INTO messages (text, name, timestamp) VALUES (?, ?, NOW())";
     // Execute the query with parameters
-    con.query(sql, [msg, name], (err, result) => {
-        if (err) {
+    con.query(sql, [msg, name], (err, result) =>
+    {
+        if (err)
+        {
             console.error("Error adding message:", err);
             res.status(500).json({ error: "Internal Server Error" });
             return;

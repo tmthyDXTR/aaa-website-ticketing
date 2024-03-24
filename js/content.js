@@ -1,4 +1,3 @@
-
 export const content = {
     bewirb: `
         <p>Bewirb dich bei uns als Act:
@@ -573,5 +572,18 @@ export const content = {
         <br>
         <button type="button" class="dos-button" id="return-btn">RETURN</button>
     </form>
+    `,
+    artists: `
+    <center><h3>Artists</h3></center>
+    <h2>Seebühne</h2>
+    <ul>
+        <button class="dos-button">The Gluts</button>
+        <button class="dos-button">Bush.ida x Julio Paradise</button>
+    </ul>
+    
+    <h2>Zirkuszelt</h2>
+    <ul>
+    <button class="dos-button">Kopfwehmusik</button>
+    </ul>
     `,
 };

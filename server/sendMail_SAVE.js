@@ -3,9 +3,7 @@ import nodemailer from "nodemailer";
 import mysql from "mysql";
 import "dotenv/config";
 import { queryAsync } from "../js/utils.js";
-import PDFDocument from "pdfkit";
-import { PassThrough } from "stream";
-import { Readable } from "stream";
+import puppeteer from 'puppeteer';
 import fs from "fs";
 import path from "path";
 
@@ -84,40 +82,44 @@ export const sendMail = async (orderId, customEmail = null) =>
         }
 
 
-        generateInvoicePDF(results, orderId).then((pdfBuffer) => {
-            let mailTextInvoice = generateInvoiceHTML(results, orderId); // Generate HTML content of the invoice
-        
+        generateInvoicePDF(results, orderId).then((pdfBuffer) =>
+        {
+            let mailTextInvoice = generateInvoiceHTML(results, orderId);
             // Save PDF to /rechnungen/ directory
             const pdfFileName = `AAA24_Rechnung_${formatInvoiceDate(new Date())}_${orderId}.pdf`;
             const pdfFilePath = path.join('./rechnungen', pdfFileName);
+
             fs.writeFileSync(pdfFilePath, pdfBuffer);
+
             console.log('Invoice PDF saved to:', pdfFilePath);
-        
-            // Attach the PDF buffer to the email
+
+
+            // Use the generated pdfBuffer as needed (e.g., save to a file or send in an email)
             const mailOptionsInvoice = {
                 from: "tickets@agratamagatha.de", // Sender's email address
                 to: recipientMail, // Recipient's email address
                 subject: "AgratAmAgatha Rechnung", // Email subject
-                html: mailTextInvoice, // Email body HTML content
-                // attachments: [
-                //     {
-                //         filename: pdfFileName,
-                //         content: pdfBuffer, // PDF buffer
-                //         contentType: 'application/pdf',
-                //     },
-                // ],
+                html: mailTextInvoice, // Email body text
+                attachments: [
+                    {
+                        filename: 'AAA24_Rechnung' + formatInvoiceDate(new Date()) + '.pdf',
+                        content: pdfBuffer,
+                        encoding: 'base64', // Make sure to include the encoding
+                    },
+                ],
             };
-        
-            transporter.sendMail(mailOptionsInvoice, (error, info) => {
-                if (error) {
+            transporter.sendMail(mailOptionsInvoice, (error, info) =>
+            {
+                if (error)
+                {
                     console.error("Error sending email:", error); // Log any errors
-                } else {
+                } else
+                {
+
                     console.log("Invoice sent:", info.response); // Log the successful email response
                 }
             });
         });
-        
-        
 
         console.log(tickets);
         // Define email data
@@ -162,26 +164,6 @@ export const sendMail = async (orderId, customEmail = null) =>
 
     });
 };
-
-async function generateInvoicePDF(rows, orderId) {
-    return new Promise((resolve, reject) => {
-        const doc = new PDFDocument();
-
-        // Pipe the PDF document to a buffer
-        const buffers = [];
-        doc.on('data', buffers.push.bind(buffers));
-        doc.on('end', () => {
-            const pdfBuffer = Buffer.concat(buffers);
-            resolve(pdfBuffer);
-        });
-
-        // Generate PDF content using pdfkit
-        doc.text(generateInvoiceHTML(rows, orderId));
-
-        // End the document
-        doc.end();
-    });
-}
 
 var ticketMailContent = `Hallo! Hier dein Ticket.
 Wir sehen uns am See!
@@ -290,8 +272,31 @@ function formatInvoiceDate(date)
     return date.toLocaleDateString('de-DE', options);
 }
 
+async function generateInvoicePDF(rows, orderId)
+{
+    const invoiceHTML = generateInvoiceHTML(rows, orderId);
 
+    // Launch a headless browser with Puppeteer
+    const browser = await puppeteer.launch({ 
+        headless: "new",
+        args: ['--disable-setuid-sandbox', '--no-sandbox'],
+        ignoreDefaultArgs: ['--disable-extensions'], 
 
+    });
+    const page = await browser.newPage();
+
+    // Set the HTML content
+    await page.setContent(invoiceHTML);
+
+    // Generate PDF from the HTML content
+    const pdfBuffer = await page.pdf({ format: 'A4' });
+
+    // Close the browser
+    await browser.close();
+
+    // Return the PDF buffer
+    return pdfBuffer;
+}
 
 // If called on command line
 const args = process.argv.slice(2); // Get command-line arguments excluding 'node' and 'your-module.js'

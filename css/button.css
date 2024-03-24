@@ -32,7 +32,17 @@
     opacity: 0.05;
     mix-blend-mode: multiply;
 }
+.dos-button.active {
+    background-color: var(--main-color); /* Change the background color when active */
+    border-color: var(--sec-color); /* Change the border color when active */
+    color: var(--bg-color); /* Change the text color when active */
+}
 
+.timetable .dos-button {
+    font-size: 22px; /* Set the desired font size */
+    white-space: normal; /* Allow text to wrap */
+
+}
 .product-buttons-container {
     display: flex;
     flex-direction: column;
