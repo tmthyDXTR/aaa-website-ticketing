@@ -1,6 +1,9 @@
 import { content } from "./content.js";
 import { tickets } from "./tickets.js";
 import { isValidEmail, calculateTotalPrice } from "./utils.js";
+import { createButton } from "./utils.js";
+import { displayMessages, addMessage } from "./console.js";
+import { initLineup } from "./lineup.js";
 
 let menuIsActive = false;
 let contentWindowIsActive = false;
@@ -687,7 +690,7 @@ function generateUserDataForm() {
         userInformationDiv.appendChild(radioInput);
         userInformationDiv.appendChild(label);
         if (option.value === "vorkasse") {
-            radioInput.disabled = true;
+            // radioInput.disabled = true;
         }
         if (option.value === "paypal") {
             radioInput.checked = true;
@@ -740,7 +743,7 @@ function initPurchase() {
     } else if (selectedRadioValue === "vorkasse") {
         // console.log("create vvk order initiated");
         console.log(shoppingCart, email);
-
+        let vkOrderId = null;
         fetch("/api/ordersVK", {
             method: "POST",
             headers: {
@@ -759,47 +762,49 @@ function initPurchase() {
             .then((data) => {
                 // Handle the response from the server if needed
                 console.log("Server response:", data);
+                vkOrderId = data;
+                const userInformation = document.querySelector(
+                    "div#content-window userinformation"
+                );
+                userInformation.innerHTML = `<hr>
+                    <div class="order-info">
+                        <p>Bestellnummer: ${vkOrderId}<br>
+                        Kontoinhaber: KUR EV<br>
+                        IBAN: DE268290552<br>
+                        EUR: ${calculateTotalPrice(shoppingCart)} €
+                    </div>
+                    <br>
+                    <center><button class="dos-button menu-btn" id="copy-order-info-btn">KOPIEREN</button></center>
+                    <br>
+        
+                    Ticketmail geht an: ${email}
+                `;
+        
+                document
+                    .getElementById("copy-order-info-btn")
+                    .addEventListener("click", () => {
+                        const orderInfoElement = document.querySelector(".order-info");
+                        const textToCopy = orderInfoElement.innerText;
+                        const tempTextarea = document.createElement("textarea");
+                        tempTextarea.value = textToCopy;
+                        document.body.appendChild(tempTextarea);
+                        tempTextarea.select();
+                        tempTextarea.setSelectionRange(0, 99999); // For mobile devices
+                        document.execCommand("copy");
+                        document.body.removeChild(tempTextarea);
+                        // console.log("Content copied to clipboard:", textToCopy);
+                        toggleAlert("Überweisungsdaten kopiert");
+                    });
+        
+                toggleAlert(
+                    "Bitte überweise den angezeigten Betrag und gib die Bestellnummer als Verwendugszweck an.<br>Du erhältst auch eine Email mit deiner Bestellübersicht.<br>Nach Eingang der Zahlung schicken wir dir eine Ticketmail innerhalb 1-3 Nichtarbeitstagen :)"
+                );
             })
             .catch((error) => {
                 console.error("Error during fetch:", error);
             });
 
-        const userInformation = document.querySelector(
-            "div#content-window userinformation"
-        );
-        userInformation.innerHTML = `<hr>
-            <div class="order-info">
-                <p>Bestellnummer: 28953<br>
-                Kontoinhaber: KUR EV<br>
-                IBAN: DE123412354154123<br>
-                EUR: ${calculateTotalPrice(shoppingCart)} €
-            </div>
-            <br>
-            <center><button class="dos-button menu-btn" id="copy-order-info-btn">KOPIEREN</button></center>
-            <br>
 
-            Ticketmail geht an: ${email}
-        `;
-
-        document
-            .getElementById("copy-order-info-btn")
-            .addEventListener("click", () => {
-                const orderInfoElement = document.querySelector(".order-info");
-                const textToCopy = orderInfoElement.innerText;
-                const tempTextarea = document.createElement("textarea");
-                tempTextarea.value = textToCopy;
-                document.body.appendChild(tempTextarea);
-                tempTextarea.select();
-                tempTextarea.setSelectionRange(0, 99999); // For mobile devices
-                document.execCommand("copy");
-                document.body.removeChild(tempTextarea);
-                // console.log("Content copied to clipboard:", textToCopy);
-                toggleAlert("Überweisungsdaten kopiert");
-            });
-
-        toggleAlert(
-            "Bitte überweise den angezeigten Betrag und gib die Bestellnummer mit an.<br>Du erhältst auch eine Email mit deiner Bestellübersicht.<br>Nach Eingang der Zahlung schicken wir dir eine Ticketmail innerhalb 1-3 Nichtarbeitstagen :)"
-        );
     }
 }
 
@@ -1128,416 +1133,5 @@ async function sendEmail() {
     }
 }
 
-// Function to fetch messages and display them in chronological order
-function displayMessages() {
-    // Fetch data from the server using the fetch API
-    fetch("/messages")
-        .then((response) => response.json())
-        .then((messages) => {
-            // Sort messages by timestamp in ascending order
-            messages.sort(
-                (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
-            );
 
-            // Get the container element
-            const messagesContainer =
-                document.getElementById("consoleContainer");
 
-            // Clear any existing content in the container
-            messagesContainer.innerHTML = "";
-
-            // Loop through the sorted messages and create HTML elements
-            messages.forEach((message) => {
-                appendMessage(message.timestamp, message.name, message.text);
-            });
-        })
-        .catch((error) => console.error("Error fetching messages:", error));
-}
-
-function appendMessage(timestamp, name, text) {
-    const messagesContainer = document.getElementById("consoleContainer");
-    const formattedTimestamp = formatTimestamp(timestamp);
-
-    const messageElement = document.createElement("div");
-    messageElement.classList.add("message");
-    messageElement.innerHTML = `${formattedTimestamp}//<strong>@${name}</strong>: ${text}`;
-    messagesContainer.appendChild(messageElement);
-    // Scroll to the end of the div
-    document.getElementById("content-window").scrollTop =
-        document.getElementById("content-window").scrollHeight;
-}
-function formatTimestamp(timestamp) {
-    return new Date(timestamp).toISOString().replace("T", "_").slice(0, -5);
-}
-
-// Function to add a new message
-function addMessage() {
-    const textInput = document.getElementById("console-text");
-    const nameInput = document.getElementById("console-name");
-
-    const text = textInput.value;
-    let name = "anon";
-    if (nameInput !== null || nameInput === "") {
-        name = nameInput.value;
-    }
-
-    // Check if both text and name are provided
-    if (text[0] === "/" || text[0] === "-") {
-        if (
-            text === "/help" ||
-            text === "/h" ||
-            text === "--help" ||
-            text === "-h"
-        ) {
-            // Get the container element
-            const messagesContainer =
-                document.getElementById("consoleContainer");
-            appendMessage(
-                new Date(),
-                "aaa",
-                `<br>
-                # Command list:<br>
-                    _ cmd: /name name<br>
-                        __ change name<br>
-                    _ cmd: /msg message<br>
-                        __ write message<br>
-            `
-            );
-            return;
-        } else if (text.toUpperCase().split(" ")[0] === "/MSG") {
-            const msg = text.split(" ").slice(1).join(" ");
-            console.log(text, msg);
-            const isOnlySpaces = /^ *$/.test(msg);
-            if (msg.length === 0 || isOnlySpaces) {
-                appendMessage(
-                    new Date(),
-                    "aaa",
-                    `<br>
-                    /msg needs one argument<br>
-                `
-                );
-                return;
-            }
-            // Send a POST request to the server to add a new message
-            fetch("/addMessage", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ msg, name }),
-            })
-                .then((response) => response.json())
-                .then((result) => {
-                    console.log("Message added successfully:", result);
-                    displayMessages();
-                    // You can choose to display a success message or perform additional actions
-                })
-                .catch((error) =>
-                    console.error("Error adding message:", error)
-                );
-        } else {
-            appendMessage(
-                new Date(),
-                "aaa",
-                `<br>
-                "${text}" unknown command<br>
-            `
-            );
-            return;
-        }
-    } else {
-        appendMessage(
-            new Date(),
-            "aaa",
-            `<br>
-            "${text}" unknown command<br>
-        `
-        );
-        return;
-
-        // toggleAlert("ERRORCODE 420.");
-    }
-}
-
-function initLineup() {
-    console.log("init lineup");
-    fetch("/lineup")
-        .then((response) => response.json())
-        .then((data) => {
-            contentWindow.innerHTML = "";
-
-            const seebuhneList = document.createElement("div"); // Create a container for Seebühne artists
-            seebuhneList.innerHTML = "<h4>Seebühne</h4>";
-            const zirkuszeltList = document.createElement("div"); // Create a container for Zirkuszelt artists
-            zirkuszeltList.innerHTML = "<h4>Zirkuszelt</h4>";
-
-            data.forEach((artist) => {
-                const artistButton = getArtistButton(artist);
-
-                // Determine which list to append the artist button to
-                if (artist.artists_mainstage === 1) {
-                    seebuhneList.appendChild(artistButton); // Add to Seebühne list
-                } else {
-                    zirkuszeltList.appendChild(artistButton); // Add to Zirkuszelt list
-                }
-            });
-            // Create buttons for toggling between ARTISTS and LINEUP
-            const artistsButton = createButton("ARTISTS", ["active"]);
-            const lineupButton = createButton("LINEUP", ["deactivated"]);
-            lineupButton.disabled = true;
-            const timetableOverview = generateTimetableOverview(data);
-            timetableOverview.classList.add("timetable-container"); // Add a specific classname to the timetable overview
-            const listsContainer = document.createElement("div");
-            listsContainer.classList.add("artists-container"); // Add a specific classname to the lists container
-
-            // Add event listeners to the buttons
-            artistsButton.addEventListener("click", () => {
-                artistsButton.classList.add("active");
-                lineupButton.classList.remove("active");
-                timetableOverview.style.display = "none";
-                listsContainer.style.display = "block";
-            });
-
-            lineupButton.addEventListener("click", () => {
-                lineupButton.classList.add("active");
-                artistsButton.classList.remove("active");
-                listsContainer.style.display = "none";
-                timetableOverview.style.display = "block";
-            });
-
-            // Create a container for the toggle buttons
-            const toggleButtonsContainer = document.createElement("div");
-            toggleButtonsContainer.classList.add("toggle-buttons-container");
-
-            // Append buttons to the toggle buttons container
-            toggleButtonsContainer.appendChild(artistsButton);
-            toggleButtonsContainer.appendChild(lineupButton);
-
-            // Append the toggle buttons container to the contentWindow
-            contentWindow.appendChild(toggleButtonsContainer);
-            // Append timetable to the contentWindow
-            contentWindow.appendChild(timetableOverview);
-
-            // Create a div for the lists
-
-            // Append the lists to the lists container
-            listsContainer.appendChild(seebuhneList);
-            listsContainer.appendChild(zirkuszeltList);
-
-            // Append the lists container to the contentWindow
-            contentWindow.appendChild(listsContainer);
-
-            // Initially display the timetable overview and hide the lists container
-            timetableOverview.style.display = "none";
-            listsContainer.style.display = "block";
-        })
-        .catch((error) => {
-            console.error("Error fetching lineup:", error);
-        });
-}
-
-function getArtistButton(artist) {
-    const artistButton = document.createElement("button");
-    artistButton.className = "dos-button";
-    artistButton.textContent = artist.artists_name;
-
-    artistButton.addEventListener("click", () => {
-        let youtubeLinkHTML = "";
-        if (artist.artists_youtube) {
-            youtubeLinkHTML = `<p><strong>Link:</strong> <a href="${artist.artists_youtube}" target="_blank">Reinhören</a></p>`;
-        }
-
-        const artistInfoHTML = `
-                        <div class="artist-info">
-                            <h2>${artist.artists_name}</h2>
-                            <p><strong>Genre:</strong> ${artist.artists_genre}</p>
-                            <p><strong>Base:</strong> ${artist.artists_from}</p>
-                            ${youtubeLinkHTML}
-                            <p>${artist.artists_info}</p>
-                            <!-- Add more info here as needed -->
-                        </div>
-                    `;
-        toggleAlert(artistInfoHTML);
-    });
-    return artistButton;
-}
-
-function generateToggleButtons() {
-    const toggleButtonsContainer = document.createElement("div");
-
-    // Define button texts
-    const buttonLabels = [
-        "friday",
-        "saturday",
-        "sunday",
-        "seebühne",
-        "zirkuszelt",
-    ];
-
-    // Initialize filter states
-    const activeDayButtons = new Set(buttonLabels.slice(0, 3)); // Add first three buttons (day buttons)
-    const activeStageButtons = new Set(buttonLabels.slice(3)); // Add last two buttons (stage buttons)
-
-    // Create buttons
-    buttonLabels.forEach((label) => {
-        const button = createButton(label, ["active"]);
-        button.addEventListener("click", () => {
-            // Toggle visibility based on button label
-            const isDayButton = ["friday", "saturday", "sunday"].includes(
-                label
-            );
-            const isStageButton = ["seebühne", "zirkuszelt"].includes(label);
-
-            // Toggle active state of the button
-            button.classList.toggle("active");
-
-            // Update filter states based on button type
-            if (isDayButton) {
-                if (button.classList.contains("active")) {
-                    activeDayButtons.add(label.toLowerCase());
-                } else {
-                    activeDayButtons.delete(label.toLowerCase());
-                }
-            }
-
-            if (isStageButton) {
-                if (button.classList.contains("active")) {
-                    activeStageButtons.add(label);
-                } else {
-                    activeStageButtons.delete(label);
-                }
-            }
-
-            // Apply filters
-            const timetableContainers =
-                document.querySelectorAll(".timetable-entry");
-            timetableContainers.forEach((container) => {
-                const isDayMatch =
-                    activeDayButtons.size === 0 ||
-                    activeDayButtons.has(container.dataset.day);
-                const isStageMatch =
-                    activeStageButtons.size === 0 ||
-                    activeStageButtons.has(container.dataset.stage);
-                container.classList.toggle(
-                    "hidden",
-                    !(isDayMatch && isStageMatch)
-                );
-            });
-            console.log("Active Day Buttons:", Array.from(activeDayButtons));
-            console.log(
-                "Active Stage Buttons:",
-                Array.from(activeStageButtons)
-            );
-        });
-        toggleButtonsContainer.appendChild(button);
-    });
-    console.log("Active Day Buttons:", Array.from(activeDayButtons));
-    console.log("Active Stage Buttons:", Array.from(activeStageButtons));
-
-    return toggleButtonsContainer;
-}
-
-function generateTimetableOverview(data) {
-    // Sort the data by stage and then by start time
-    data.sort((a, b) => {
-        // First, compare by stage (mainstage)
-        const stageComparison = b.artists_mainstage - a.artists_mainstage;
-        if (stageComparison !== 0) {
-            return stageComparison;
-        }
-        // If stages are the same, compare by start time
-        return new Date(a.artists_start_time) - new Date(b.artists_start_time);
-    });
-
-    // Initialize an object to store bands by day and stage
-    const bandsByDayAndStage = {
-        Friday: { Seebühne: [], Zirkuszelt: [] },
-        Saturday: { Seebühne: [], Zirkuszelt: [] },
-        Sunday: { Seebühne: [], Zirkuszelt: [] },
-    };
-
-    // Populate the bandsByDayAndStage object
-    data.forEach((artist) => {
-        const day = new Date(artist.artists_start_time).toLocaleDateString(
-            "en-US",
-            { weekday: "long" }
-        );
-        const stage =
-            artist.artists_mainstage === 1 ? "Seebühne" : "Zirkuszelt";
-        bandsByDayAndStage[day][stage].push(artist);
-    });
-
-    // Generate HTML for the timetable overview
-    let timetableContainer = document.createElement("div");
-    timetableContainer.classList.add("timetable");
-    timetableContainer.appendChild(document.createElement("hr"));
-
-    // Generate toggle buttons
-    const toggleButtons = generateToggleButtons();
-
-    for (const day in bandsByDayAndStage) {
-        for (const stage in bandsByDayAndStage[day]) {
-            const stageDayContainer = document.createElement("div");
-            stageDayContainer.classList.add(
-                "timetable-entry",
-                day.toLowerCase(),
-                stage.toLowerCase()
-            );
-
-            // Set dataset attributes for day and stage
-            stageDayContainer.dataset.day = day.toLowerCase();
-            stageDayContainer.dataset.stage = stage.toLowerCase();
-
-            const dayHeader = document.createElement("h4");
-            dayHeader.textContent = `${stage} - ${day}`;
-            stageDayContainer.appendChild(dayHeader);
-            bandsByDayAndStage[day][stage].forEach((band) => {
-                const startTime = new Date(
-                    band.artists_start_time
-                ).toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                });
-                const endTime = new Date(
-                    band.artists_end_time
-                ).toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                });
-                stageDayContainer.appendChild(
-                    createButton(`${startTime}`, ["deactivated"])
-                );
-                const artistButton = getArtistButton(band);
-                stageDayContainer.appendChild(artistButton);
-                stageDayContainer.appendChild(document.createElement("br"));
-            });
-            timetableContainer.appendChild(stageDayContainer);
-            timetableContainer.appendChild(document.createElement("hr"));
-        }
-    }
-
-    // Return the div element containing the timetable HTML and toggle buttons
-    const timetableOverview = document.createElement("div");
-    timetableOverview.appendChild(toggleButtons);
-    timetableOverview.appendChild(timetableContainer);
-    return timetableOverview;
-}
-
-function createButton(buttonText, classNames = []) {
-    // Create a button element
-    const button = document.createElement("button");
-
-    // Set the button text
-    button.textContent = buttonText;
-
-    // Add the default class 'dos-button'
-    button.classList.add("dos-button");
-
-    // Optionally add additional classes from the classNames array
-    if (Array.isArray(classNames)) {
-        classNames.forEach((className) => {
-            button.classList.add(className);
-        });
-    }
-    return button;
-}

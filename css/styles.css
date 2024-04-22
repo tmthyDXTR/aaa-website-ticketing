@@ -56,16 +56,45 @@ body {
 }
 
 .fullscreen-image {
-  background-image: url('../img/landing-img.jpg');
-
-
+  background-image: url('../img/bg-new.jpg');
   position: relative;
-  height: 91vh;
-  background-size: contain;
+  height: 100vh; /* Set height to 100vh to cover the entire viewport */
+  background-size: cover; /* Cover the entire container without stretching the image */
   background-position: center;
   background-repeat: no-repeat;
-  background-color: var(--bg-color); /* Set background color to var(--bg-color) */
+  background-color: var(--bg-color);
+  animation: slide 120s infinite linear; /* Adjust duration as needed */
+}
 
+@keyframes slide {
+  0% {
+    background-position: 0% 50%; /* Start position */
+  }
+  100% {
+    background-position: 100% 50%; /* End position */
+  }
+}
+
+
+/* Style for the hover header image */
+.hover-top-image {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1; /* Ensure it's above other content */
+  min-width: 300px; /* Adjust min-width as needed */
+  max-width: 200px; /* Adjust max-width as needed */
+}
+/* Style for the hover header image */
+.hover-bottom-image {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1; /* Ensure it's above other content */
+  min-width: 128px; /* Adjust min-width as needed */
+  max-width: 200px; /* Adjust max-width as needed */
 }
 
 .tv-container {
@@ -127,7 +156,10 @@ body {
   position: fixed;
   bottom: 4vh;
   width: 100vw;
-  background-color: var(--bg-color);
+  /* background-color: var(--bg-color); */
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px); /* Adjust the blur intensity as needed */
+
   color: var(--main-color);
   padding: 10px;
   text-align: center;
@@ -183,6 +215,8 @@ svg path{
   max-height: 81vh;
   overflow: auto;
   margin: 0 auto;
+  z-index: 1;
+  position: inherit;
 }
 
 .content-window {

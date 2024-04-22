@@ -15,8 +15,11 @@
         <div class="hue-overlay" id="hue-overlay" style="display: none"></div>
         <div class="overlay-alert" id="overlay-alert"></div>
         <div class="grain-overlay"></div>
+        <img src="/img/aaa_header_sz_dith-yellow.png" alt="Hover Image" class="hover-top-image">
+        <img src="/img/aaa_header_date_dith-yellow.png" alt="Hover Image" class="hover-bottom-image">
+
         <div class="fullscreen-image-wrapper">
-            <div class="fullscreen-image">
+            <div class="fullscreen-image" id="current-image">
                 <div id="imageContainer"></div>
 
                 <!-- <div class="tv-container">
@@ -36,6 +39,7 @@
                     <button class="dos-button hidden" id="pay-btn">
                         ZUR KASSE
                     </button>
+                    
                 </div>
 
                 <div class="bottom-bar">
@@ -130,6 +134,13 @@
                     </button>
                 </div>
 
+                <button class="dos-button main-slider-btn" id="main-slider-prev-button">
+                    <
+                </button>
+                <button class="dos-button main-slider-btn" id="main-slider-next-button">
+                    >
+                </button>
+
                 <div class="content-window hidden" id="content-window"></div>
 
                 <div class="alert hidden" id="alert-window">
@@ -146,6 +157,8 @@
             </div>
         </div>
         <script type="module" src="js/custom.js"></script>
+        <script type="module" src="js/main-slider.js"></script>
+
         <!-- LIVE -->
         <script src="https://www.paypal.com/sdk/js?client-id=AasaWyjWpoUbUjKQvBV_L8iITQocAXdLIeHSS_w_PVipWMxd2QtjY0NCoV0N8dyX3SzC59rfnl-XnROs&currency=EUR&disable-funding=card,credit"></script>
         <!-- TEST -->

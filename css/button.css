@@ -72,3 +72,18 @@
     justify-content: center;
 
 }
+
+
+
+.main-slider-btn {
+    top: 40%;
+    position: fixed !important;
+}
+
+#main-slider-prev-button {
+    left: 0;
+}
+
+#main-slider-next-button {
+    right: 0 !important;
+}

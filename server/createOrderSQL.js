@@ -110,7 +110,8 @@ export const createOrderSQL = async (
                 }
             }
         }
-        console.log("Order id createordersql : " + vkId);
-        if (!isPaypalOrder) return vkId;
+        
     });
+    console.log("Order id create order sql : " + vkId);
+    if (!isPaypalOrder) return vkId;
 };

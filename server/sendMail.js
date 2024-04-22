@@ -293,14 +293,14 @@ function formatInvoiceDate(date)
 
 
 
-// If called on command line
-const args = process.argv.slice(2); // Get command-line arguments excluding 'node' and 'your-module.js'
-if (args.length > 0)
-{
-    const id = args[0];
-    const email = args[1];
-    sendMail(id, email);
-} else
-{
-    console.log("sendMail.js start: no parameter given");
-}
+// // If called on command line
+// const args = process.argv.slice(2); // Get command-line arguments excluding 'node' and 'your-module.js'
+// if (args.length > 0)
+// {
+//     const id = args[0];
+//     const email = args[1];
+//     sendMail(id, email);
+// } else
+// {
+//     console.log("sendMail.js start: no parameter given");
+// }

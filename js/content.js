@@ -55,14 +55,17 @@ export const content = {
     `,
     festival: `
         <center><h3>DAS FESTIVAL</h3></center>
+        <img src="../img/festival-1.jpg" alt="Festival Image">
         <p>Das AgratAmAgatha beugt sich nicht jedem Trend und versucht auch nicht, möglichst viel aus allem
         herauszuholen. Die Gratler*innen machen einfach so, wie sie wollen. Eine Wohlfühloase am idyllischen
         St. Agathasee, ein Fluchtort aus der schnelllebigen Welt und dem stressigen Alltag.
         <br><br>
+        <img src="../img/festival-2.jpg" alt="Festival Image">
         Seit 2002 stellt der gemeinnützige KUR e. V. dieses dreitägige Fest der guten Laune auf die Beine.
         Und das nur durch die engagierte Arbeit und Unterstützung ehrenamtlicher Helfer*innen, die sich
         das ganze Jahr über – neben Arbeit, Studium und Schule – Zeit nehmen, das AgratAmAgatha zu organisieren.
         <br><br>
+        <img src="../img/festival-3.jpg" alt="Festival Image">
         Jedes Jahr ist die oberste Prämisse, gerade so wenig Geld einzunehmen, damit es für die Organisation des
         Festivals im nächsten Jahr wieder reicht. Während das AgratAmAgatha im ersten Jahrzehnt jedes Mal wieder
         knapp an der Insolvenz vorbeigeschrammt ist, trat 2011 dann die große Katastrophe ein: Zum großen Jubiläum
@@ -74,6 +77,8 @@ export const content = {
         steht der liebenswerte Haufen Verrückte*r namens KUR in der Blüte seiner Kreativität und denkt sich das
         ganze Jahr über neuen Schabernack für das letzte Juliwochenende aus. Und wieso das überhaupt alles?
         Aus Liebe zur Musik und der Freude am schönen Leben!</p>
+        <img src="../img/festival-4.jpg" alt="Festival Image">
+
     `,
     green: `
         <center><img src="./img/green-camping.jpg" alt="Green Camping"></center>

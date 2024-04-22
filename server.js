@@ -5,8 +5,11 @@ import path from "path";
 import mysql from "mysql";
 import { generateTickets } from "./server/generateTickets.js";
 import { sendMail } from "./server/sendMail.js";
+import { sendMailContent } from "./server/sendMailContent.js";
 import { createOrderSQL } from "./server/createOrderSQL.js";
-import { calculateTotalPrice } from "./js/utils.js";
+import { calculateTotalPrice, generateTicketTableFromCart } from "./js/utils.js";
+import { promises } from "fs";
+
 
 const {
     IS_PRODUCTION,
@@ -56,6 +59,15 @@ app.use(express.static("./"));
 
 // parse post params sent in body in json format
 app.use(express.json());
+
+app.get('/main-slider', async (req, res) => {
+    try {
+        const files = await promises.readdir(`./img/main-slider`);
+        res.status(200).json(files);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 /**
  * Generate an OAuth 2.0 access token for authenticating with PayPal REST APIs.
@@ -315,6 +327,19 @@ app.post("/api/ordersVK", async (req, res) =>
         let orderId = await createVKOrder(cart);
         // Send a response back to the client if necessary
         console.log("order id: " + orderId);
+        let ticketTable = generateTicketTableFromCart(cart[0]);
+        let emailContent = `
+            Hello, vielen Dank für deine Ticketbestellung!<br>
+
+            <p>Bestellnummer: ${orderId}<br>
+            Kontoinhaber: KUR EV<br>
+            IBAN: DE268290552<br>
+            EUR: ${calculateTotalPrice(cart[0])} €<br><br>
+            Bitte überweise den angezeigten Betrag und gib die Bestellnummer als Verwendugszweck an.<br>
+            Nach Eingang der Zahlung schicken wir dir eine Ticketmail innerhalb 1-3 Nichtarbeitstagen ;)<br>
+            ${ticketTable}`;
+
+        sendMailContent(emailContent, cart[1]);
         res.json(orderId);
     } catch (error)
     {
@@ -397,6 +422,7 @@ app.get('/lineup', (req, res) =>
     });
 });
 
+
 // Define a route to fetch messages
 app.get("/messages", (req, res) =>
 {
@@ -440,3 +466,4 @@ app.post("/addMessage", (req, res) =>
         res.json({ success: true });
     });
 });
+
