@@ -255,7 +255,7 @@ function generateInvoiceHTML(rows, orderId)
     <p><strong>Stadt:</strong> 93309 Kelheim</p>
     <p><strong>Vereinsregister:</strong> VR 70566</p>
     <p><strong>Registergericht:</strong> Amtsgericht Regensburg</p>
-    <p><strong>Umsatzsteuer-ID:</strong> DE268290552</p><br>
+    <p><strong>Umsatzsteuer-ID:</strong> DE73 7505 1565 0010 4134 25</p><br>
     <p><strong>Rechnungsdatum:</strong> ${formatInvoiceDate(new Date())}</p>
     <p><strong>Lieferdatum:</strong> ${formatInvoiceDate(new Date())}</p>
     <p><strong>Rechnungsnummer:</strong> ${parseInt(orderId) + 1000}</p>
@@ -292,6 +292,8 @@ function formatInvoiceDate(date)
 
 
 
+
+// commented out because it would be called by setOrderPayed.js
 
 // // If called on command line
 // const args = process.argv.slice(2); // Get command-line arguments excluding 'node' and 'your-module.js'

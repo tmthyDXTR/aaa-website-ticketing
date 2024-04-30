@@ -114,7 +114,7 @@ export const content = {
         <br><br>
         <h3>Umsatzsteuer-ID</h3>
         Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:
-        DE268290552
+        DE73 7505 1565 0010 4134 25
         <br><br>
         <h3>Redaktionell verantwortlich</h3>
         supacoda, Michael Lang, Kopfstattstr. 2, 93309 Kelheim (Webmaster)

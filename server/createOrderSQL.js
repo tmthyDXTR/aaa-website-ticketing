@@ -1,6 +1,7 @@
 import "dotenv/config";
 import mysql from "mysql";
 import { generateOrderId } from "../js/utils.js";
+import { calculateTotalPrice } from "../js/utils.js";
 
 export const createOrderSQL = async (
     jsonResponse = null,
@@ -37,9 +38,15 @@ export const createOrderSQL = async (
         // Generate offline order id VORKASSE
         vkId = generateOrderId(5);
         var sql =
-            "INSERT INTO aaa_orders (paypal_order_id, order_status, order_create_time, order_update_time) VALUES ('" +
+            "INSERT INTO aaa_orders (paypal_order_id, order_status, order_payer_email, order_gross_amount, order_net_amount, order_create_time, order_update_time) VALUES ('" +
             vkId +
             "', 'CREATED', '" +
+            cart[1] +
+            "', '" +
+            calculateTotalPrice(cart[0]) +
+            "', '" +
+            calculateTotalPrice(cart[0]) + 
+            "', '" +
             new Date().toISOString().slice(0, 19).replace("T", " ") +
             "', '" +
             new Date().toISOString().slice(0, 19).replace("T", " ") +

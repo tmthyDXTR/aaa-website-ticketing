@@ -707,6 +707,7 @@ function generateUserDataForm() {
     const buyBtn = document.createElement("button");
     buyBtn.textContent = "Zahlungspflichtig kaufen";
     buyBtn.classList.add("dos-button");
+    buyBtn.setAttribute("id", "buyButton"); // Adding id attribute
     buyBtn.addEventListener("click", () => {
         //console.log("BUY button clicked");
         initPurchase();
@@ -742,6 +743,12 @@ function initPurchase() {
         initPaypalButtons(shoppingCart, email);
     } else if (selectedRadioValue === "vorkasse") {
         // console.log("create vvk order initiated");
+        // deactivate buy button, otherwise some users may order more than x times
+        // because of slow server or shit like that
+        document.getElementById("buyButton").disabled = true;
+        document.getElementById("buyButton").classList.add("deactivated");
+
+
         console.log(shoppingCart, email);
         let vkOrderId = null;
         fetch("/api/ordersVK", {
@@ -769,8 +776,8 @@ function initPurchase() {
                 userInformation.innerHTML = `<hr>
                     <div class="order-info">
                         <p>Bestellnummer: ${vkOrderId}<br>
-                        Kontoinhaber: KUR EV<br>
-                        IBAN: DE268290552<br>
+                        Kontoinhaber: Kultureller Untergrund Riedenburg e.V.<br>
+                        IBAN: DE73 7505 1565 0010 4134 25<br>
                         EUR: ${calculateTotalPrice(shoppingCart)} €
                     </div>
                     <br>

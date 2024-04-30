@@ -29,28 +29,23 @@ async function setOrderPayed(orderId) {
         console.log("Connected to the database.");
 
         const queryUpdate = `UPDATE aaa_orders SET order_status = "COMPLETED", order_update_time=? WHERE order_id = ?`;
-        con.query(queryUpdate, [new Date().toISOString().slice(0, 19).replace("T", " "), orderId], async (err, results) => {
-            if (err) {
-                console.error("Error executing query:", err);
-                return;
-            }
-
-            // Process the results here (results is an array of rows)
-            console.log("Orders with specific order_id:", results);
-
-            // Close the database connection
-            con.end((err) => {
+        con.query(
+            queryUpdate,
+            [new Date().toISOString().slice(0, 19).replace("T", " "), orderId],
+            async (err, results) => {
                 if (err) {
-                    console.error("Error closing database connection:", err);
+                    console.error("Error executing query:", err);
                     return;
                 }
-                console.log("Database connection closed.");
-            });
-        });
+
+                // Process the results here (results is an array of rows)
+                console.log("Orders with specific order_id:", results);
+            }
+        );
 
         // Query the database to update the payed status of the specific orderId
         const query =
-            "UPDATE `aaa_tickets_24` SET `ticket_payed`=1 WHERE ticket_order_id = ?";
+            "UPDATE `aaa_tickets_24` SET `ticket_payed` = 1 WHERE ticket_order_id = ?";
         con.query(query, [orderId], async (err, results) => {
             if (err) {
                 console.error("Error executing query:", err);
@@ -59,15 +54,6 @@ async function setOrderPayed(orderId) {
 
             // Process the results here (results is an array of rows)
             console.log("Tickets with specific order_id:", results);
-
-            // Close the database connection
-            con.end((err) => {
-                if (err) {
-                    console.error("Error closing database connection:", err);
-                    return;
-                }
-                console.log("Database connection closed.");
-            });
         });
 
         const querySelect = `SELECT * FROM aaa_tickets_24 WHERE ticket_order_id = ?`;
@@ -79,7 +65,6 @@ async function setOrderPayed(orderId) {
 
             // Process the results here (results is an array of rows)
             console.log("Rows with specific ticket_paypal_id:", results);
-
 
             // Process ticket generation and sending
             try {
@@ -95,8 +80,6 @@ async function setOrderPayed(orderId) {
         });
     });
 }
-
-
 
 // If called on command line
 // If called on command line
