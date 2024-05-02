@@ -61,6 +61,12 @@
     }
 }
 
+@media (max-height: 700px) {
+    .menu-btn {
+      font-size: 18px; /* Set the desired smaller font size */
+    }
+  }
+
 .deactivated {
     border: 2px solid grey !important;
     color: grey !important;

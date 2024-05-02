@@ -13,6 +13,10 @@ import {
 } from "./js/utils.js";
 import { promises } from "fs";
 
+import multer from 'multer';
+const upload = multer({ dest: 'video-uploads/' });
+
+
 const {
     IS_PRODUCTION,
     PAYPAL_CLIENT_ID_TEST,
@@ -417,4 +421,16 @@ app.post("/addMessage", (req, res) => {
         console.log("Message added successfully");
         res.json({ success: true });
     });
+});
+
+
+app.post('/upload', upload.single('video'), (req, res) => {
+    // Handle file upload
+    const file = req.file;
+    if (!file) {
+        res.status(400).send('No file uploaded.');
+        return;
+    }
+    // Process the file, store in the database, etc.
+    res.send('File uploaded successfully.');
 });

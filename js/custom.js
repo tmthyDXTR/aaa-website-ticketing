@@ -4,6 +4,7 @@ import { isValidEmail, calculateTotalPrice } from "./utils.js";
 import { createButton } from "./utils.js";
 import { displayMessages, addMessage } from "./console.js";
 import { initLineup } from "./lineup.js";
+import { initFeedbackForm } from "./feedback.js";
 
 let menuIsActive = false;
 let contentWindowIsActive = false;
@@ -92,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "archiv-button": content.archiv,
         "admin-button": content.admin,
         "console-button": content.console,
+        "meinung-button": "meinung",
         // Add other buttons as needed
     };
 
@@ -113,6 +115,9 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             if (content === "lineup") {
                 initLineup();
+            }
+            if (buttonId === "meinung-button") {
+                initFeedbackForm();
             }
             if (buttonId === "archiv-button") {
                 console.log("archiv");
