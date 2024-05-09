@@ -19,7 +19,7 @@ export const content = {
         <span class="copy-email" data-email="personal@agratamagatha.de"><u>personal@agratamagatha.de</u></span>
         <br><br>
         Oder/und melde dich an unter:
-        <br><a href="https://helfer.agratamagatha.de" target="_blank">helfer.agratamagatha.de</a>
+        <br><a href="https://crew.agratamagatha.de" target="_blank">crew.agratamagatha.de</a>
         <br><br><br>
         Wir freuen uns darauf dich kennenzulernen! :)
         </p>
@@ -93,6 +93,22 @@ export const content = {
         <br>Setz ein Statement und camp grün!
         
         <br>Party hard, aber mit Herz!</p>
+    `,
+    awareness: `
+    <center><img src="./img/aaa-herz.png" alt="Awareness"></center>
+
+    <p>Auf dem AgratAmAgatha sollen sich alle willkommen und wohl fühlen - 
+    wer Hilfe braucht, kriegt sie, wer sich scheiße verhält, muss gehen.
+    <br><br>
+    Awareness ist für uns das Bewusstsein für ein respektvolles Miteinander.<br>
+    Wir tolerieren kein rassistisches, sexistisches und/oder anderes diskriminierendes Verhalten.<br>
+    Wir respektieren die Grenzen und Empfindungen der anderen.<br>
+    Wir passen aufeinander auf und helfen einander.<br>
+    Wir bewerten niemanden, pfeifen oder rufen niemandem hinterher.<br>
+    Wir wollen friedlich zusammen feiern und lösen Probleme gewaltfrei.<br>
+    Wir belästigen niemanden.<br>
+    Wir respektieren andere und achten darauf, dass alle Beteiligten zustimmen (Stichwort Konsens!), bevor wir etwas tun oder sagen.
+    </p>
     `,
     impressum: `
         <center><h3>IMPRESSUM</h3></center>

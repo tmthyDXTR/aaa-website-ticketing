@@ -61,7 +61,7 @@
     }
 }
 
-@media (max-height: 700px) {
+@media (max-height: 740px) {
     .menu-btn {
       font-size: 18px; /* Set the desired smaller font size */
     }

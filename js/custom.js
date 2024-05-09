@@ -84,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "kur-button": content.kur,
         "festival-button": content.festival,
         "green-button": content.green,
+        "awareness-button": content.awareness,
         "faq-button": content.faq,
         "agb-button": content.agb,
         "impressum-button": content.impressum,
