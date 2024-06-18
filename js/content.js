@@ -14,12 +14,15 @@ export const content = {
     helfer: `
         <p>Du hast Interesse bei uns auf irgend eine Art mitzuhelfen?
         <br>Super!
-        <br>Wende dich mit deinen Fragen direkt an:
         <br>
+        Melde dich an unter:
+        <br><a href="https://crew.agratamagatha.de" target="_blank">crew.agratamagatha.de</a>
+        <br><br>
+        Wende dich mit deinen Fragen direkt an:<br>
+
         <span class="copy-email" data-email="personal@agratamagatha.de"><u>personal@agratamagatha.de</u></span>
         <br><br>
-        Oder/und melde dich an unter:
-        <br><a href="https://crew.agratamagatha.de" target="_blank">crew.agratamagatha.de</a>
+        
         <br><br><br>
         Wir freuen uns darauf dich kennenzulernen! :)
         </p>

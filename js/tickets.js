@@ -26,23 +26,23 @@ export const tickets = {
     },
     fr: {
         title: "Freitag",
-        price: "?",
+        price: 29,
         type: "1TFR",
         description: "Eintrittskarte für die Veranstaltungen am Freitag.",
         quantity: 1,
     },
     sa: {
         title: "Samstag",
-        price: "?",
+        price: 32,
         type: "1TSA",
         description: "Eintrittskarte für die Veranstaltungen am Samstag.",
         quantity: 1,
     },
     fbo: {
         title: "FBO",
-        price: "?",
+        price: 39,
         type: "FBO",
-        description: "10 Bier.",
+        description: "- Future Beer Options - <br>10 Bier vom Fass.",
         quantity: 1,
     },
 };

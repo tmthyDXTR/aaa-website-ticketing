@@ -27,8 +27,7 @@ export function initLineup() {
             });
             // Create buttons for toggling between ARTISTS and LINEUP
             const artistsButton = createButton("ARTISTS", ["active"]);
-            const lineupButton = createButton("LINEUP", ["deactivated"]);
-            lineupButton.disabled = true;
+            const lineupButton = createButton("LINEUP");
             const timetableOverview = generateTimetableOverview(data);
             timetableOverview.classList.add("timetable-container"); // Add a specific classname to the timetable overview
             const listsContainer = document.createElement("div");
@@ -192,7 +191,7 @@ function generateTimetableOverview(data) {
             return stageComparison;
         }
         // If stages are the same, compare by start time
-        return new Date(a.artists_start_time) - new Date(b.artists_start_time);
+        return a.artists_start_id - b.artists_start_id;
     });
 
     // Initialize an object to store bands by day and stage

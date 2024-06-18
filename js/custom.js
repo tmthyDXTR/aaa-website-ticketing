@@ -244,7 +244,21 @@ function initShop() {
         productDiv.classList.add("product");
 
         const img = document.createElement("img");
-        img.src = "img/ticket.png";
+        if (ticket.type === "FBO") {
+            img.src = "img/ticketfbo.png";
+        }
+        else if (ticket.type === "3TMC"){
+            img.src = "img/ticketcamping.png";
+        }
+        else if (ticket.type === "3TOC"){
+            img.src = "img/ticketnocamping.png";
+        }
+        else if (ticket.type === "3TMB"){
+            img.src = "img/ticketbus.png";
+        }
+        else {
+            img.src = "img/ticket.png";
+        }
         img.alt = "Ticket";
 
         const h4 = document.createElement("h4");
@@ -323,16 +337,15 @@ function initShop() {
         // buttonsDiv.appendChild(br);
         const plusMinusDiv = document.createElement("div");
         plusMinusDiv.classList.add("plus-minus-container");
-        if (
-            ticket.type === "1TFR" ||
-            ticket.type === "1TSA" ||
-            ticket.type === "FBO"
-        ) {
-            buttonPlus.classList.add("deactivated");
-            buttonPlus.disabled = true;
-            buttonMinus.classList.add("deactivated");
-            buttonMinus.disabled = true;
-        }
+        // if (
+        //     ticket.type === "1TFR" ||
+        //     ticket.type === "1TSA"
+        // ) {
+        //     buttonPlus.classList.add("deactivated");
+        //     buttonPlus.disabled = true;
+        //     buttonMinus.classList.add("deactivated");
+        //     buttonMinus.disabled = true;
+        // }
         plusMinusDiv.appendChild(buttonPlus);
         plusMinusDiv.appendChild(buttonMinus);
 
