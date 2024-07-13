@@ -16,13 +16,16 @@ export function initLineup() {
             zirkuszeltList.innerHTML = "<h4>Zirkuszelt</h4>";
 
             data.forEach((artist) => {
-                const artistButton = generateArtistButton(artist);
+                console.log(artist);
+                if (artist['artists_show_in_lineup'] === 1) {
+                    const artistButton = generateArtistButton(artist);
 
-                // Determine which list to append the artist button to
-                if (artist.artists_mainstage === 1) {
-                    seebuhneList.appendChild(artistButton); // Add to Seebühne list
-                } else {
-                    zirkuszeltList.appendChild(artistButton); // Add to Zirkuszelt list
+                    // Determine which list to append the artist button to
+                    if (artist.artists_mainstage === 1) {
+                        seebuhneList.appendChild(artistButton); // Add to Seebühne list
+                    } else {
+                        zirkuszeltList.appendChild(artistButton); // Add to Zirkuszelt list
+                    }
                 }
             });
             // Create buttons for toggling between ARTISTS and LINEUP

@@ -610,4 +610,15 @@ export const content = {
     <button class="dos-button">Kopfwehmusik</button>
     </ul>
     `,
+    anreise:`
+    <h2>Grün reisen:</h2> 
+    <p>Reist nicht allein, reduziert die Blechlawine und tut der Umwelt etwas Gutes! Schließt euch zusammen und lernt schon bei der Anreise nette Leute kennen!<br>
+    Unsere Fahrgemeinschafts-Seite kann euch dabei helfen, nette Leute zu finden, mit denen ihr anreisen könnt. Oder habt ihr noch einen Platz frei? Bitte kommuniziert Mitfahrgelegenheiten in unserer WhatsApp-Gruppe und nehmt noch jemand mit: <br>
+    <br><a href="https://chat.whatsapp.com/BzY0f378ktPAbZ5saLXI0T">AAA Whatsapp-Gruppe</a> <br><br>
+    Oder noch besser: Kommt doch einfach ganz entspannt mit den Öffentlichen! Beispielsweise mit dem Zug direkt nach Saal an der Donau und von dort aus weiter mit dem Bus oder dem On-Demand-Bus Kexi. Im Kexi-Bus gilt übrigens das Deutschlandticket! Näheres dazu gibt’s hier:
+    <br><br><a href="https://www.landkreis-kelheim.de/leben-arbeiten/mobilitaet-oepnv/">OPNV</a>    
+    <br><a href="https://kexi.de/">KEXI Nahverkehr</a></p>
+    <br>
+    <center><img src="./img/aaaKarte.png" alt="Anfahrt"></center>
+    `,
 };

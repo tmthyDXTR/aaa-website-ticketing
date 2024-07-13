@@ -90,6 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "impressum-button": content.impressum,
         "tickets-button": "tickets",
         "lineup-button": "lineup",
+        "anreise-button": content.anreise,
         "datenschutz-button": content.datenschutz,
         "archiv-button": content.archiv,
         "admin-button": content.admin,
