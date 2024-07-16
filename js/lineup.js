@@ -14,17 +14,23 @@ export function initLineup() {
             seebuhneList.innerHTML = "<h4>Seebühne</h4>";
             const zirkuszeltList = document.createElement("div"); // Create a container for Zirkuszelt artists
             zirkuszeltList.innerHTML = "<h4>Zirkuszelt</h4>";
+            const greenPavillionList = document.createElement("div"); // Create a container for WORKSHOPS artists
+            greenPavillionList.innerHTML = "<h4>Workshops</h4>";    // greenpavillion ist erstmal workshops ersatz
 
             data.forEach((artist) => {
                 console.log(artist);
                 if (artist['artists_show_in_lineup'] === 1) {
                     const artistButton = generateArtistButton(artist);
+                    
+                    // artists_mainstage 0=zirkuszelt 1=seebühne 2=team green pavillion
 
                     // Determine which list to append the artist button to
                     if (artist.artists_mainstage === 1) {
                         seebuhneList.appendChild(artistButton); // Add to Seebühne list
-                    } else {
+                    } else if (artist.artists_mainstage === 0) {
                         zirkuszeltList.appendChild(artistButton); // Add to Zirkuszelt list
+                    } else if (artist.artists_mainstage === 2) {
+                        greenPavillionList.appendChild(artistButton); // Add to team green pavillion
                     }
                 }
             });
@@ -71,6 +77,7 @@ export function initLineup() {
             // Append the lists to the lists container
             listsContainer.appendChild(seebuhneList);
             listsContainer.appendChild(zirkuszeltList);
+            listsContainer.appendChild(greenPavillionList);
 
             // Append the lists container to the contentWindow
             contentWindow.appendChild(listsContainer);
@@ -120,6 +127,7 @@ function generateToggleButtons() {
         "sunday",
         "seebühne",
         "zirkuszelt",
+        "workshops"
     ];
 
     // Initialize filter states
@@ -134,7 +142,7 @@ function generateToggleButtons() {
             const isDayButton = ["friday", "saturday", "sunday"].includes(
                 label
             );
-            const isStageButton = ["seebühne", "zirkuszelt"].includes(label);
+            const isStageButton = ["seebühne", "zirkuszelt", "workshops"].includes(label);
 
             // Toggle active state of the button
             button.classList.toggle("active");
@@ -199,9 +207,9 @@ function generateTimetableOverview(data) {
 
     // Initialize an object to store bands by day and stage
     const bandsByDayAndStage = {
-        Friday: { Seebühne: [], Zirkuszelt: [] },
-        Saturday: { Seebühne: [], Zirkuszelt: [] },
-        Sunday: { Seebühne: [], Zirkuszelt: [] },
+        Friday: { Seebühne: [], Zirkuszelt: [], Workshops: [] },
+        Saturday: { Seebühne: [], Zirkuszelt: [], Workshops: [] },
+        Sunday: { Seebühne: [], Zirkuszelt: [], Workshops: [] },
     };
 
     // Populate the bandsByDayAndStage object
@@ -211,7 +219,10 @@ function generateTimetableOverview(data) {
             { weekday: "long" }
         );
         const stage =
-            artist.artists_mainstage === 1 ? "Seebühne" : "Zirkuszelt";
+            artist.artists_mainstage === 0 ? "Zirkuszelt" :
+            artist.artists_mainstage === 1 ? "Seebühne" :
+            artist.artists_mainstage === 2 ? "Workshops" :
+            "Unknown Stage"; // This handles any unexpected values
         bandsByDayAndStage[day][stage].push(artist);
     });
 
