@@ -710,7 +710,7 @@ function generateUserDataForm() {
         userInformationDiv.appendChild(radioInput);
         userInformationDiv.appendChild(label);
         if (option.value === "vorkasse") {
-            // radioInput.disabled = true;
+            radioInput.disabled = true;
         }
         if (option.value === "paypal") {
             radioInput.checked = true;

@@ -125,7 +125,7 @@ export const content = {
         Registergericht: Amtsgericht Regensburg
         <br><br>
         Vertreten durch:
-        Matthias Amann und Sebastian Harter.
+        Matthias Amann und Christoph Gergele.
         <br><br>
         <h3>Kontakt</h3>
         Telefon: OI77-I77II57<br>
