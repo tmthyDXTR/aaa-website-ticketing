@@ -45,7 +45,7 @@ async function setOrderPayed(orderId) {
 
         // Query the database to update the payed status of the specific orderId
         const query =
-            "UPDATE `aaa_tickets_24` SET `ticket_payed` = 1 WHERE ticket_order_id = ?";
+            "UPDATE `aaa_tickets_25` SET `ticket_payed` = 1 WHERE ticket_order_id = ?";
         con.query(query, [orderId], async (err, results) => {
             if (err) {
                 console.error("Error executing query:", err);
@@ -56,7 +56,7 @@ async function setOrderPayed(orderId) {
             console.log("Tickets with specific order_id:", results);
         });
 
-        const querySelect = `SELECT * FROM aaa_tickets_24 WHERE ticket_order_id = ?`;
+        const querySelect = `SELECT * FROM aaa_tickets_25 WHERE ticket_order_id = ?`;
         con.query(querySelect, [orderId], async (err, results) => {
             if (err) {
                 console.error("Error executing query:", err);

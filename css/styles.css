@@ -1,8 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=VT323);
 :root {
-  --main-color: #09CE9E;
-  --sec-color: #FF2B5E;
-  --bg-color: black;
+  --main-color: #5bacc7;
+  --sec-color: #b57865;
+  --bg-color: #192b35;
 }
 
 
@@ -79,12 +79,12 @@ body {
 /* Style for the hover header image */
 .hover-top-image {
   position: absolute;
-  top: 20%;
+  top: 33%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1; /* Ensure it's above other content */
-  min-width: 300px; /* Adjust min-width as needed */
-  max-width: 200px; /* Adjust max-width as needed */
+  min-width: 200px; /* Adjust min-width as needed */
+  max-width: 300px; /* Adjust max-width as needed */
 }
 /* Style for the hover header image */
 .hover-bottom-image {

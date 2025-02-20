@@ -47,7 +47,7 @@ export const sendMail = async (orderId, customEmail = null) =>
     });
 
     var recipientMail;
-    const query = `SELECT * FROM aaa_tickets_24 WHERE ticket_order_id = ?`;
+    const query = `SELECT * FROM aaa_tickets_25 WHERE ticket_order_id = ?`;
     con.query(query, [orderId], (err, results) =>
     {
         if (err)
@@ -140,7 +140,7 @@ export const sendMail = async (orderId, customEmail = null) =>
             } else
             {
                 const updateQuery =
-                    "UPDATE aaa_tickets_24 SET ticket_sent_time = ? WHERE ticket_order_id = ?";
+                    "UPDATE aaa_tickets_25 SET ticket_sent_time = ? WHERE ticket_order_id = ?";
                 try
                 {
                     queryAsync(con, updateQuery, [
@@ -246,7 +246,7 @@ function generateInvoiceHTML(rows, orderId)
 </head>
 <body>
   <div class="invoice-header">
-    <h1>AgratAmAgatha 2024 | 26-28 Juli</h1>
+    <h1>AgratAmAgatha 2025 | 25-27 Juli</h1>
     <h2>Rechnung</h2>
   </div>
   <div class="invoice-details">

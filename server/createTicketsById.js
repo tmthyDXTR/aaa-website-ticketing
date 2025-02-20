@@ -29,7 +29,7 @@ con.connect((err) => {
     console.log("Connected to the database.");
 
     // Query the database to retrieve rows with the specific ticket_paypal_id
-    const query = `SELECT * FROM aaa_tickets_24 WHERE ticket_paypal_id = ?`;
+    const query = `SELECT * FROM aaa_tickets_25 WHERE ticket_paypal_id = ?`;
     con.query(query, [orderId], async (err, results) => {
         if (err) {
             console.error("Error executing query:", err);

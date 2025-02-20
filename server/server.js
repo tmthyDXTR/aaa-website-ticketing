@@ -5,8 +5,17 @@ import path from "path";
 import mysql from "mysql";
 import { generateTickets } from "./server/generateTickets.js";
 import { sendMail } from "./server/sendMail.js";
+import { sendMailContent } from "./server/sendMailContent.js";
 import { createOrderSQL } from "./server/createOrderSQL.js";
-import { calculateTotalPrice } from "./js/utils.js";
+import {
+    calculateTotalPrice,
+    generateTicketTableFromCart,
+} from "./js/utils.js";
+import { promises } from "fs";
+
+import multer from 'multer';
+const upload = multer({ dest: 'video-uploads/' });
+
 
 const {
     IS_PRODUCTION,
@@ -55,6 +64,15 @@ app.use(express.static("./"));
 
 // parse post params sent in body in json format
 app.use(express.json());
+
+app.get("/main-slider", async (req, res) => {
+    try {
+        const files = await promises.readdir(`./img/main-slider`);
+        res.status(200).json(files);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 /**
  * Generate an OAuth 2.0 access token for authenticating with PayPal REST APIs.
@@ -228,7 +246,7 @@ async function handleResponse(response, cart = null) {
             const paypalIdToUpdate = jsonResponse.id; // The value to match in the "ticket_paypal_id" column
             // Update the "ticket_payed" column to 1 where "ticket_paypal_id" matches the value
             const updateQuery =
-                "UPDATE aaa_tickets_24 SET ticket_payed = 1 WHERE ticket_paypal_id = ?";
+                "UPDATE aaa_tickets_25 SET ticket_payed = 1 WHERE ticket_paypal_id = ?";
 
             con.query(updateQuery, [paypalIdToUpdate], (err, results) => {
                 if (err) {
@@ -236,14 +254,14 @@ async function handleResponse(response, cart = null) {
                 } else {
                     const affectedRows = results.affectedRows;
                     console.log(
-                        `Updated ${affectedRows} rows in aaa_tickets_24 where ticket_paypal_id = ${paypalIdToUpdate}`
+                        `Updated ${affectedRows} rows in aaa_tickets_25 where ticket_paypal_id = ${paypalIdToUpdate}`
                     );
                 }
             });
 
             // Start generateTicket.js for the corresponding order id
             // Query the database to retrieve rows with the specific ticket_paypal_id
-            const query = `SELECT * FROM aaa_tickets_24 WHERE ticket_paypal_id = ?`;
+            const query = `SELECT * FROM aaa_tickets_25 WHERE ticket_paypal_id = ?`;
             con.query(query, [paypalIdToUpdate], (err, results) => {
                 if (err) {
                     console.error("Error executing query:", err);
@@ -288,6 +306,19 @@ app.post("/api/ordersVK", async (req, res) => {
         let orderId = await createVKOrder(cart);
         // Send a response back to the client if necessary
         console.log("order id: " + orderId);
+        let ticketTable = generateTicketTableFromCart(cart[0]);
+        let emailContent = `
+            Hello, vielen Dank für deine Ticketbestellung!<br>
+
+            <p>Bestellnummer: ${orderId}<br>
+            Kontoinhaber: Kultureller Untergrund Riedenburg e.V.<br>
+            IBAN: DE73 7505 1565 0010 4134 25<br>
+            EUR: ${calculateTotalPrice(cart[0])} €<br><br>
+            Bitte überweise den angezeigten Betrag und gib die Bestellnummer als Verwendugszweck an.<br>
+            Nach Eingang der Zahlung schicken wir dir eine Ticketmail innerhalb 1-3 Nichtarbeitstagen ;)<br>
+            ${ticketTable}`;
+
+        sendMailContent(emailContent, cart[1]);
         res.json(orderId);
     } catch (error) {
         console.error("Failed to create vk order:", error);
@@ -338,8 +369,7 @@ async function processTicketsAndSendEmail(results) {
         console.error("Ticket processing error:", error);
     }
 }
-
-// // Route to handle fetching lineup data
+// Route to handle fetching lineup data
 app.get("/lineup", (req, res) => {
     console.log("get lineup");
     // Assuming you have a table named 'artists' in your database
@@ -354,7 +384,6 @@ app.get("/lineup", (req, res) => {
         }
     });
 });
-
 
 // Define a route to fetch messages
 app.get("/messages", (req, res) => {
@@ -392,4 +421,16 @@ app.post("/addMessage", (req, res) => {
         console.log("Message added successfully");
         res.json({ success: true });
     });
+});
+
+
+app.post('/upload', upload.single('video'), (req, res) => {
+    // Handle file upload
+    const file = req.file;
+    if (!file) {
+        res.status(400).send('No file uploaded.');
+        return;
+    }
+    // Process the file, store in the database, etc.
+    res.send('File uploaded successfully.');
 });

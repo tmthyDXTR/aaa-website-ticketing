@@ -13,8 +13,8 @@ import {
 } from "./js/utils.js";
 import { promises } from "fs";
 
-import multer from 'multer';
-const upload = multer({ dest: 'video-uploads/' });
+// import multer from 'multer';
+// const upload = multer({ dest: 'video-uploads/' });
 
 
 const {
@@ -102,6 +102,8 @@ const generateAccessToken = async () => {
 };
 
 const createVKOrder = async (cart) => {
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}] createVKOrder called with cart:`, cart);
     // use the cart information passed from the front-end to calculate the purchase unit details
     console.log(
         "shopping cart information passed from the frontend createOrder() callback:",
@@ -113,7 +115,7 @@ const createVKOrder = async (cart) => {
     console.log("Total Amount:", totalAmount);
 
     const orderId = await createOrderSQL(null, cart, false);
-    console.log("Order id createVKOrder:", orderId);
+    console.log(`[${timestamp}] Order id createVKOrder:`, orderId);
     return orderId;
 };
 
@@ -122,6 +124,8 @@ const createVKOrder = async (cart) => {
  * @see https://developer.paypal.com/docs/api/orders/v2/#orders_create
  */
 const createOrder = async (cart) => {
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}] createOrder called with cart:`, cart);
     // use the cart information passed from the front-end to calculate the purchase unit details
     console.log(
         "shopping cart information passed from the frontend createOrder() callback:",
@@ -141,7 +145,7 @@ const createOrder = async (cart) => {
         }
     }, 0);
     // Log the total amount for debugging
-    console.log("Total Amount:", totalAmount);
+    console.log(`[${timestamp}] Total Amount:`, totalAmount);
 
     const accessToken = await generateAccessToken();
     const url = `${base}/v2/checkout/orders`;
@@ -246,7 +250,7 @@ async function handleResponse(response, cart = null) {
             const paypalIdToUpdate = jsonResponse.id; // The value to match in the "ticket_paypal_id" column
             // Update the "ticket_payed" column to 1 where "ticket_paypal_id" matches the value
             const updateQuery =
-                "UPDATE aaa_tickets_24 SET ticket_payed = 1 WHERE ticket_paypal_id = ?";
+                "UPDATE aaa_tickets_25 SET ticket_payed = 1 WHERE ticket_paypal_id = ?";
 
             con.query(updateQuery, [paypalIdToUpdate], (err, results) => {
                 if (err) {
@@ -254,14 +258,14 @@ async function handleResponse(response, cart = null) {
                 } else {
                     const affectedRows = results.affectedRows;
                     console.log(
-                        `Updated ${affectedRows} rows in aaa_tickets_24 where ticket_paypal_id = ${paypalIdToUpdate}`
+                        `Updated ${affectedRows} rows in aaa_tickets_25 where ticket_paypal_id = ${paypalIdToUpdate}`
                     );
                 }
             });
 
             // Start generateTicket.js for the corresponding order id
             // Query the database to retrieve rows with the specific ticket_paypal_id
-            const query = `SELECT * FROM aaa_tickets_24 WHERE ticket_paypal_id = ?`;
+            const query = `SELECT * FROM aaa_tickets_25 WHERE ticket_paypal_id = ?`;
             con.query(query, [paypalIdToUpdate], (err, results) => {
                 if (err) {
                     console.error("Error executing query:", err);
@@ -424,13 +428,13 @@ app.post("/addMessage", (req, res) => {
 });
 
 
-app.post('/upload', upload.single('video'), (req, res) => {
-    // Handle file upload
-    const file = req.file;
-    if (!file) {
-        res.status(400).send('No file uploaded.');
-        return;
-    }
-    // Process the file, store in the database, etc.
-    res.send('File uploaded successfully.');
-});
+// app.post('/upload', upload.single('video'), (req, res) => {
+//     // Handle file upload
+//     const file = req.file;
+//     if (!file) {
+//         res.status(400).send('No file uploaded.');
+//         return;
+//     }
+//     // Process the file, store in the database, etc.
+//     res.send('File uploaded successfully.');
+// });

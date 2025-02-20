@@ -71,6 +71,7 @@ document.getElementById("pay-btn").addEventListener("click", () => {
 
 document.addEventListener("DOMContentLoaded", function () {
     initCopyEmails();
+    clearCart();
     getCartFromLocalStorage();
 
     menuBtn.addEventListener("click", () => {
@@ -234,9 +235,15 @@ function toggleContentWindow() {
 
 function initShop() {
     //console.log("Init shop");
+    contentWindow.innerHTML = "";
 
     const shopContainer = document.createElement("div");
     shopContainer.classList.add("shop-container");
+
+    // Create and add the title
+    const title = document.createElement("h2");
+    title.textContent = "Earlybird Phase 1";
+    contentWindow.appendChild(title);
 
     for (const ticketKey in tickets) {
         const ticket = tickets[ticketKey];
@@ -356,7 +363,6 @@ function initShop() {
 
         shopContainer.appendChild(productDiv);
     }
-    contentWindow.innerHTML = "";
     contentWindow.appendChild(shopContainer);
     //console.log(shopContainer);
 }
@@ -427,6 +433,13 @@ function getCartFromLocalStorage() {
         shoppingCart = JSON.parse(cartData);
         updateCartButton();
     }
+}
+
+// Function to clear the cart
+function clearCart() {
+    shoppingCart = [];
+    saveCartToLocalStorage(shoppingCart);
+    updateCartButton();
 }
 
 // Function to update cart button content

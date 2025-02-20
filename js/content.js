@@ -28,7 +28,7 @@ export const content = {
         </p>
     `,
     kur: `
-        <center><img src="./img/kurev.jpg" alt="KUR eV"></center>
+        <center><h3>DER KUR E.V.</h3></center>
         <p>Angefangen hat‘s mit einem kleinen Freundeskreis, der mal was ausprobieren wollte:
         Vor 20 Jahren raufte sich ein Haufen dünnarmiger Abiturient*innen aus dem schönen Altmühltal
         zusammen und stelle ein Abi Open-Air der besonderen Art auf die Beine. Ahnen konnte damals

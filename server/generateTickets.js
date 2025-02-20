@@ -42,7 +42,7 @@ export const generateTickets = async (sqlrows) => {
             async (ticketData, index) => {
                 return new Promise(async (resolve, reject) => {
                     // Load the PNG image
-                    let imageFilePath = "./img/aaa-ticket-blanco.jpg"; // Replace with your input image path
+                    let imageFilePath = "./img/aaa-ticket-blanco.png"; // Replace with your input image path
                     if (ticketData.ticket_type === "FBO") {
                         imageFilePath = "./img/aaa-fbo-blanco.jpg"; // Replace with your input image path
                     }
@@ -93,9 +93,12 @@ export const generateTickets = async (sqlrows) => {
                     }
 
                     // Add content to the PDF
+                    doc.fillColor('white'); // Set text color to white
+                    doc.strokeColor('white'); // Set stroke color to black
+                    doc.lineWidth(1); // Set line width to 1 pixel
                     doc.fontSize(18);
-                    doc.registerFont("PTMono", "./fonts/PTM55F.ttf");
-                    doc.font("PTMono");
+                    doc.registerFont("GeorgiaPro", "./fonts/GeorgiaPro-Regular.ttf");
+                    doc.font("GeorgiaPro");
                     const ticketType = ticketData.ticket_name.toUpperCase();
                     const ticketPrice = `${ticketData.ticket_price} €`;
                     const ticketCode =
@@ -108,18 +111,21 @@ export const generateTickets = async (sqlrows) => {
                         width: 140,
                         align: "left", // Text alignment within the cell: 'left', 'right', 'center', or 'justify'
                         valign: "top", // Vertical alignment within the cell: 'top', 'center', or 'bottom'
+                        stroke: true // Enable stroke
                     });
 
                     doc.text(ticketPrice, 90, 300, {
                         width: 50,
                         align: "right", // Text alignment within the cell: 'left', 'right', 'center', or 'justify'
                         valign: "top", // Vertical alignment within the cell: 'top', 'center', or 'bottom'
+                        stroke: true // Enable stroke
                     });
 
                     doc.text(ticketCode, 15, 343, {
                         width: 140,
                         align: "left", // Text alignment within the cell: 'left', 'right', 'center', or 'justify'
                         valign: "top", // Vertical alignment within the cell: 'top', 'center', or 'bottom'
+                        stroke: true // Enable stroke
                     });
 
                     // Embed the QR code into the PDF
@@ -156,7 +162,7 @@ export const generateTickets = async (sqlrows) => {
 
                 // Update the database using the promisified query method
                 const updateQuery =
-                    "UPDATE aaa_tickets_24 SET ticket_url = ? WHERE ticket_security_code = ?";
+                    "UPDATE aaa_tickets_25 SET ticket_url = ? WHERE ticket_security_code = ?";
                 try {
                     await queryAsync(con, updateQuery, [url, securityCode]);
                     console.log(

@@ -82,8 +82,8 @@ export const createOrderSQL = async (
                     }
                     const ticketSec = generateSecurityCode(6);
                     const holderEmail = cart[1];
-                    // Insert the item into the "aaa_tickets_24" table
-                    const sql = `INSERT INTO aaa_tickets_24 (ticket_order_id, ticket_paypal_id, ticket_type, ticket_security_code, ticket_name, ticket_price, ticket_holder_email, ticket_created_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+                    // Insert the item into the "aaa_tickets_25" table
+                    const sql = `INSERT INTO aaa_tickets_25 (ticket_order_id, ticket_paypal_id, ticket_type, ticket_security_code, ticket_name, ticket_price, ticket_holder_email, ticket_created_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 
                     con.query(
                         sql,
