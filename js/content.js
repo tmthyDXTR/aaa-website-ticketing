@@ -87,7 +87,7 @@ export const content = {
         <center><img src="./img/green-camping.jpg" alt="Green Camping"></center>
 
         <p>Unsere Green-Camping Area bietet Platz für ein entspanntes und müllfreies Zelteln. 
-        Jeder Besucher mit einer gesunden Portion Weitblick ist herzlich dazu eingeladen, sein Zelt in der Green Camping Area aufzuschlagen. 
+        Jede*r Besucher*in mit einer gesunden Portion Weitblick ist herzlich dazu eingeladen, sein Zelt in der Green Camping Area aufzuschlagen. 
         Für manche scheint das Zumüllen der näheren und weiteren Umgebung irgendwie dazuzugehören. 
         Wir finden das immer schon uncool, denn für Spaß und Halli Galli braucht es keine Müllschlacht. 
         <br><br>

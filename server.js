@@ -12,6 +12,12 @@ import {
     generateTicketTableFromCart,
 } from "./js/utils.js";
 import { promises } from "fs";
+import fs from "fs";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // import multer from 'multer';
 // const upload = multer({ dest: 'video-uploads/' });
@@ -376,8 +382,10 @@ async function processTicketsAndSendEmail(results) {
 // Route to handle fetching lineup data
 app.get("/lineup", (req, res) => {
     console.log("get lineup");
-    // Assuming you have a table named 'artists' in your database
-    const query = "SELECT * FROM aaa_artists_24";
+    const year = req.query.year || "24"; // Default to "24" if no year is provided
+    const tableName = `aaa_artists_${year}`;
+
+    const query = `SELECT * FROM ${tableName}`;
 
     con.query(query, (error, results) => {
         if (error) {
@@ -427,6 +435,35 @@ app.post("/addMessage", (req, res) => {
     });
 });
 
+app.get("/api/archiv-images", (req, res) => {
+    const sliderDir = path.join(__dirname, "img", "slider");
+    console.log("Reading from:", sliderDir);
+    fs.readdir(sliderDir, (err, files) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Unable to fetch images" });
+        }
+        const images = files.filter((file) =>
+            file.match(/\.(jpg|jpeg|png|gif)$/i)
+        );
+        res.json(images);
+    });
+});
+
+app.get("/api/lineup-images", (req, res) => {
+    const lineupSliderDir = path.join(__dirname, "img", "lineupslider");
+    console.log("Reading from:", lineupSliderDir);
+    fs.readdir(lineupSliderDir, (err, files) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Unable to fetch images" });
+        }
+        const images = files.filter((file) =>
+            file.match(/\.(jpg|jpeg|png|gif)$/i)
+        );
+        res.json(images);
+    });
+});
 
 // app.post('/upload', upload.single('video'), (req, res) => {
 //     // Handle file upload

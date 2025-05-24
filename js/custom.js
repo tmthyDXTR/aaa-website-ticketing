@@ -69,7 +69,10 @@ document.getElementById("pay-btn").addEventListener("click", () => {
     contentWindowIsActive = true;
 });
 
-document.addEventListener("DOMContentLoaded", function () {
+let sliderFiles = [];
+let lineupFiles = [];
+
+document.addEventListener("DOMContentLoaded", async function () {
     initCopyEmails();
     clearCart();
     getCartFromLocalStorage();
@@ -78,6 +81,37 @@ document.addEventListener("DOMContentLoaded", function () {
         toggleMenu();
         if (contentWindowIsActive) toggleContentWindow();
     });
+
+    // Show popup info on page load
+    toggleAlert(`
+        Liebe Festivalbesucher des schönsten Festivals im Altmühltal – unserem AgratamAgatha, 🌊👙⛱️
+
+die Köpfe der Gratler & Gratlerinnen haben in den letzten Wochen mächtig geraucht – und jetzt ist es offiziell: AgrataSeebühne geht heuer an den Start! 🙌
+
+⏰ Wann: Am 01.08 - zwar nur für einen Tag, aber dafür intensiver denn je – mitten in der schönsten Naturkulisse des Altmühltals. Freut euch auf fette Acts, vertraute Vibes und ein unvergessliches Festivalerlebnis, das euch wieder einmal verzaubern wird. ✨✨✨
+
+Stay tuned – Line-Up steht 🎵 & Infos zu Tickets 🎫 folgen bald!
+
+💋Bussi, euer KUR e.V.`
+    );
+
+    // Show the same festival info when clicking the INFO 2025 button
+    const infoBtn = document.getElementById("info-2025-btn");
+    if (infoBtn) {
+        infoBtn.addEventListener("click", () => {
+            toggleAlert(`
+        Liebe Festivalbesucher des schönsten Festivals im Altmühltal – unserem AgratamAgatha, 🌊👙⛱️
+
+die Köpfe der Gratler & Gratlerinnen haben in den letzten Wochen mächtig geraucht – und jetzt ist es offiziell: AgrataSeebühne geht heuer an den Start! 🙌
+
+⏰ Wann: Am 01.08 - zwar nur für einen Tag, aber dafür intensiver denn je – mitten in der schönsten Naturkulisse des Altmühltals. Freut euch auf fette Acts, vertraute Vibes und ein unvergessliches Festivalerlebnis, das euch wieder einmal verzaubern wird. ✨✨✨
+
+Stay tuned – Line-Up steht 🎵 & Infos zu Tickets 🎫 folgen bald!
+
+💋Bussi, euer KUR e.V.`
+            );
+        });
+    }
 
     const buttonMappings = {
         "bewirb-button": content.bewirb,
@@ -90,13 +124,15 @@ document.addEventListener("DOMContentLoaded", function () {
         "agb-button": content.agb,
         "impressum-button": content.impressum,
         "tickets-button": "tickets",
-        "lineup-button": "lineup",
+        "lineup2024-button": "lineup2024",
         "anreise-button": content.anreise,
         "datenschutz-button": content.datenschutz,
         "archiv-button": content.archiv,
         "admin-button": content.admin,
         "console-button": content.console,
         "meinung-button": "meinung",
+        "lineup2025-button": "lineup2025",
+        "shirt-contest-btn": "",
         // Add other buttons as needed
     };
 
@@ -106,6 +142,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function handleButtonClick(buttonId) {
         return () => {
             console.log(buttonId);
+            // open shirt contest PDF
+            if (buttonId === "shirt-contest-btn") {
+                window.open("/downloads/shirt-contest.pdf", "_blank");
+                return;
+            }
             toggleMenu();
             toggleContentWindow();
             const content = buttonMappings[buttonId];
@@ -116,39 +157,23 @@ document.addEventListener("DOMContentLoaded", function () {
             if (content === "tickets") {
                 initShop();
             }
-            if (content === "lineup") {
-                initLineup();
+            if (content === "lineup2024") {
+                initLineup("24");
+            }
+            if (content === "lineup2025") {
+                initLineup("25");
             }
             if (buttonId === "meinung-button") {
                 initFeedbackForm();
             }
             if (buttonId === "archiv-button") {
                 console.log("archiv");
-                showSlides(slideIndex);
-                // Assign click event for "prev" button
-                const prevButton = document.querySelector(".prev");
-                prevButton.onclick = function () {
-                    plusSlides(-1);
-                };
-
-                // Assign click event for "next" button
-                const nextButton = document.querySelector(".next");
-                nextButton.onclick = function () {
-                    plusSlides(1);
-                };
-
-                showSlides(slideIndexLineup, "lineup");
-                // Assign click event for "prev" button
-                const prevButtonLineup = document.querySelector(".prev-lineup");
-                prevButtonLineup.onclick = function () {
-                    plusSlides(-1, "lineup");
-                };
-
-                // Assign click event for "next" button
-                const nextButtonLineup = document.querySelector(".next-lineup");
-                nextButtonLineup.onclick = function () {
-                    plusSlides(1, "lineup");
-                };
+                contentWindow.innerHTML = `
+                <div id="archiv-slider-container"></div>
+                <div id="lineup-slider-container"></div>
+            `;
+                initArchivSlider();
+                initLineupSlider();
             }
             if (buttonId === "admin-button") {
                 const sendMailButton =
@@ -241,9 +266,9 @@ function initShop() {
     shopContainer.classList.add("shop-container");
 
     // Create and add the title
-    const title = document.createElement("h2");
-    title.textContent = "Earlybird Phase 1";
-    contentWindow.appendChild(title);
+    // const title = document.createElement("h2");
+    // title.textContent = "TICKETS";
+    // contentWindow.appendChild(title);
 
     for (const ticketKey in tickets) {
         const ticket = tickets[ticketKey];
@@ -254,17 +279,13 @@ function initShop() {
         const img = document.createElement("img");
         if (ticket.type === "FBO") {
             img.src = "img/ticketfbo.png";
-        }
-        else if (ticket.type === "3TMC"){
+        } else if (ticket.type === "3TMC") {
             img.src = "img/ticketcamping.png";
-        }
-        else if (ticket.type === "3TOC"){
+        } else if (ticket.type === "3TOC") {
             img.src = "img/ticketnocamping.png";
-        }
-        else if (ticket.type === "3TMB"){
+        } else if (ticket.type === "3TMB") {
             img.src = "img/ticketbus.png";
-        }
-        else {
+        } else {
             img.src = "img/ticket.png";
         }
         img.alt = "Ticket";
@@ -781,7 +802,6 @@ function initPurchase() {
         document.getElementById("buyButton").disabled = true;
         document.getElementById("buyButton").classList.add("deactivated");
 
-
         console.log(shoppingCart, email);
         let vkOrderId = null;
         fetch("/api/ordersVK", {
@@ -819,11 +839,12 @@ function initPurchase() {
         
                     Ticketmail geht an: ${email}
                 `;
-        
+
                 document
                     .getElementById("copy-order-info-btn")
                     .addEventListener("click", () => {
-                        const orderInfoElement = document.querySelector(".order-info");
+                        const orderInfoElement =
+                            document.querySelector(".order-info");
                         const textToCopy = orderInfoElement.innerText;
                         const tempTextarea = document.createElement("textarea");
                         tempTextarea.value = textToCopy;
@@ -835,7 +856,7 @@ function initPurchase() {
                         // console.log("Content copied to clipboard:", textToCopy);
                         toggleAlert("Überweisungsdaten kopiert");
                     });
-        
+
                 toggleAlert(
                     "Bitte überweise den angezeigten Betrag und gib die Bestellnummer als Verwendugszweck an.<br>Du erhältst auch eine Email mit deiner Bestellübersicht.<br>Nach Eingang der Zahlung schicken wir dir eine Ticketmail innerhalb 1-3 Nichtarbeitstagen :)"
                 );
@@ -843,8 +864,6 @@ function initPurchase() {
             .catch((error) => {
                 console.error("Error during fetch:", error);
             });
-
-
     }
 }
 
@@ -1033,71 +1052,7 @@ export function toggleAlert(text = null) {
     if (text) alertContent.innerHTML = text;
 }
 
-// JavaScript to handle the slideshows
-let slideIndex = 0;
-let slideIndexLineup = 0;
-
-function plusSlides(n, type = "bilder") {
-    console.log("plusSlides");
-    if (type === "bilder") {
-        showSlides((slideIndex += n));
-    } else {
-        showSlides((slideIndexLineup += n), "lineup");
-    }
-}
-
-function showSlides(n, type = "bilder") {
-    if (type === "bilder") {
-        if (slideIndex < 0) slideIndex = 0;
-        if (slideIndex > 19) slideIndex = 19;
-        const slide = document.querySelector(".mySlides img");
-
-        // Create an Image object
-        const image = new Image();
-
-        // Set the source of the Image object
-        image.src = `img/slider/${slideIndex}.jpg`;
-
-        // Once the image is loaded, apply dithering
-        image.onload = function () {
-            // Create a canvas
-            const canvas = document.createElement("canvas");
-            canvas.width = image.width;
-            canvas.height = image.height;
-
-            // Get the 2D context of the canvas
-            const ctx = canvas.getContext("2d");
-
-            // Draw the image onto the canvas
-            ctx.drawImage(image, 0, 0);
-
-            // Get the image data from the canvas
-            const imageData = ctx.getImageData(
-                0,
-                0,
-                canvas.width,
-                canvas.height
-            );
-
-            // Apply dithering to the image data
-            const ditheredImageData = ditherImage(imageData, colors);
-
-            // Put the dithered image data back onto the canvas
-            ctx.putImageData(ditheredImageData, 0, 0);
-
-            // Set the dithered image as the source of the slide
-            slide.src = canvas.toDataURL();
-        };
-    } else {
-        if (slideIndexLineup < 0) slideIndexLineup = 0;
-        if (slideIndexLineup > 4) slideIndexLineup = 4;
-        const slide = document.querySelector(".mySlides-lineup img");
-
-        // Set the source of the Image object
-        slide.src = `img/lineupslider/${slideIndexLineup}.jpg`;
-    }
-}
-
+// used 2024 dithering artstyle for archiv image slideshow
 function ditherImage(imageData, colors) {
     const pixels = imageData.data;
     const width = imageData.width;
@@ -1136,12 +1091,24 @@ function colorThreshold(value, color) {
     return Math.abs(value - color[0] * 0.3 - color[1] * 0.59 - color[2] * 0.11);
 }
 
-// Define your 3 colors in RGB format
-const colors = [
-    [100, 255, 179],
-    [254, 78, 78],
-    [0, 0, 0],
-];
+// Convert CSS variables to RGB format
+function hexToRgb(hex) {
+    const bigint = parseInt(hex.slice(1), 16);
+    return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255];
+}
+
+const mainColor = getComputedStyle(document.documentElement)
+    .getPropertyValue("--main-color")
+    .trim();
+const secColor = getComputedStyle(document.documentElement)
+    .getPropertyValue("--sec-color")
+    .trim();
+const bgColor = getComputedStyle(document.documentElement)
+    .getPropertyValue("--bg-color")
+    .trim();
+
+const colors = [hexToRgb(mainColor), hexToRgb(secColor), hexToRgb(bgColor)];
+
 const isButtonVisible = localStorage.getItem("admin") === "sisiSeñor";
 
 async function sendEmail() {
@@ -1173,5 +1140,124 @@ async function sendEmail() {
     }
 }
 
+let archivImages = [];
+let currentArchivIndex = 0;
 
+async function initArchivSlider() {
+    try {
+        const response = await fetch("/api/archiv-images");
+        archivImages = await response.json();
+        if (archivImages.length > 0) {
+            showArchivImage(0);
+        }
+    } catch (error) {
+        console.error("Error fetching archiv images:", error);
+    }
+}
 
+function showArchivImage(index) {
+    currentArchivIndex = index;
+    const imageUrl = "img/slider/" + archivImages[index];
+    const img = new Image();
+    img.src = imageUrl;
+    img.onload = function () {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const ditheredImageData = ditherImage(imageData, colors);
+        ctx.putImageData(ditheredImageData, 0, 0);
+        const ditheredImageUrl = canvas.toDataURL();
+
+        const archivSliderHtml = `
+            <div id="archiv-slider" style="position: relative; height: 50vh;">
+                <img src="${ditheredImageUrl}" alt="Archiv Image" id="archiv-image" style="width:auto;height:40vh; object-fit: contain;" />
+                <div style="position: absolute; bottom: 0; width: 100%; text-align: center;">
+                    <button class="dos-button" onclick="prevArchivImage()"><</button>
+                    <button class="dos-button" onclick="nextArchivImage()">></button>
+                </div>
+            </div>
+        `;
+        document.getElementById("archiv-slider-container").innerHTML =
+            archivSliderHtml;
+    };
+}
+
+window.prevArchivImage = function () {
+    if (archivImages.length > 0) {
+        currentArchivIndex =
+            (currentArchivIndex - 1 + archivImages.length) %
+            archivImages.length;
+        showArchivImage(currentArchivIndex);
+    }
+};
+
+window.nextArchivImage = function () {
+    if (archivImages.length > 0) {
+        currentArchivIndex = (currentArchivIndex + 1) % archivImages.length;
+        showArchivImage(currentArchivIndex);
+    }
+};
+
+let lineupImages = [];
+let currentLineupIndex = 0;
+
+async function initLineupSlider() {
+    try {
+        const response = await fetch("/api/lineup-images");
+        lineupImages = await response.json();
+        if (lineupImages.length > 0) {
+            showLineupImage(0);
+        }
+    } catch (error) {
+        console.error("Error fetching lineup images:", error);
+    }
+}
+
+function showLineupImage(index) {
+    currentLineupIndex = index;
+    const imageUrl = "img/lineupslider/" + lineupImages[index];
+    const img = new Image();
+    img.src = imageUrl;
+    img.onload = function () {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const ditheredImageData = ditherImage(imageData, colors);
+        ctx.putImageData(ditheredImageData, 0, 0);
+        const ditheredImageUrl = canvas.toDataURL();
+
+        const lineupSliderHtml = `
+            <div id="lineup-slider" style="position: relative; height: 50vh;">
+                <img src="${ditheredImageUrl}" alt="Lineup Image" id="lineup-image" style="width:auto;height:40vh; object-fit: contain;" />
+                <div style="position: absolute; bottom: 0; width: 100%; text-align: center;">
+                    <button class="dos-button" onclick="prevLineupImage()"><</button>
+                    <button class="dos-button" onclick="nextLineupImage()">></button>
+                </div>
+            </div>
+        `;
+        document.getElementById("lineup-slider-container").innerHTML =
+            lineupSliderHtml;
+    };
+}
+
+window.prevLineupImage = function () {
+    if (lineupImages.length > 0) {
+        currentLineupIndex =
+            (currentLineupIndex - 1 + lineupImages.length) %
+            lineupImages.length;
+        showLineupImage(currentLineupIndex);
+    }
+};
+
+window.nextLineupImage = function () {
+    if (lineupImages.length > 0) {
+        currentLineupIndex = (currentLineupIndex + 1) % lineupImages.length;
+        showLineupImage(currentLineupIndex);
+    }
+};

@@ -1,19 +1,42 @@
 @import url(https://fonts.googleapis.com/css?family=VT323);
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;700&display=swap');
 
 .dos-button {
-    display: inline-block;
+    display: inline-flex; /* Use inline-flex to allow flexbox properties */
+    justify-content: center; /* Center the text horizontally */
+    align-items: center; /* Center the text vertically */
     padding: 6px 14px;
     background-color: var(--bg-color);
     border: 2px solid var(--main-color);
-	font-family: 'VT323', monospace ;
-    font-size: 30px;
-    color: var(--main-color);
+    font-family: var(--font-family);
+    font-size: 24px;
+    color: var(--main-color); /* Ensure the text color is set */
     text-align: center;
     text-transform: uppercase;
     cursor: pointer;
     position: relative;
     overflow: hidden;
-  }
+    animation: glow 2s infinite alternate;
+}
+
+.dos-button span {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    color: inherit; /* Ensure the text color is inherited */
+}
+
+.dos-button span::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -200%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
+    animation: metallic-reflection 5s infinite linear;
+    pointer-events: none; /* Ensure the pseudo-element doesn't interfere with interactions */
+}
 
 .dos-button:hover {
     color: var(--sec-color); /* Change the text color on hover */
@@ -32,6 +55,7 @@
     opacity: 0.05;
     mix-blend-mode: multiply;
 }
+
 .dos-button.active {
     background-color: var(--main-color); /* Change the background color when active */
     border-color: var(--sec-color); /* Change the border color when active */
@@ -41,8 +65,8 @@
 .timetable .dos-button {
     font-size: 22px; /* Set the desired font size */
     white-space: normal; /* Allow text to wrap */
-
 }
+
 .product-buttons-container {
     display: flex;
     flex-direction: column;
@@ -65,7 +89,7 @@
     .menu-btn {
       font-size: 18px; /* Set the desired smaller font size */
     }
-  }
+}
 
 .deactivated {
     border: 2px solid grey !important;
@@ -76,10 +100,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
-
-
 
 .main-slider-btn {
     top: 40%;

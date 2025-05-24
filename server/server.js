@@ -372,8 +372,10 @@ async function processTicketsAndSendEmail(results) {
 // Route to handle fetching lineup data
 app.get("/lineup", (req, res) => {
     console.log("get lineup");
-    // Assuming you have a table named 'artists' in your database
-    const query = "SELECT * FROM aaa_artists_24";
+    const year = req.query.year || "24"; // Default to "24" if no year is provided
+    const tableName = `aaa_artists_${year}`;
+
+    const query = `SELECT * FROM ${tableName}`;
 
     con.query(query, (error, results) => {
         if (error) {

@@ -1,15 +1,19 @@
 @import url(https://fonts.googleapis.com/css?family=VT323);
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;700&display=swap');
+
 :root {
   --main-color: #5bacc7;
   --sec-color: #b57865;
   --bg-color: #192b35;
+  --font-family: 'Chivo Mono', serif;
+  --content-font-size: 16px;
+  --glow-size: 1px; /* Adjust this value to change the glow size */
 }
-
 
 body {
   margin: 0;
   padding: 0;
-	font-family: 'VT323', monospace ;
+  font-family: var(--font-family);
   background-color: #f0f0f0;
 }
 
@@ -225,8 +229,8 @@ svg path{
   padding: 4px;
   background-color: var(--bg-color);
   border: 2px solid var(--main-color);
-  font-family: 'VT323', monospace;
-  font-size: 24px;
+  font-family: var(--font-family);
+  font-size: var(--content-font-size);
   color: var(--main-color);
   text-align: left;
   position: relative;
@@ -237,6 +241,7 @@ svg path{
   z-index: 1;
   touch-action: pan-y;
   margin: 0 auto;
+  animation: glow 2s infinite alternate;
 }
 
 /* Media query for desktop resolutions */
@@ -264,21 +269,22 @@ svg path{
   padding: 4px;
   background-color: var(--bg-color);
   border: 2px solid var(--main-color);
-  font-family: 'VT323', monospace;
-  font-size: 24px;
+  font-family: var(--font-family);
+  font-size: var(--content-font-size);
   color: var(--main-color);
   position: fixed; /* Use fixed positioning for consistent placement */
   top: 50%; /* Place the top of the alert at the vertical center of the viewport */
   left: 50%; /* Place the left side of the alert at the horizontal center of the viewport */
   transform: translate(-50%, -50%); /* Adjust for the alert's width and height */
-  width: 70vw;
+  width: 80vw;
   max-height: 90vh; /* Limit the height to 80% of the viewport height */
   overflow: auto;
   text-align: center;
   /* Custom Scrollbar Styles */
-  scrollbar-color: var(--main-color) var(--bg-color); /* thumb color, track color */
+  scrollbar-color: var(--main-color) var (--bg-color); /* thumb color, track color */
   z-index: 99; /* Increase the z-index to place the content above other elements */
   touch-action: pan-y; /* Enable vertical scrolling with touch interactions */
+  animation: glow 2s infinite alternate;
 }
 
 .overlay-alert {
@@ -326,7 +332,7 @@ svg path{
 .copy-email:hover,
 .copy-email:focus {
    /* Add underline on hover/focus if desired */
-  color: var(--sec-color); /* Change color on hover/focus if desired */
+  color: var (--sec-color); /* Change color on hover/focus if desired */
 }
 
 a {
@@ -375,7 +381,7 @@ input {
   border-color: var(--main-color);
   border-width: 2px !important;
   color: var(--sec-color);
-  font-family: 'VT323', monospace ;
+  font-family: var(--font-family);
   font-size: 30px;
   text-transform: uppercase;
   width: 80%;
@@ -451,3 +457,30 @@ input:focus {
 .timeTable {
   align-items: center;
 }
+
+.site-title, .site-subtitle, .content-window, .alert, input {
+  font-family: var(--font-family);
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 calc(var(--glow-size) / 2) #fff, 0 0 var(--glow-size) #fff, 0 0 calc(var(--glow-size) * 1.5) #fff, 0 0 calc(var(--glow-size) * 2) #0ff, 0 0 calc(var(--glow-size) * 2.5) #0ff, 0 0 calc(var(--glow-size) * 3) #0ff, 0 0 calc(var(--glow-size) * 3.5) #0ff, 0 0 calc(var(--glow-size) * 4) #0ff;
+  }
+  25% {
+    box-shadow: 0 0 calc(var(--glow-size) * 1) #fff, 0 0 calc(var(--glow-size) * 1.5) #fff, 0 0 calc(var(--glow-size) * 2) #fff, 0 0 calc(var(--glow-size) * 2.5) #0ff, 0 0 calc(var(--glow-size) * 3) #0ff, 0 0 calc(var(--glow-size) * 3.5) #0ff, 0 0 calc(var(--glow-size) * 4) #0ff, 0 0 calc(var(--glow-size) * 4.5) #0ff;
+  }
+  50% {
+    box-shadow: 0 0 calc(var(--glow-size) * 2) #fff, 0 0 calc(var(--glow-size) * 3) #fff, 0 0 calc(var(--glow-size) * 4) #fff, 0 0 calc(var(--glow-size) * 5) #0ff, 0 0 calc(var(--glow-size) * 6) #0ff, 0 0 calc(var(--glow-size) * 7) #0ff, 0 0 calc(var(--glow-size) * 8) #0ff, 0 0 calc(var(--glow-size) * 9) #0ff;
+  }
+  75% {
+    box-shadow: 0 0 calc(var(--glow-size) * 1) #fff, 0 0 calc(var(--glow-size) * 1.5) #fff, 0 0 calc(var(--glow-size) * 2) #fff, 0 0 calc(var(--glow-size) * 2.5) #0ff, 0 0 calc(var(--glow-size) * 3) #0ff, 0 0 calc(var(--glow-size) * 3.5) #0ff, 0 0 calc(var(--glow-size) * 4) #0ff, 0 0 calc(var(--glow-size) * 4.5) #0ff;
+  }
+  100% {
+    box-shadow: 0 0 calc(var(--glow-size) / 2) #fff, 0 0 var(--glow-size) #fff, 0 0 calc(var(--glow-size) * 1.5) #fff, 0 0 calc(var(--glow-size) * 2) #0ff, 0 0 calc(var(--glow-size) * 2.5) #0ff, 0 0 calc(var(--glow-size) * 3) #0ff, 0 0 calc(var(--glow-size) * 3.5) #0ff, 0 0 calc(var(--glow-size) * 4) #0ff;
+  }
+}
+
+.glowing-effect {
+    animation: glow 2s infinite alternate;
+}
+

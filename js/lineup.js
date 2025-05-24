@@ -3,9 +3,9 @@ import { toggleAlert } from "./custom.js";
 
 const contentWindow = document.getElementById("content-window");
 
-export function initLineup() {
+export function initLineup(year = "24") {
     console.log("init lineup");
-    fetch("/lineup")
+    fetch(`/lineup?year=${year}`)
         .then((response) => response.json())
         .then((data) => {
             contentWindow.innerHTML = "";
@@ -18,7 +18,7 @@ export function initLineup() {
             greenPavillionList.innerHTML = "<h4>Workshops</h4>";    // greenpavillion ist erstmal workshops ersatz
 
             data.forEach((artist) => {
-                console.log(artist);
+                // console.log(artist);
                 if (artist['artists_show_in_lineup'] === 1) {
                     const artistButton = generateArtistButton(artist);
                     
@@ -56,6 +56,7 @@ export function initLineup() {
                 listsContainer.style.display = "none";
                 timetableOverview.style.display = "block";
             });
+            lineupButton.style.display = "none";
 
             // Create a container for the toggle buttons
             const toggleButtonsContainer = document.createElement("div");
@@ -76,6 +77,15 @@ export function initLineup() {
 
             // Append the lists to the lists container
             listsContainer.appendChild(seebuhneList);
+            if (year === "25") {
+                // only show Seebühne for 2025 artists
+                zirkuszeltList.style.display = "none";
+                greenPavillionList.style.display = "none";
+            } else {
+                // show all stages for 2024 artists
+                zirkuszeltList.style.display = "block";
+                greenPavillionList.style.display = "block";
+            }
             listsContainer.appendChild(zirkuszeltList);
             listsContainer.appendChild(greenPavillionList);
 
@@ -89,6 +99,8 @@ export function initLineup() {
         .catch((error) => {
             console.error("Error fetching lineup:", error);
         });
+
+        
 }
 
 function generateArtistButton(artist) {
@@ -98,12 +110,18 @@ function generateArtistButton(artist) {
 
     artistButton.addEventListener("click", () => {
         let youtubeLinkHTML = "";
+        // Include artist image if available
+        const imgHTML = artist.artists_img
+            ? `<img src="${artist.artists_img}" alt="${artist.artists_name}" class="artist-img" style="max-width:100%;height:auto;margin-bottom:1em;"/>`
+            : "";
+
         if (artist.artists_youtube) {
             youtubeLinkHTML = `<p><strong>Link:</strong> <a href="${artist.artists_youtube}" target="_blank">Reinhören</a></p>`;
         }
 
         const artistInfoHTML = `
                         <div class="artist-info">
+                            ${imgHTML}
                             <h2 style="text-transform: uppercase;">${artist.artists_name}</h2>
                             <p><strong>Genre:</strong> ${artist.artists_genre}</p>
                             <p><strong>Base:</strong> ${artist.artists_from}</p>
@@ -123,11 +141,11 @@ function generateToggleButtons() {
     // Define button texts
     const buttonLabels = [
         "friday",
-        "saturday",
-        "sunday",
-        "seebühne",
-        "zirkuszelt",
-        "workshops"
+        // "saturday",
+        // "sunday",
+        // "seebühne",
+        // "zirkuszelt",
+        // "workshops"
     ];
 
     // Initialize filter states
@@ -179,16 +197,16 @@ function generateToggleButtons() {
                     !(isDayMatch && isStageMatch)
                 );
             });
-            console.log("Active Day Buttons:", Array.from(activeDayButtons));
-            console.log(
-                "Active Stage Buttons:",
-                Array.from(activeStageButtons)
-            );
+            // console.log("Active Day Buttons:", Array.from(activeDayButtons));
+            // console.log(
+            //     "Active Stage Buttons:",
+            //     Array.from(activeStageButtons)
+            // );
         });
         toggleButtonsContainer.appendChild(button);
     });
-    console.log("Active Day Buttons:", Array.from(activeDayButtons));
-    console.log("Active Stage Buttons:", Array.from(activeStageButtons));
+    // console.lo("Active Day Buttons:", Array.from(activeDayButtons));
+    // console.lo("Active Stage Buttons:", Array.from(activeStageButtons));
 
     return toggleButtonsContainer;
 }
