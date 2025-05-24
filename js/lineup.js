@@ -112,7 +112,7 @@ function generateArtistButton(artist) {
         let youtubeLinkHTML = "";
         // Include artist image if available
         const imgHTML = artist.artists_img
-            ? `<img src="${artist.artists_img}" alt="${artist.artists_name}" class="artist-img" style="max-width:100%;height:auto;margin-bottom:1em;"/>`
+            ? `<img src="${artist.artists_img}" alt="${artist.artists_name}" class="artist-img" style="max-width:256px;height:auto;margin-bottom:1em;"/>`
             : "";
 
         if (artist.artists_youtube) {
