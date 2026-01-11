@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (contentWindowIsActive) toggleContentWindow();
     });
 
+<<<<<<< HEAD
     // // Show popup info on page load
     // toggleAlert(`
     //     <strong>🎵 AgrataSeebühne 2025 🎵</strong><br><br>
@@ -104,14 +105,41 @@ document.addEventListener("DOMContentLoaded", async function () {
         
     //     💋Bussi, euer KUR e.V.`
     // );
+=======
+    // Show popup info on page load
+    toggleAlert(`
+        Liebe Festivalbesucher des schönsten Festivals im Altmühltal – unserem AgratamAgatha, 🌊👙⛱️
+
+die Köpfe der Gratler & Gratlerinnen haben in den letzten Wochen mächtig geraucht – und jetzt ist es offiziell: AgrataSeebühne geht heuer an den Start! 🙌
+
+⏰ Wann: Am 01.08 - zwar nur für einen Tag, aber dafür intensiver denn je – mitten in der schönsten Naturkulisse des Altmühltals. Freut euch auf fette Acts, vertraute Vibes und ein unvergessliches Festivalerlebnis, das euch wieder einmal verzaubern wird. ✨✨✨
+
+Stay tuned – Line-Up steht 🎵 & Infos zu Tickets 🎫 folgen bald!
+
+💋Bussi, euer KUR e.V.`
+    );
+>>>>>>> c3fb85deaec14ed7e2621c07c4e3d5e91474b516
 
     // Show the same festival info when clicking the INFO 2025 button
     const infoBtn = document.getElementById("info-2025-btn");
     if (infoBtn) {
         infoBtn.addEventListener("click", () => {
             toggleAlert(`
+<<<<<<< HEAD
             <strong>Brainstorming für 2026</strong><br><br>
             <img src="https://i.pinimg.com/originals/27/70/d2/2770d2c9422714bba5bc24651c77a2e9.gif" alt="brain loading" style="width:100%;height:auto;"><br><br>`);
+=======
+        Liebe Festivalbesucher des schönsten Festivals im Altmühltal – unserem AgratamAgatha, 🌊👙⛱️
+
+die Köpfe der Gratler & Gratlerinnen haben in den letzten Wochen mächtig geraucht – und jetzt ist es offiziell: AgrataSeebühne geht heuer an den Start! 🙌
+
+⏰ Wann: Am 01.08 - zwar nur für einen Tag, aber dafür intensiver denn je – mitten in der schönsten Naturkulisse des Altmühltals. Freut euch auf fette Acts, vertraute Vibes und ein unvergessliches Festivalerlebnis, das euch wieder einmal verzaubern wird. ✨✨✨
+
+Stay tuned – Line-Up steht 🎵 & Infos zu Tickets 🎫 folgen bald!
+
+💋Bussi, euer KUR e.V.`
+            );
+>>>>>>> c3fb85deaec14ed7e2621c07c4e3d5e91474b516
         });
     }
 

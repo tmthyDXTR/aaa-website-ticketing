@@ -15,7 +15,14 @@ export const content = {
         <p>Du hast Interesse bei uns auf irgend eine Art mitzuhelfen?
         <br>Super!
         <br>
+<<<<<<< HEAD
         Melde dich direkt bei uns:
+=======
+        Melde dich an unter:
+        <br><a href="https://crew.agratamagatha.de" target="_blank">crew.agratamagatha.de</a>
+        <br><br>
+        Wende dich mit deinen Fragen direkt an:<br>
+>>>>>>> c3fb85deaec14ed7e2621c07c4e3d5e91474b516
 
         <span class="copy-email" data-email="personal@agratamagatha.de"><u>personal@agratamagatha.de</u></span>
         <br><br>
@@ -472,7 +479,11 @@ export const content = {
     <p><span style="font-weight: 400;">Sie k&ouml;nnen Ihren Browser so einstellen, dass Sie &uuml;ber das Setzen von Cookies informiert werden und Cookies nur im Einzelfall erlauben, die Annahme von Cookies f&uuml;r bestimmte F&auml;lle oder generell ausschlie&szlig;en sowie das automatische L&ouml;schen der Cookies beim Schlie&szlig;en des Browsers aktivieren. Bei der Deaktivierung von Cookies kann die Funktionalit&auml;t dieser Website eingeschr&auml;nkt sein.&nbsp;</span></p>
     <p><span style="font-weight: 400;">Soweit Cookies von Drittunternehmen oder zu Analysezwecken eingesetzt werden, werden wir Sie hier&uuml;ber im Rahmen dieser Datenschutzerkl&auml;rung gesondert informieren und ggf. eine Einwilligung abfragen.&nbsp;</span></p>
     <p><strong>Einwilligung mit ConsentManager&nbsp;</strong></p>
+<<<<<<< HEAD
     <p><span style="font-weight: 400;">Unsere Website nutzt die Consent-Technologie von ConsentManager, um Ihre Einwilligung zur Speicherung bestimmter Cookies auf Ihrem Endger&auml;t oder zum Einsatz bestimmter Technologien einzuholen und diese datenschutzkonform zu dokumentieren. Anbieter dieser Technologie ist die Jaohawi AB, H&ltegelv&auml;gen 1b, 72348 V&auml;ster&aring;s, Schweden, Website:&nbsp;</span></p>
+=======
+    <p><span style="font-weight: 400;">Unsere Website nutzt die Consent-Technologie von ConsentManager, um Ihre Einwilligung zur Speicherung bestimmter Cookies auf Ihrem Endger&auml;t oder zum Einsatz bestimmter Technologien einzuholen und diese datenschutzkonform zu dokumentieren. Anbieter dieser Technologie ist die Jaohawi AB, H&aring;ltegelv&auml;gen 1b, 72348 V&auml;ster&aring;s, Schweden, Website:&nbsp;</span></p>
+>>>>>>> c3fb85deaec14ed7e2621c07c4e3d5e91474b516
     <p><span style="font-weight: 400;">https://www.consentmanager.de </span><span style="font-weight: 400;">(im Folgenden &bdquo;ConsentManager&ldquo;).&nbsp;</span></p>
     <p><span style="font-weight: 400;">Wenn Sie unsere Website betreten, wird eine Verbindung zu den Servern von ConsentManager hergestellt, um Ihre Einwilligungen und sonstigen Erkl&auml;rungen zur Cookie-Nutzung einzuholen. Anschlie&szlig;end speichert ConsentManager ein Cookie in Ihrem Browser, um Ihnen die erteilten Einwilligungen bzw. deren Widerruf&nbsp;</span></p>
     <p><span style="font-weight: 400;">&nbsp;</span><span style="font-weight: 400;">8 / 16</span></p>
@@ -531,7 +542,11 @@ export const content = {
     <p><span style="font-weight: 400;">Die Daten&uuml;bertragung in die USA wird auf die Standardvertragsklauseln der EU-Kommission gest&uuml;tzt. Details finden Sie hier:&nbsp;</span></p>
     <p><span style="font-weight: 400;">https://www.paypal.com/de/webapps/mpp/ua/pocpsa-full</span><span style="font-weight: 400;">.&nbsp;</span></p>
     <p><span style="font-weight: 400;">Details entnehmen Sie der Datenschutzerkl&auml;rung von PayPal:&nbsp;</span></p>
+<<<<<<< HEAD
     <p><span style="font-weight: 400;">https://www.paypal.com/de/webapps/mpp/ua/privacy-full</span><span style="font-weight: 400;">. </span></p>
+=======
+    <p><span style="font-weight: 400;">https://www.paypal.com/de/webapps/mpp/ua/privacy-full</span><span style="font-weight: 400;">.&nbsp;</span></p>
+>>>>>>> c3fb85deaec14ed7e2621c07c4e3d5e91474b516
     <p><span style="font-weight: 400;">&nbsp;</span><span style="font-weight: 400;">13 / 16</span><span style="font-weight: 400;"><br /></span></p>
     <p>&nbsp;</p>
     <p><strong>Sofort&uuml;berweisung&nbsp;</strong></p>
@@ -608,6 +623,7 @@ export const content = {
     </ul>
     `,
     anreise:`
+<<<<<<< HEAD
     <h2>Anreise nach Riedenburg</h2>
     
     <center><img src="./img/rid-bild-2.jpg" alt="Anfahrt"></center>
@@ -653,5 +669,16 @@ export const content = {
     Unsere Fahrgemeinschafts-Seite kann euch dabei helfen, nette Leute zu finden, mit denen ihr anreisen könnt. Oder habt ihr noch einen Platz frei? Bitte kommuniziert Mitfahrgelegenheiten in unserer WhatsApp-Gruppe und nehmt noch jemand mit: <br>
     <br><a href="https://chat.whatsapp.com/BzY0f378ktPAbZ5saLXI0T">AAA Whatsapp-Gruppe</a> <br><br>
     <center><img src="./img/rid-bild-1.png" alt="Anfahrt"></center>
+=======
+    <h2>Grün reisen:</h2> 
+    <p>Reist nicht allein, reduziert die Blechlawine und tut der Umwelt etwas Gutes! Schließt euch zusammen und lernt schon bei der Anreise nette Leute kennen!<br>
+    Unsere Fahrgemeinschafts-Seite kann euch dabei helfen, nette Leute zu finden, mit denen ihr anreisen könnt. Oder habt ihr noch einen Platz frei? Bitte kommuniziert Mitfahrgelegenheiten in unserer WhatsApp-Gruppe und nehmt noch jemand mit: <br>
+    <br><a href="https://chat.whatsapp.com/BzY0f378ktPAbZ5saLXI0T">AAA Whatsapp-Gruppe</a> <br><br>
+    Oder noch besser: Kommt doch einfach ganz entspannt mit den Öffentlichen! Beispielsweise mit dem Zug direkt nach Saal an der Donau und von dort aus weiter mit dem Bus oder dem On-Demand-Bus Kexi. Im Kexi-Bus gilt übrigens das Deutschlandticket! Näheres dazu gibt’s hier:
+    <br><br><a href="https://www.landkreis-kelheim.de/leben-arbeiten/mobilitaet-oepnv/">OPNV</a>    
+    <br><a href="https://kexi.de/">KEXI Nahverkehr</a></p>
+    <br>
+    <center><img src="./img/aaaKarte.png" alt="Anfahrt"></center>
+>>>>>>> c3fb85deaec14ed7e2621c07c4e3d5e91474b516
     `,
 };

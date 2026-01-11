@@ -1,0 +1,6 @@
+.env
+/node_modules/
+/tickets/*
+/rechnungen/*
+/video-uploads/
+log.log
