@@ -1,0 +1,199 @@
+App 2868912 output: Try to establish SQL connection
+App 2868912 output: Node server listening at https://aaa.supacoda:8080
+App 2868912 output: SQL Connected!
+App 2868912 output: AasaWyjWpoUbUjKQvBV_L8iITQocAXdLIeHSS_w_PVipWMxd2QtjY0NCoV0N8dyX3SzC59rfnl-XnROs
+App 2868912 output: EJl1DGrPcR47UWzGQsXd1rOCBm5KE4Qcy5ZNbn_cnTXvoaXlScICbOvlxuwMh_HvN3kFnKRZvuW3BYf9
+App 2888882 output: Try to establish SQL connection
+App 2888882 output: Node server listening at https://aaa.supacoda:8080
+App 2888882 output: SQL Connected!
+App 2888882 output: AasaWyjWpoUbUjKQvBV_L8iITQocAXdLIeHSS_w_PVipWMxd2QtjY0NCoV0N8dyX3SzC59rfnl-XnROs
+App 2888882 output: EJl1DGrPcR47UWzGQsXd1rOCBm5KE4Qcy5ZNbn_cnTXvoaXlScICbOvlxuwMh_HvN3kFnKRZvuW3BYf9
+App 2888882 output: shopping cart information passed from the frontend createOrder() callback: [
+App 2888882 output:   [
+App 2888882 output:     {
+App 2888882 output:       title: '3 Tage mit Bus',
+App 2888882 output:       type: '3TMB',
+App 2888882 output:       price: 69,
+App 2888882 output:       description: 'Ticket für 3 Festivaltage mit Buscampingparzelle (ca. 6*6 m) inklusive 15 € Müllpfand und 5 € Campinggebühr. Gegen Abgabe eines vollen Müllsacks bekommst du den Müllpfand zurück.',
+App 2888882 output:       quantity: 1
+App 2888882 output:     }
+App 2888882 output:   ],
+App 2888882 output:   'langmi89@gmail.com'
+App 2888882 output: ]
+App 2888882 output: Total Amount: 69
+App 2888882 output: {
+App 2888882 output:   "id": "16K48231KS468090S",
+App 2888882 output:   "status": "CREATED",
+App 2888882 output:   "links": [
+App 2888882 output:     {
+App 2888882 output:       "href": "https://api.paypal.com/v2/checkout/orders/16K48231KS468090S",
+App 2888882 output:       "rel": "self",
+App 2888882 output:       "method": "GET"
+App 2888882 output:     },
+App 2888882 output:     {
+App 2888882 output:       "href": "https://www.paypal.com/checkoutnow?token=16K48231KS468090S",
+App 2888882 output:       "rel": "approve",
+App 2888882 output:       "method": "GET"
+App 2888882 output:     },
+App 2888882 output:     {
+App 2888882 output:       "href": "https://api.paypal.com/v2/checkout/orders/16K48231KS468090S",
+App 2888882 output:       "rel": "update",
+App 2888882 output:       "method": "PATCH"
+App 2888882 output:     },
+App 2888882 output:     {
+App 2888882 output:       "href": "https://api.paypal.com/v2/checkout/orders/16K48231KS468090S/capture",
+App 2888882 output:       "rel": "capture",
+App 2888882 output:       "method": "POST"
+App 2888882 output:     }
+App 2888882 output:   ]
+App 2888882 output: }
+App 2888882 output: Order id create order sql : null
+App 2888882 output: Connected!
+App 2888882 output: Paypal Transaction created: 16K48231KS468090S
+App 2888882 output: Item inserted successfully: 3 Tage mit Bus: J22V9C
+App 2888882 output: shopping cart information passed from the frontend createOrder() callback: [
+App 2888882 output:   [
+App 2888882 output:     {
+App 2888882 output:       title: '3 Tage mit Bus',
+App 2888882 output:       type: '3TMB',
+App 2888882 output:       price: 69,
+App 2888882 output:       description: 'Ticket für 3 Festivaltage mit Buscampingparzelle (ca. 6*6 m) inklusive 15 € Müllpfand und 5 € Campinggebühr. Gegen Abgabe eines vollen Müllsacks bekommst du den Müllpfand zurück.',
+App 2888882 output:       quantity: 1
+App 2888882 output:     }
+App 2888882 output:   ],
+App 2888882 output:   'langmi89@gmail.com'
+App 2888882 output: ]
+App 2888882 output: Total Amount: 69
+App 2888882 output: {
+App 2888882 output:   "id": "1S895942GC7563815",
+App 2888882 output:   "status": "CREATED",
+App 2888882 output:   "links": [
+App 2888882 output:     {
+App 2888882 output:       "href": "https://api.paypal.com/v2/checkout/orders/1S895942GC7563815",
+App 2888882 output:       "rel": "self",
+App 2888882 output:       "method": "GET"
+App 2888882 output:     },
+App 2888882 output:     {
+App 2888882 output:       "href": "https://www.paypal.com/checkoutnow?token=1S895942GC7563815",
+App 2888882 output:       "rel": "approve",
+App 2888882 output:       "method": "GET"
+App 2888882 output:     },
+App 2888882 output:     {
+App 2888882 output:       "href": "https://api.paypal.com/v2/checkout/orders/1S895942GC7563815",
+App 2888882 output:       "rel": "update",
+App 2888882 output:       "method": "PATCH"
+App 2888882 output:     },
+App 2888882 output:     {
+App 2888882 output:       "href": "https://api.paypal.com/v2/checkout/orders/1S895942GC7563815/capture",
+App 2888882 output:       "rel": "capture",
+App 2888882 output:       "method": "POST"
+App 2888882 output:     }
+App 2888882 output:   ]
+App 2888882 output: }
+App 2888882 output: Order id create order sql : null
+App 2888882 output: Connected!
+App 2888882 output: Paypal Transaction created: 1S895942GC7563815
+App 2888882 output: Item inserted successfully: 3 Tage mit Bus: 4F9T2C
+App 2888882 output: shopping cart information passed from the frontend createOrder() callback: [
+App 2888882 output:   [
+App 2888882 output:     {
+App 2888882 output:       title: 'FBO',
+App 2888882 output:       price: 39,
+App 2888882 output:       type: 'FBO',
+App 2888882 output:       description: '- Future Beer Options - <br>10 Bier vom Fass.',
+App 2888882 output:       quantity: 1
+App 2888882 output:     }
+App 2888882 output:   ],
+App 2888882 output:   'langmi89@gmail.com'
+App 2888882 output: ]
+App 2888882 output: Total Amount: 39
+App 2888882 output: {
+App 2888882 output:   "id": "20F06766CR7471056",
+App 2888882 output:   "status": "CREATED",
+App 2888882 output:   "links": [
+App 2888882 output:     {
+App 2888882 output:       "href": "https://api.paypal.com/v2/checkout/orders/20F06766CR7471056",
+App 2888882 output:       "rel": "self",
+App 2888882 output:       "method": "GET"
+App 2888882 output:     },
+App 2888882 output:     {
+App 2888882 output:       "href": "https://www.paypal.com/checkoutnow?token=20F06766CR7471056",
+App 2888882 output:       "rel": "approve",
+App 2888882 output:       "method": "GET"
+App 2888882 output:     },
+App 2888882 output:     {
+App 2888882 output:       "href": "https://api.paypal.com/v2/checkout/orders/20F06766CR7471056",
+App 2888882 output:       "rel": "update",
+App 2888882 output:       "method": "PATCH"
+App 2888882 output:     },
+App 2888882 output:     {
+App 2888882 output:       "href": "https://api.paypal.com/v2/checkout/orders/20F06766CR7471056/capture",
+App 2888882 output:       "rel": "capture",
+App 2888882 output:       "method": "POST"
+App 2888882 output:     }
+App 2888882 output:   ]
+App 2888882 output: }
+App 2888882 output: Order id create order sql : null
+App 2888882 output: Connected!
+App 2888882 output: Paypal Transaction created: 20F06766CR7471056
+App 2888882 output: Item inserted successfully: FBO: A8LPCE
+App 2895921 output: Try to establish SQL connection
+App 2895921 output: Node server listening at https://aaa.supacoda:8080
+App 2895921 output: SQL Connected!
+App 2895921 output: AasaWyjWpoUbUjKQvBV_L8iITQocAXdLIeHSS_w_PVipWMxd2QtjY0NCoV0N8dyX3SzC59rfnl-XnROs
+App 2895921 output: EJl1DGrPcR47UWzGQsXd1rOCBm5KE4Qcy5ZNbn_cnTXvoaXlScICbOvlxuwMh_HvN3kFnKRZvuW3BYf9
+App 2895921 output: [2025-02-19T19:12:37.922Z] createOrder called with cart: [
+App 2895921 output:   [
+App 2895921 output:     {
+App 2895921 output:       title: '3 Tage ohne Camping',
+App 2895921 output:       type: '3TOC',
+App 2895921 output:       price: 49,
+App 2895921 output:       description: 'Ticket für 3 Festivaltage ohne Camping.',
+App 2895921 output:       quantity: 1
+App 2895921 output:     }
+App 2895921 output:   ],
+App 2895921 output:   'langmi89@gmail.com'
+App 2895921 output: ]
+App 2895921 output: shopping cart information passed from the frontend createOrder() callback: [
+App 2895921 output:   [
+App 2895921 output:     {
+App 2895921 output:       title: '3 Tage ohne Camping',
+App 2895921 output:       type: '3TOC',
+App 2895921 output:       price: 49,
+App 2895921 output:       description: 'Ticket für 3 Festivaltage ohne Camping.',
+App 2895921 output:       quantity: 1
+App 2895921 output:     }
+App 2895921 output:   ],
+App 2895921 output:   'langmi89@gmail.com'
+App 2895921 output: ]
+App 2895921 output: [2025-02-19T19:12:37.922Z] Total Amount: 49
+App 2895921 output: {
+App 2895921 output:   "id": "2M602483V8628912B",
+App 2895921 output:   "status": "CREATED",
+App 2895921 output:   "links": [
+App 2895921 output:     {
+App 2895921 output:       "href": "https://api.paypal.com/v2/checkout/orders/2M602483V8628912B",
+App 2895921 output:       "rel": "self",
+App 2895921 output:       "method": "GET"
+App 2895921 output:     },
+App 2895921 output:     {
+App 2895921 output:       "href": "https://www.paypal.com/checkoutnow?token=2M602483V8628912B",
+App 2895921 output:       "rel": "approve",
+App 2895921 output:       "method": "GET"
+App 2895921 output:     },
+App 2895921 output:     {
+App 2895921 output:       "href": "https://api.paypal.com/v2/checkout/orders/2M602483V8628912B",
+App 2895921 output:       "rel": "update",
+App 2895921 output:       "method": "PATCH"
+App 2895921 output:     },
+App 2895921 output:     {
+App 2895921 output:       "href": "https://api.paypal.com/v2/checkout/orders/2M602483V8628912B/capture",
+App 2895921 output:       "rel": "capture",
+App 2895921 output:       "method": "POST"
+App 2895921 output:     }
+App 2895921 output:   ]
+App 2895921 output: }
+App 2895921 output: Order id create order sql : null
+App 2895921 output: Connected!
+App 2895921 output: Paypal Transaction created: 2M602483V8628912B
+App 2895921 output: Item inserted successfully: 3 Tage ohne Camping: SFA8UI

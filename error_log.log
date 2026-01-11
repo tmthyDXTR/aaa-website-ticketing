@@ -1,0 +1,12 @@
+App 28791 output: /opt/cpanel/ea-ruby27/root/usr/share/passenger/helper-scripts/node-loader.js:80
+App 28791 output: 	return originalRequire.apply(this, arguments);
+App 28791 output:                         ^
+App 28791 output: Error [ERR_REQUIRE_ESM]: require() of ES Module /home/supacoda/aaa.supacoda.de/server.js from /opt/cpanel/ea-ruby27/root/usr/share/passenger/helper-scripts/node-loader.js not supported.
+App 28791 output: Instead change the require of server.js in /opt/cpanel/ea-ruby27/root/usr/share/passenger/helper-scripts/node-loader.js to a dynamic import() which is available in all CommonJS modules.
+App 28791 output:     at Module.require (/opt/cpanel/ea-ruby27/root/usr/share/passenger/helper-scripts/node-loader.js:80:25)
+App 28791 output:     at loadApplication (/opt/cpanel/ea-ruby27/root/usr/share/passenger/helper-scripts/node-loader.js:243:2)
+App 28791 output:     at setupEnvironment (/opt/cpanel/ea-ruby27/root/usr/share/passenger/helper-scripts/node-loader.js:214:2)
+App 28791 output:     at Object.<anonymous> (/opt/cpanel/ea-ruby27/root/usr/share/passenger/helper-scripts/node-loader.js:133:1) {
+App 28791 output:   code: 'ERR_REQUIRE_ESM'
+App 28791 output: }
+App 28791 output: Node.js v20.10.0

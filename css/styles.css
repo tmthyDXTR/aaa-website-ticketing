@@ -1,0 +1,494 @@
+@import url(https://fonts.googleapis.com/css?family=VT323);
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;700&display=swap');
+
+:root {
+  --main-color: #5bacc7;
+  --sec-color: #b57865;
+  --bg-color: #192b35;
+  --font-family: 'Chivo Mono', serif;
+  --content-font-size: 16px;
+  --glow-size: 1px; /* Adjust this value to change the glow size */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  background-color: #f0f0f0;
+}
+
+.hue-overlay {
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #09CE9E, #FF2B5E, #710a81);
+  mix-blend-mode: hue;
+  pointer-events: none;
+  animation: pulsate 4s infinite; /* Adjust the duration as needed */
+
+}
+
+@keyframes pulsate {
+  0% {
+      transform: scale(1);
+      opacity: 0.4;
+  }
+  50% {
+      transform: scale(2);
+      opacity: 1;
+  }
+  100% {
+      transform: scale(1);
+      opacity: 0.4;
+  }
+}
+
+/* Add grain noise overlay */
+.grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 200;
+  background-image: url('../img/grain.png'); /* Replace with your grain texture image */
+  opacity: 0.055; /* Adjust the opacity to control the intensity of the effect */
+}
+
+
+.fullscreen-image {
+  position: relative;
+  height: 100vh;
+  background-color: var(--bg-color);
+  overflow: hidden;
+}
+
+.fullscreen-video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes slide {
+  0% {
+    background-position: 0% 50%; /* Start position */
+  }
+  100% {
+    background-position: 100% 50%; /* End position */
+  }
+}
+
+
+/* Style for the hover header image */
+.hover-top-image {
+  position: absolute;
+  top: 33%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1; /* Ensure it's above other content */
+  min-width: 200px; /* Adjust min-width as needed */
+  max-width: 300px; /* Adjust max-width as needed */
+}
+/* Style for the hover header image */
+.hover-bottom-image {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1; /* Ensure it's above other content */
+  min-width: 128px; /* Adjust min-width as needed */
+  max-width: 200px; /* Adjust max-width as needed */
+}
+
+.tv-container {
+  width: 100vw;
+  height: 10vh;
+  background-color: #222;
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto;
+  top: 0;
+}
+
+.screen {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.gif {
+  width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+
+}
+
+.site-title {
+  position: absolute;
+  top: 1vh;
+  height: 5vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+  background-color: var(--bg-color);
+  color: white;
+  font-size: 5vh;
+  line-height: 5vh; /* Set line-height equal to element's height */
+}
+.site-subtitle {
+  position: absolute;
+  top: 6vh;
+  height: 3vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+  background-color: var(--bg-color);
+  color: white;
+  font-size: 3vh;
+}
+
+.menu-bar {
+  width: 100vw;
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+}
+
+.cart-bar {
+  position: fixed;
+  bottom: 4vh;
+  width: 100vw;
+  /* background-color: var(--bg-color); */
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px); /* Adjust the blur intensity as needed */
+
+  color: var(--main-color);
+  padding: 10px;
+  text-align: center;
+  z-index: 80; /* Adjust the z-index to make sure it's above other content */
+  font-size: 37px;
+  border: 2px solid var(--main-color);
+  box-sizing: border-box; /* Include padding and border in width calculation */
+
+}
+
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  height: 4vh;
+  width: 100vw;
+  background-color: var(--bg-color);
+  color: var(--main-color);
+  text-align: center;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center content horizontally */
+  font-size: 22px;
+}
+
+.social-icon {
+  width: 20px; /* Adjust the width as needed */
+  height: 20px; /* Adjust the height as needed */
+  margin-left: 20px; /* Adjust the margin between icons as needed */
+  color: var(--main-color) !important;
+}
+.social-icon:hover {
+  width: 20px; /* Adjust the width as needed */
+  height: 20px; /* Adjust the height as needed */
+  margin-left: 20px; /* Adjust the margin between icons as needed */
+  color: var(--sec-color) !important;
+}
+svg path{
+  fill: currentcolor;
+}
+
+.center-xy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-window {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-height: 81vh;
+  overflow: auto;
+  margin: 0 auto;
+  z-index: 1;
+  position: inherit;
+}
+
+.content-window {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  background-color: var(--bg-color);
+  border: 2px solid var(--main-color);
+  font-family: var(--font-family);
+  font-size: var(--content-font-size);
+  color: var(--main-color);
+  text-align: left;
+  position: relative;
+  max-height: 81vh;
+  overflow: auto;
+  /* Custom Scrollbar Styles */
+  scrollbar-color: var(--main-color) var(--bg-color);
+  z-index: 1;
+  touch-action: pan-y;
+  margin: 0 auto;
+  animation: glow 2s infinite alternate;
+}
+
+/* Media query for desktop resolutions */
+@media (min-width: 768px) {
+  .content-window  {
+    width: 75vw !important;
+  }
+}
+/* Media query for small mobile resolutions */
+@media (max-width: 380px) {
+  .content-window  {
+    max-height: 75vh !important;
+  }
+}
+.alert-content {
+  overflow-y: auto;
+  /* padding: 10px; */
+}
+.alert {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center content */
+  align-items: center; /* Horizontally center content */
+  padding: 4px;
+  background-color: var(--bg-color);
+  border: 2px solid var(--main-color);
+  font-family: var(--font-family);
+  font-size: var(--content-font-size);
+  color: var(--main-color);
+  position: fixed; /* Use fixed positioning for consistent placement */
+  top: 50%; /* Place the top of the alert at the vertical center of the viewport */
+  left: 50%; /* Place the left side of the alert at the horizontal center of the viewport */
+  transform: translate(-50%, -50%); /* Adjust for the alert's width and height */
+  width: 80vw;
+  max-height: 90vh; /* Limit the height to 80% of the viewport height */
+  overflow: auto;
+  text-align: center;
+  /* Custom Scrollbar Styles */
+  scrollbar-color: var(--main-color) var (--bg-color); /* thumb color, track color */
+  z-index: 99; /* Increase the z-index to place the content above other elements */
+  touch-action: pan-y; /* Enable vertical scrolling with touch interactions */
+  animation: glow 2s infinite alternate;
+}
+
+.overlay-alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 98; /* Ensure the overlay is below the alert but above other content */
+  display: none; /* Initially hidden */
+  background-color: black;
+  background-image: url('../img/grain.png'); /* Replace with your grain texture image */
+  opacity: 0.35; /* Adjust the opacity to control the intensity of the effect */
+  filter: blur(40px);
+  -webkit-filter: blur(40px);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.show {
+  display: flex !important;
+}
+
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--main-color);
+}
+
+.copy-email {
+  cursor: pointer;
+  text-decoration: underline;
+}
+/* Optionally, you can style the link when hovered or focused */
+.copy-email:hover,
+.copy-email:focus {
+   /* Add underline on hover/focus if desired */
+  color: var (--sec-color); /* Change color on hover/focus if desired */
+}
+
+a {
+  text-decoration: underline;
+  color: inherit;
+}
+
+/* Optionally, you can style the link when hovered or focused */
+a:hover,
+a:focus {
+   /* Add underline on hover/focus if desired */
+  color: var(--sec-color); /* Change color on hover/focus if desired */
+}
+
+
+#imageContainer {
+  z-index: 99;
+  position: absolute;
+  display: block;
+}
+
+.right-align {
+  text-align: right;
+}
+
+.total-row {
+
+  font-weight: bold;
+}
+
+.mwst-row {
+  font-size: 20px;
+}
+
+hr {
+  background-color: var(--main-color);
+  border: none;
+  height: 2px;
+
+}
+label {
+  text-transform: uppercase;
+}
+input {
+  background-color: var(--bg-color);
+  border-color: var(--main-color);
+  border-width: 2px !important;
+  color: var(--sec-color);
+  font-family: var(--font-family);
+  font-size: 30px;
+  text-transform: uppercase;
+  width: 80%;
+  text-align: left;
+  margin-left: 2vw;
+  padding-left: 2vw;
+}
+
+/* Media query for desktop screens with a maximum width of, for example, 1024px */
+@media (min-width: 768px) {
+  input, table  {
+    max-width: 500px; /* Adjust the maximum width as needed */
+  }
+}
+
+
+input[type="radio"] {
+  display: none; /* Hide the default radio button */
+}
+
+/* Style the custom radio button */
+input[type="radio"] + label::before {
+  content: ''; /* Create a pseudo-element for the custom radio button */
+  display: inline-block;
+  width: 15px; /* Customize the width of the circle */
+  height: 15px; /* Customize the height of the circle */
+  border: 3px solid var(--main-color); /* Customize the border color of the circle */
+  border-radius: 50%; /* Make it a circle by using border-radius */
+  background-color: transparent; /* Customize the background color of the circle */
+  margin-right: 10px; /* Add spacing between the circle and label text */
+  cursor: pointer;
+  margin-left: 2vw;
+}
+
+/* Style the custom radio button when it's selected */
+input[type="radio"]:checked + label::before {
+  background-color: var(--sec-color); /* Change the background color when selected */
+}
+
+input[type="radio"]:checked + label {
+  font-weight: bold; /* Change the font weight when selected */
+  color: var(--sec-color) !important;
+}
+
+
+/* Style the disabled radio label (optional) */
+input[type="radio"]:disabled + label {
+  color: #999; /* Change the text color */
+}
+
+input:focus { 
+  outline: none !important;
+  border-color: var(--sec-color);
+}
+
+#consoleContainer {
+  padding: 2vw;
+  max-width: 90vw; /* Adjust the max-width according to your preference */
+}
+  
+.message {
+  margin-bottom: 10px;
+  overflow-wrap: break-word; /* Break long words */
+
+}
+
+#messageForm {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.timeTable {
+  align-items: center;
+}
+
+.site-title, .site-subtitle, .content-window, .alert, input {
+  font-family: var(--font-family);
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 calc(var(--glow-size) / 2) #fff, 0 0 var(--glow-size) #fff, 0 0 calc(var(--glow-size) * 1.5) #fff, 0 0 calc(var(--glow-size) * 2) #0ff, 0 0 calc(var(--glow-size) * 2.5) #0ff, 0 0 calc(var(--glow-size) * 3) #0ff, 0 0 calc(var(--glow-size) * 3.5) #0ff, 0 0 calc(var(--glow-size) * 4) #0ff;
+  }
+  25% {
+    box-shadow: 0 0 calc(var(--glow-size) * 1) #fff, 0 0 calc(var(--glow-size) * 1.5) #fff, 0 0 calc(var(--glow-size) * 2) #fff, 0 0 calc(var(--glow-size) * 2.5) #0ff, 0 0 calc(var(--glow-size) * 3) #0ff, 0 0 calc(var(--glow-size) * 3.5) #0ff, 0 0 calc(var(--glow-size) * 4) #0ff, 0 0 calc(var(--glow-size) * 4.5) #0ff;
+  }
+  50% {
+    box-shadow: 0 0 calc(var(--glow-size) * 2) #fff, 0 0 calc(var(--glow-size) * 3) #fff, 0 0 calc(var(--glow-size) * 4) #fff, 0 0 calc(var(--glow-size) * 5) #0ff, 0 0 calc(var(--glow-size) * 6) #0ff, 0 0 calc(var(--glow-size) * 7) #0ff, 0 0 calc(var(--glow-size) * 8) #0ff, 0 0 calc(var(--glow-size) * 9) #0ff;
+  }
+  75% {
+    box-shadow: 0 0 calc(var(--glow-size) * 1) #fff, 0 0 calc(var(--glow-size) * 1.5) #fff, 0 0 calc(var(--glow-size) * 2) #fff, 0 0 calc(var(--glow-size) * 2.5) #0ff, 0 0 calc(var(--glow-size) * 3) #0ff, 0 0 calc(var(--glow-size) * 3.5) #0ff, 0 0 calc(var(--glow-size) * 4) #0ff, 0 0 calc(var(--glow-size) * 4.5) #0ff;
+  }
+  100% {
+    box-shadow: 0 0 calc(var(--glow-size) / 2) #fff, 0 0 var(--glow-size) #fff, 0 0 calc(var(--glow-size) * 1.5) #fff, 0 0 calc(var(--glow-size) * 2) #0ff, 0 0 calc(var(--glow-size) * 2.5) #0ff, 0 0 calc(var(--glow-size) * 3) #0ff, 0 0 calc(var(--glow-size) * 3.5) #0ff, 0 0 calc(var(--glow-size) * 4) #0ff;
+  }
+}
+
+.glowing-effect {
+    animation: glow 2s infinite alternate;
+}
+

@@ -1,0 +1,7 @@
+{
+    "ext": "js,json,mjs",
+    "ignore": ["node_modules/"],
+    "execMap": {
+        "js": "node --experimental-specifier-resolution=node"
+    }
+}

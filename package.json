@@ -1,0 +1,32 @@
+{
+  "name": "paypal-standard-integration",
+  "description": "Sample Node.js web app to integrate PayPal Standard Checkout for online payments",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "format": "npx prettier --write **/*.{js,md}",
+    "format:check": "npx prettier --check **/*.{js,md}",
+    "lint": "npx eslint *.js --env=node && npx eslint client/*.js --env=browser"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "canvas": "^2.11.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1",
+    "mysql": "^2.18.1",
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^6.9.8",
+    "nodemon": "^3.0.1",
+    "pdfkit": "^0.13.0",
+    "puppeteer": "^21.7.0",
+    "qrcode": "^1.5.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

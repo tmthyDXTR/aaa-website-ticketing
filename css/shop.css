@@ -1,0 +1,52 @@
+.shop-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 4px;
+}
+.product {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    text-align: center;
+    width: calc(100vw / 5); /* Initially show 3 products per row */
+    padding: 10px;
+    border: 1px solid var(--sec-color);
+    margin: 8px;
+    animation: glow 2s infinite alternate;
+    color: var(--main-color); /* Ensure the text color is set */
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.product span {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    color: inherit; /* Ensure the text color is inherited */
+}
+
+.product span::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -200%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
+    animation: metallic-reflection 5s infinite linear;
+    pointer-events: none; /* Ensure the pseudo-element doesn't interfere with interactions */
+}
+
+.product-text-container {
+    flex: 1; /* Grow to fill the available space */
+    
+}
+
+.plus-minus-container {
+    margin-top: 5px !important; /* Adjust the margin as needed */
+    
+}
