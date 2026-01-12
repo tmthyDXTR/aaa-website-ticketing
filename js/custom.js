@@ -84,32 +84,38 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Show popup info on page load
     toggleAlert(`
-        Liebe Festivalbesucher des schönsten Festivals im Altmühltal – unserem AgratamAgatha, 🌊👙⛱️
-
-die Köpfe der Gratler & Gratlerinnen haben in den letzten Wochen mächtig geraucht – und jetzt ist es offiziell: AgrataSeebühne geht heuer an den Start! 🙌
-
-⏰ Wann: Am 01.08 - zwar nur für einen Tag, aber dafür intensiver denn je – mitten in der schönsten Naturkulisse des Altmühltals. Freut euch auf fette Acts, vertraute Vibes und ein unvergessliches Festivalerlebnis, das euch wieder einmal verzaubern wird. ✨✨✨
-
-Stay tuned – Line-Up steht 🎵 & Infos zu Tickets 🎫 folgen bald!
-
-💋Bussi, euer KUR e.V.`
-    );
+        Hooray, Good News!<br> <br>
+        Das AgratAmAgatha Festival 2026 findet wie gewohnt am Agatha-See statt.<br> 
+        Save the Date! <br>
+        <br>
+        <b>01-02. August</b> <br>
+        <br>
+        Tickets im Vorverkauf gibt’s bald. <br>
+        Wir freuen uns auf euch!<br>
+        <br>
+        Was wir aktuell leider noch nicht sicher sagen können, ist, ob es ein mehr- oder eintägiges Festival geben wird und ob Camping möglich ist. Das hängt von unserer <br>angespannten finanziellen Lage und dem hohen Risiko ab, bei einem verregneten Wochenende Pleite zu gehen.<br>
+        <br>
+        Weitere Infos folgen in Kürze. Wir halten euch auf dem Laufenden!<br>
+    `);
 
     // Show the same festival info when clicking the INFO 2025 button
-    const infoBtn = document.getElementById("info-2025-btn");
+    const infoBtn = document.getElementById("info-2026-btn");
     if (infoBtn) {
         infoBtn.addEventListener("click", () => {
             toggleAlert(`
-        Liebe Festivalbesucher des schönsten Festivals im Altmühltal – unserem AgratamAgatha, 🌊👙⛱️
-
-die Köpfe der Gratler & Gratlerinnen haben in den letzten Wochen mächtig geraucht – und jetzt ist es offiziell: AgrataSeebühne geht heuer an den Start! 🙌
-
-⏰ Wann: Am 01.08 - zwar nur für einen Tag, aber dafür intensiver denn je – mitten in der schönsten Naturkulisse des Altmühltals. Freut euch auf fette Acts, vertraute Vibes und ein unvergessliches Festivalerlebnis, das euch wieder einmal verzaubern wird. ✨✨✨
-
-Stay tuned – Line-Up steht 🎵 & Infos zu Tickets 🎫 folgen bald!
-
-💋Bussi, euer KUR e.V.`
-            );
+                Hooray, Good News!<br> <br>
+                Das AgratAmAgatha Festival 2026 findet wie gewohnt am Agatha-See statt.<br> 
+                Save the Date! <br>
+                <br>
+                <b>01-02. August</b> <br>
+                <br>
+                Tickets im Vorverkauf gibt’s bald. <br>
+                Wir freuen uns auf euch!<br>
+                <br>
+                Was wir aktuell leider noch nicht sicher sagen können, ist, ob es ein mehr- oder eintägiges Festival geben wird und ob Camping möglich ist. Das hängt von unserer <br>angespannten finanziellen Lage und dem hohen Risiko ab, bei einem verregneten Wochenende Pleite zu gehen.<br>
+                <br>
+                Weitere Infos folgen in Kürze. Wir halten euch auf dem Laufenden!<br>
+            `);
         });
     }
 

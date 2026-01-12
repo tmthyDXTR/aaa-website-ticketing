@@ -18,13 +18,8 @@ export function initLineup(year = "24") {
             greenPavillionList.innerHTML = "<h4>Workshops</h4>";    // greenpavillion ist erstmal workshops ersatz
 
             data.forEach((artist) => {
-                // console.log(artist);
                 if (artist['artists_show_in_lineup'] === 1) {
                     const artistButton = generateArtistButton(artist);
-                    
-                    // artists_mainstage 0=zirkuszelt 1=seebühne 2=team green pavillion
-
-                    // Determine which list to append the artist button to
                     if (artist.artists_mainstage === 1) {
                         seebuhneList.appendChild(artistButton); // Add to Seebühne list
                     } else if (artist.artists_mainstage === 0) {
@@ -37,7 +32,7 @@ export function initLineup(year = "24") {
             // Create buttons for toggling between ARTISTS and LINEUP
             const artistsButton = createButton("ARTISTS", ["active"]);
             const lineupButton = createButton("LINEUP");
-            const timetableOverview = generateTimetableOverview(data);
+            const timetableOverview = generateTimetableOverview(data, year);
             timetableOverview.classList.add("timetable-container"); // Add a specific classname to the timetable overview
             const listsContainer = document.createElement("div");
             listsContainer.classList.add("artists-container"); // Add a specific classname to the lists container
@@ -56,7 +51,6 @@ export function initLineup(year = "24") {
                 listsContainer.style.display = "none";
                 timetableOverview.style.display = "block";
             });
-            lineupButton.style.display = "none";
 
             // Create a container for the toggle buttons
             const toggleButtonsContainer = document.createElement("div");
@@ -211,7 +205,7 @@ function generateToggleButtons() {
     return toggleButtonsContainer;
 }
 
-function generateTimetableOverview(data) {
+function generateTimetableOverview(data, year = "24") {
     // Sort the data by stage and then by start time
     data.sort((a, b) => {
         // First, compare by stage (mainstage)
@@ -223,26 +217,36 @@ function generateTimetableOverview(data) {
         return a.artists_start_id - b.artists_start_id;
     });
 
-    // Initialize an object to store bands by day and stage
-    const bandsByDayAndStage = {
-        Friday: { Seebühne: [], Zirkuszelt: [], Workshops: [] },
-        Saturday: { Seebühne: [], Zirkuszelt: [], Workshops: [] },
-        Sunday: { Seebühne: [], Zirkuszelt: [], Workshops: [] },
-    };
-
-    // Populate the bandsByDayAndStage object
-    data.forEach((artist) => {
-        const day = new Date(artist.artists_start_time).toLocaleDateString(
-            "en-US",
-            { weekday: "long" }
-        );
-        const stage =
-            artist.artists_mainstage === 0 ? "Zirkuszelt" :
-            artist.artists_mainstage === 1 ? "Seebühne" :
-            artist.artists_mainstage === 2 ? "Workshops" :
-            "Unknown Stage"; // This handles any unexpected values
-        bandsByDayAndStage[day][stage].push(artist);
-    });
+    // Only show Friday/Seebühne for 2025
+    let bandsByDayAndStage;
+    if (year === "25") {
+        bandsByDayAndStage = {
+            Friday: { Seebühne: [] }
+        };
+        data.forEach((artist) => {
+            const day = new Date(artist.artists_start_time).toLocaleDateString("en-US", { weekday: "long" });
+            if (day === "Friday" && artist.artists_mainstage === 1) {
+                bandsByDayAndStage.Friday.Seebühne.push(artist);
+            }
+        });
+    } else {
+        bandsByDayAndStage = {
+            Friday: { Seebühne: [], Zirkuszelt: [], Workshops: [] },
+            Saturday: { Seebühne: [], Zirkuszelt: [], Workshops: [] },
+            Sunday: { Seebühne: [], Zirkuszelt: [], Workshops: [] },
+        };
+        data.forEach((artist) => {
+            const day = new Date(artist.artists_start_time).toLocaleDateString("en-US", { weekday: "long" });
+            const stage =
+                artist.artists_mainstage === 0 ? "Zirkuszelt" :
+                artist.artists_mainstage === 1 ? "Seebühne" :
+                artist.artists_mainstage === 2 ? "Workshops" :
+                "Unknown Stage";
+            if (bandsByDayAndStage[day] && bandsByDayAndStage[day][stage]) {
+                bandsByDayAndStage[day][stage].push(artist);
+            }
+        });
+    }
 
     // Generate HTML for the timetable overview
     let timetableContainer = document.createElement("div");
@@ -269,21 +273,9 @@ function generateTimetableOverview(data) {
             dayHeader.textContent = `${stage} - ${day}`;
             stageDayContainer.appendChild(dayHeader);
             bandsByDayAndStage[day][stage].forEach((band) => {
-                const startTime = new Date(
-                    band.artists_start_time
-                ).toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                });
-                const endTime = new Date(
-                    band.artists_end_time
-                ).toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                });
-                stageDayContainer.appendChild(
-                    createButton(`${startTime}`, ["deactivated"])
-                );
+                const startTime = new Date(band.artists_start_time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+                const endTime = new Date(band.artists_end_time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+                stageDayContainer.appendChild(createButton(`${startTime}`, ["deactivated"]));
                 const artistButton = generateArtistButton(band);
                 stageDayContainer.appendChild(artistButton);
                 stageDayContainer.appendChild(document.createElement("br"));

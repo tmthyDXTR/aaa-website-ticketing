@@ -59,15 +59,23 @@ body {
   opacity: 0.055; /* Adjust the opacity to control the intensity of the effect */
 }
 
+
 .fullscreen-image {
-  background-image: url('../img/bg-new.jpg');
   position: relative;
-  height: 100vh; /* Set height to 100vh to cover the entire viewport */
-  background-size: cover; /* Cover the entire container without stretching the image */
-  background-position: center;
-  background-repeat: no-repeat;
+  height: 100vh;
   background-color: var(--bg-color);
-  animation: slide 120s infinite linear; /* Adjust duration as needed */
+  overflow: hidden;
+}
+
+.fullscreen-video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
 }
 
 @keyframes slide {
@@ -150,10 +158,15 @@ body {
 }
 
 .menu-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 5vh;
   display: flex;
   justify-content: center;
+  z-index: 100;
+  background-color: var(--bg-color);
 }
 
 .cart-bar {
