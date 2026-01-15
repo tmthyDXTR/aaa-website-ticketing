@@ -82,6 +82,30 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (contentWindowIsActive) toggleContentWindow();
     });
 
+<<<<<<< HEAD
+    // // Show popup info on page load
+    // toggleAlert(`
+    //     <strong>🎵 AgrataSeebühne 2025 🎵</strong><br><br>
+        
+    //     <strong>📅 Freitag, 01. August 2025</strong><br>
+    //     🕒 Einlass ab 15:00 Uhr<br><br>
+        
+    //     <strong>📍 Seebühne am Stadtweiher Riedenburg</strong><br><br>
+      
+    //     <strong>🎤 Artists:</strong><br>
+    //     Mindless, BBOU, Soviet Space Dogs, Love Battle Pyros und New Age Trailer<br><br>
+        
+    //     <strong>🎫 Eintritt:</strong><br>
+    //     💰 25,00 € | Kinder unter 16 Jahre (in Begleitung eines Elternteils) frei<br><br>
+        
+    //     <strong>⚠️ Wichtig:</strong><br>
+    //     Tickets sind ausschließlich an der Abendkasse erhältlich<br><br>
+        
+    //     Freut euch auf fette Acts, vertraute Vibes und ein unvergessliches Festivalerlebnis! ✨<br><br>
+        
+    //     💋Bussi, euer KUR e.V.`
+    // );
+=======
     // Show popup info on page load
     toggleAlert(`
         Hooray, Good News!<br> <br>
