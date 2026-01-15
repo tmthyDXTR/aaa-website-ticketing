@@ -252,9 +252,10 @@ svg path{
   overflow: auto;
   /* Custom Scrollbar Styles */
   scrollbar-color: var(--main-color) var(--bg-color);
-  z-index: 1;
+  z-index: 101;
   touch-action: pan-y;
   margin: 0 auto;
+  margin-top: 5vh;
   animation: glow 2s infinite alternate;
 }
 
